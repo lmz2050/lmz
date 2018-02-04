@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+    http://www.springframework.org/schema/util 
+    http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<bean id="configurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath:conf/data.properties</value>
+		</property>
+	</bean>
+	
+	<!-- 数据源定义,使用c3p0 连接池 -->
+	<bean id="dataSourceSys" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<property name="driverClassName" value="${sys.jdbc.driverClass}" />
+		<property name="url" value="${sys.jdbc.url}" />
+		<property name="username" value="${sys.jdbc.username}" />
+		<property name="password" value="${sys.jdbc.password}" />
+		<!-- 配置初始化大小、最小、最大 -->  
+	    <property name="initialSize" value="${sys.cpool.initialSize}" />  
+	    <property name="minIdle" value="${sys.cpool.minIdle}" />   
+	    <property name="maxActive" value="${sys.cpool.maxActive}" />  
+	    <!-- 配置获取连接等待超时的时间 -->  
+	    <property name="maxWait" value="${sys.cpool.maxWait}"/> 
+		 <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->  
+	    <property name="timeBetweenEvictionRunsMillis" value="${sys.cpool.timeBetweenEvictionRunsMillis}" />  
+	    <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->  
+	    <property name="minEvictableIdleTimeMillis" value="${sys.cpool.minEvictableIdleTimeMillis}" />  
+	     <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->  
+	    <property name="poolPreparedStatements" value="${sys.cpool.poolPreparedStatements}" />  
+	    <property name="maxPoolPreparedStatementPerConnectionSize" value="${sys.cpool.maxPoolPreparedStatementPerConnectionSize}" /> 
+		<!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->  
+		<property name="filters" value="${sys.cpool.filters}" /> 
+	</bean>	
+
+    <bean id="dataSource" class="cn.lmz.mike.data.ds.DynamicDataSource">
+        <property name="defaultTargetDataSource" ref="dataSourceSys"/>  
+        <property name="targetDataSources">  
+            <map>  
+                <entry key="dataSourceSys" value-ref="dataSourceSys"/>  
+            </map>  
+        </property>  
+    </bean>  	
+
+
+
+    <!--事务管理器 --> 
+    <bean id="jdbcManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+    	<property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+   	<bean id="dbDao" class="cn.lmz.mike.data.db.DbDao">
+   		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+   	</bean>
+
+   	<bean id="entity" class="cn.lmz.mike.data.EntityLan">
+		<property name="dao" ref="${lmz.lDao}"></property>
+	</bean>
+	
+	<!-- 2. 配置事务属性 -->  
+    <tx:advice id="txAdvice" transaction-manager="jdbcManager">  
+        <tx:attributes>  
+            <!-- 根据方法名指定事务的属性 -->  
+            <tx:method name="cre*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+            <tx:method name="insert*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+            <tx:method name="add*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+            <tx:method name="del*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>  
+            <tx:method name="up*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>     
+            <tx:method name="search*" read-only="true"/> 
+            <tx:method name="find*" read-only="true"/>  
+            <tx:method name="*"/>  
+        </tx:attributes>  
+    </tx:advice>  
+      
+    <!-- 3. 配置事务切入点, 以及把事务切入点和事务属性关联起来 -->  
+    <aop:config>  
+        <aop:pointcut expression="execution(* cn.lmz.mike..*Service.*(..))" id="txPointCut"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>      
+    </aop:config> 
+    
+	<!-- 自动扫描 包定义 -->
+	<context:component-scan base-package="cn.lmz.mike">
+		<context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect" /> 
+	</context:component-scan>
+
+</beans>

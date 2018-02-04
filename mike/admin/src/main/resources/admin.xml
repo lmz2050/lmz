@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="drvices" namespace="/drvices" extends="default">    
+	   <default-interceptor-ref name="adminStack" /> 	   
+       <action name="apage" class="drvicesAction" method="apage">
+       		<result name="success">/admin/drviceslist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+       <action name="importxls" class="drvicesAction" method="importxls">
+       		<result name="success">/admin/drviceslist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+        <action name="toAdd" class="drvicesAction" method="toAdd">
+       		<result name="success">/admin/drvices.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="toUpdate" class="drvicesAction" method="toUpdate">
+       		<result name="success">/admin/drvices.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+         <action name="update" class="drvicesAction" method="update">
+       		<result name="success">/admin/drvices.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="del" class="drvicesAction" method="del">
+       		<result name="success">/admin/drviceslist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>   
+    </package>
+
+	<package name="patch" namespace="/patch" extends="default">    
+	   <default-interceptor-ref name="adminStack" /> 
+   
+       <action name="apage" class="patchAction" method="apage">
+       		<result name="success">/admin/patchlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+       <action name="importxls" class="patchAction" method="importxls">
+       		<result name="success">/admin/patchlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+        <action name="toAdd" class="patchAction" method="toAdd">
+       		<result name="success">/admin/patch.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="toUpdate" class="patchAction" method="toUpdate">
+       		<result name="success">/admin/patch.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+         <action name="update" class="patchAction" method="update">
+       		<result name="success">/admin/patch.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="del" class="patchAction" method="del">
+       		<result name="success">/admin/patchlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>   
+    </package>
+
+	<package name="recv" namespace="/recv" extends="default">       
+       <action name="apage" class="recvAction" method="apage">
+       		<result name="success">/admin/recvlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+        <action name="toAdd" class="recvAction" method="toAdd">
+       		<result name="success">/admin/recv.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="toUpdate" class="recvAction" method="toUpdate">
+       		<result name="success">/admin/recv.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+         <action name="update" class="recvAction" method="update">
+       		<result name="success">/admin/recv.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+        <action name="del" class="recvAction" method="del">
+       		<result name="success">/admin/recvlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>   
+    </package>
+
+	<package name="send" namespace="/send" extends="default">       
+       <action name="apage" class="sendAction" method="apage">
+       		<result name="success">/admin/sendlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+        <action name="toAdd" class="sendAction" method="toAdd">
+       		<result name="success">/admin/send.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="toUpdate" class="sendAction" method="toUpdate">
+       		<result name="success">/admin/send.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+         <action name="update" class="sendAction" method="update">
+       		<result name="success">/admin/send.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+        <action name="del" class="sendAction" method="del">
+       		<result name="success">/admin/sendlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>   
+    </package>    
+
+	<package name="log" namespace="/log" extends="default">       
+       <action name="apage" class="logAction" method="apage">
+       		<result name="success">/admin/loglist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+        <action name="toAdd" class="logAction" method="toAdd">
+       		<result name="success">/admin/log.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="toUpdate" class="logAction" method="toUpdate">
+       		<result name="success">/admin/log.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+         <action name="update" class="logAction" method="update">
+       		<result name="success">/admin/log.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+        <action name="del" class="logAction" method="del">
+       		<result name="success">/admin/loglist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>   
+    </package>
+
+
+	<package name="cus" namespace="/cus" extends="default">
+		<action name="apage" class="cusAction" method="apage">
+			<result name="success">/admin/cuslist.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+		<action name="toAdd" class="cusAction" method="toAdd">
+			<result name="success">/admin/cus.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+		<action name="toUpdate" class="cusAction" method="toUpdate">
+			<result name="success">/admin/cus.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+		<action name="update" class="cusAction" method="update">
+			<result name="success">/admin/cus.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+		<action name="del" class="cusAction" method="del">
+			<result name="success">/admin/cuslist.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+	</package>
+
+
+</struts>

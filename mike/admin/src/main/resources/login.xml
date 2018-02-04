@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+
+    <package name="user" namespace="/user" extends="default">
+      
+       <action name="login" class="loginAction" method="login">      
+            <result name="login" type="redirect">/user/login.jsp</result> 
+            <result name="admin" type="redirect">/system/main/main.jsp</result>
+            <result name="success" type="redirect">/system/main/main.jsp</result>                              
+       </action>
+       <action name="check" class="loginAction" method="check" >
+       		<result name="login">/user/login.jsp</result>
+       		<result name="success">/user/login.jsp</result> 
+       </action>
+       <action name="loginout" class="loginAction" method="loginout">
+       		<result name="success" type="redirect">/user/login.jsp</result> 
+       		<result name="input">/error.jsp</result> 
+       </action> 
+       
+       <action name="tosignup" class="userAction" method="tosignup">      
+            <result name="success">${TPATH}/user/signup.jsp</result>                          
+       </action> 
+        <action name="signup" class="userAction" method="signup">      
+            <result name="success">${TPATH}/user/signup.jsp</result> 
+            <result name="input">${TPATH}/user/signup.jsp</result>                          
+       </action> 
+       <action name="tosignin" class="userAction" method="tosignin"> 
+            <result name="success">${TPATH}/user/signin.jsp</result>                          
+       </action>     
+       <action name="signin" class="userAction" method="signin"> 
+       		<result name="url" type="redirect">${url}</result>     
+            <result name="success" type="redirect">/member/main.action</result> 
+            <result name="input">${TPATH}/user/signin.jsp</result>                          
+       </action>
+       <action name="signout" class="userAction" method="signout">
+       		<result name="success">${TPATH}/user/signin.jsp</result> 
+       		<result name="input">${TPATH}/error.jsp</result> 
+       </action>
+       
+       <action name="signupjson" class="userAction" method="signupjson">      
+            <result name="success">${TPATH}/user/signup.jsp</result> 
+            <result name="input">${TPATH}/user/signup.jsp</result>                          
+       </action>      
+       <action name="signinjson" class="userAction" method="signinjson"> 
+       		<result name="url" type="redirect">${url}</result>     
+            <result name="success" type="redirect">/member/main.action</result> 
+            <result name="input">${TPATH}/user/signin.jsp</result>                          
+       </action>
+       <action name="signoutjson" class="userAction" method="signoutjson">
+       		<result name="success">${TPATH}/user/signin.jsp</result> 
+       		<result name="input">${TPATH}/error.jsp</result> 
+       </action>  
+    </package>
+
+<!--  
+    <package name="userm" namespace="/mobile/user" extends="struts-default">
+
+        <action name="signout" class="userAction" method="signout">      
+            <result name="success" type="redirect">/mobile/index.jsp</result> 
+            <result name="input" type="redirect">/mobile/index.jsp</result>                          
+       </action>      
+
+    </package> 
+-->
+
+    <package name="qq" namespace="/qq" extends="default">
+       <action name="login" class="qqAction" method="login">      
+            <result name="url" type="redirect">${url}</result>                             
+       </action>
+       <action name="afterlogin" class="qqAction" method="afterlogin" >
+       		<result name="url" type="redirect">${url}</result>  
+       		<result name="success" type="redirect">/index.jsp</result>
+       		<result name="input" type="redirect">/error.jsp</result> 
+       </action>
+    </package>
+    <package name="alipay" namespace="/alipay" extends="default">
+       <action name="login" class="alipayAction" method="login">      
+            <result name="url" type="redirect">${url}</result>                             
+       </action>
+       <action name="afterlogin" class="alipayAction" method="afterlogin" >
+       		<result name="url" type="redirect">${url}</result>  
+       		<result name="success" type="redirect">/index.jsp</result>
+       		<result name="input" type="redirect">/error.jsp</result> 
+       </action>
+    </package>
+     <package name="sina" namespace="/sina" extends="default">
+       <action name="login" class="sinaAction" method="login">      
+            <result name="url" type="redirect">${url}</result>                             
+       </action>
+       <action name="afterlogin" class="sinaAction" method="afterlogin" >
+       		<result name="url" type="redirect">${url}</result>  
+       		<result name="success" type="redirect">/index.jsp</result>
+       		<result name="input" type="redirect">/error.jsp</result> 
+       </action>
+    </package>
+     <package name="wx" namespace="/wx" extends="default">
+       <action name="login" class="wxAction" method="login">      
+            <result name="url" type="redirect">${url}</result>                             
+       </action>
+       <action name="afterlogin" class="wxAction" method="afterlogin" >
+       		<result name="url" type="redirect">${url}</result>  
+       		<result name="success" type="redirect">/mobile/</result>
+       		<result name="input" type="redirect">/error.jsp</result> 
+       </action>
+    </package> 
+     <package name="weixin" namespace="/weixin" extends="default">
+       <action name="login" class="wxAction" method="login">      
+            <result name="url" type="redirect">${url}</result>                             
+       </action>
+       <action name="afterlogin" class="wxAction" method="afterlogin" >
+       		<result name="url" type="redirect">${url}</result>  
+       		<result name="success" type="redirect">/mobile/</result>
+       		<result name="input" type="redirect">/error.jsp</result> 
+       </action>
+    </package> 
+</struts>

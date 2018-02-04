@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="webinfo" namespace="/webinfo" extends="default">
+	    <default-interceptor-ref name="adminStack" />  
+        <action name="webinfo" class="webInfoAction" method="webinfo">
+       		<result name="success">/system/webinfo/webinfo.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>      
+       <action name="update" class="webInfoAction" method="update">
+       		<result name="success">/system/webinfo/webinfo.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>      
+    </package>
+    
+	 <package name="admin" namespace="/admin" extends="default">    
+	   <default-interceptor-ref name="adminStack" /> 	   
+	   <action name="home" class="adminAction" method="home">      
+            <result name="success">/system/main/home.jsp</result>
+            <result name="login">/user/login.jsp</result>                       
+       </action>
+       <action name="apage" class="adminAction" method="apage">
+       		<result name="success">/system/admin/adminlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+        <action name="toAdd" class="adminAction" method="toAdd">
+       		<result name="success">/system/admin/admin.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="toUpdate" class="adminAction" method="toUpdate">
+       		<result name="success">/system/admin/admin.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+         <action name="update" class="adminAction" method="update">
+       		<result name="success">/system/admin/admin.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="del" class="adminAction" method="del">
+       		<result name="success">/system/admin/adminlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+       <action name="uppwd" class="adminAction" method="uppwd">
+       		<result name="success">/system/admin/pwd.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="toUppwd" class="adminAction" method="toUppwd">
+       		<result name="success">/system/admin/pwd.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>    
+    </package>
+    
+	<package name="menu" namespace="/menu" extends="default">
+	   <default-interceptor-ref name="adminStack" />      	   
+	   <action name="home" class="loginAction" method="home">      
+            <result name="success">/system/main/home.jsp</result>
+            <result name="login">/user/login.jsp</result>                       
+       </action>
+       <action name="getUserMenu" class="menuAction" method="getUserMenu">
+       		<result name="success">/system/menu/menuList.jsp</result>
+       		<result name="top">/system/main/top.jsp</result>
+       		<result name="left">/system/main/left.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="getRoleMenu" class="menuAction" method="getRoleMenu">
+      		<result name="success">/system/menu/menuList.jsp</result>
+      		<result name="input">/error.jsp</result> 
+       </action>  
+       <action name="findAll" class="menuAction" method="findAll">
+       		<result name="success">/system/menu/menuList.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+        <action name="toAdd" class="menuAction" method="toAdd">
+       		<result name="success">/system/menu/menu.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="toUpdate" class="menuAction" method="toUpdate">
+       		<result name="success">/system/menu/menu.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+         <action name="update" class="menuAction" method="update">
+       		<result name="success">/system/menu/menu.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="del" class="menuAction" method="del">
+       		<result name="success">/system/menu/menu.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>    
+    </package>
+    
+	<package name="role" namespace="/role" extends="default">
+	   <default-interceptor-ref name="adminStack" /> 
+       <action name="findAll" class="roleAction" method="findAll">
+       		<result name="success">/system/role/roleList.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+        <action name="apage" class="roleAction" method="apage">
+       		<result name="success">/system/role/roleList.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>      
+        <action name="toAdd" class="roleAction" method="toAdd">
+       		<result name="success">/system/role/role.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="toUpdate" class="roleAction" method="toUpdate">
+       		<result name="success">/system/role/role.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+         <action name="update" class="roleAction" method="update">
+       		<result name="success">/system/role/role.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="del" class="roleAction" method="del">
+       		<result name="success">/system/role/role.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>  
+        <action name="setRoleMenu" class="roleAction" method="setRoleMenu">
+       		<result name="success">/system/role/role.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+        <action name="setUserRole" class="roleAction" method="setUserRole">
+       		<result name="success">/system/role/role.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+        <action name="findUserRole" class="roleAction" method="findUserRole">
+       		<result name="success">/system/role/roleList.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>              
+    </package>
+
+	<package name="smember" namespace="/smember" extends="default">
+	    <default-interceptor-ref name="adminStack" /> 
+		<action name="signin" class="sysMemberAction" method="signin">
+       		<result name="success">/index.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="findAll" class="sysMemberAction" method="findAll">
+       		<result name="success">/system/member/memberlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+        <action name="apage" class="sysMemberAction" method="apage">
+       		<result name="success">/system/member/memberlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>      
+        <action name="toAdd" class="sysMemberAction" method="toAdd">
+       		<result name="success">/system/member/member.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="toUpdate" class="sysMemberAction" method="toUpdate">
+       		<result name="success">/system/member/member.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+         <action name="update" class="sysMemberAction" method="update">
+       		<result name="success">/system/member/member.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="del" class="sysMemberAction" method="del">
+       		<result name="success">/system/member/memberlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>            
+    </package>
+    
+    <package name="ulev" namespace="/ulev" extends="default">
+       <default-interceptor-ref name="adminStack" />  
+       <action name="findAll" class="ulevAction" method="findAll">
+       		<result name="success">/system/member/ulevlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+        <action name="apage" class="ulevAction" method="apage">
+       		<result name="success">/system/member/ulevlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>      
+        <action name="toAdd" class="ulevAction" method="toAdd">
+       		<result name="success">/system/member/ulev.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="toUpdate" class="ulevAction" method="toUpdate">
+       		<result name="success">/system/member/ulev.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+         <action name="update" class="ulevAction" method="update">
+       		<result name="success">/system/member/ulev.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="del" class="ulevAction" method="del">
+       		<result name="success">/system/member/ulevlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>            
+    </package>
+    
+     <package name="theme" namespace="/theme" extends="default"> 
+       <default-interceptor-ref name="adminStack" />
+       <action name="findAll" class="themeAction" method="findAll">
+       		<result name="success">/system/theme/themelist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+        <action name="apage" class="themeAction" method="apage">
+       		<result name="success">/system/theme/themelist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>      
+        <action name="toAdd" class="themeAction" method="toAdd">
+       		<result name="success">/system/theme/theme.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="toUpdate" class="themeAction" method="toUpdate">
+       		<result name="success">/system/theme/theme.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+         <action name="update" class="themeAction" method="update">
+       		<result name="success">/system/theme/theme.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="del" class="themeAction" method="del">
+       		<result name="success">/system/theme/themelist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+       <action name="upOrd" class="themeAction" method="upOrd">
+       		<result name="success">/system/theme/themelist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>              
+    </package> 
+    
+      <package name="tpl" namespace="/tpl" extends="default"> 
+       <default-interceptor-ref name="adminStack" />
+       <action name="findAll" class="tplAction" method="findAll">
+       		<result name="success">/system/theme/tpllist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+        <action name="apage" class="tplAction" method="apage">
+       		<result name="success">/system/theme/tpllist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>      
+        <action name="toAdd" class="tplAction" method="toAdd">
+       		<result name="success">/system/theme/tpl.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="toUpdate" class="tplAction" method="toUpdate">
+       		<result name="success">/system/theme/tpl.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+         <action name="update" class="tplAction" method="update">
+       		<result name="success">/system/theme/tpl.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="del" class="tplAction" method="del">
+       		<result name="success">/system/theme/tpllist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>            
+    </package>  
+    
+            
+</struts>

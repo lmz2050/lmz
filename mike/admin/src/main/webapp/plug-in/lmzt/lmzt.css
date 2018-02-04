@@ -1,0 +1,21 @@
+ #ttt0c{overflow-x:hidden;text-align:center;height:100%;border:1px solid #84d5fe;}
+ #ttt0c *{padding:0px;margin:0px;}
+ #ttt0c div{height:35px;line-height:35px;}
+ #ttt0c div.list1_title{height:35px;line-height:35px;}
+ #ttt0c #ttth{width:100%;float:none;clear:both;border-bottom:1px solid #ccc;background:#e3f5ff;color:#333333; font-size:12px;height:35px;line-height:35px;}
+ #ttt0c #ttth div{}
+ #ttt0c div.node1{width:100%;border-bottom:1px solid #ccc;padding:0px;float:none;clear:both;overflow:auto;}
+ #ttt0c div.div1{width:10%;float:left;}
+ #ttt0c div.div2{width:35%;float:left;border-left:1px solid #ccc;text-align:left;}
+ #ttt0c div.div2 .div2inner{padding-left:10px;}
+ #ttt0c div.div2 img{float:left;}
+ #ttt0c div.div3{width:15%;float:left;border-left:1px solid #ccc;}
+ #ttt0c div.div4{width:15%;float:left;border-left:1px solid #ccc;}
+ #ttt0c div.div5{width:8%;float:left;border-left:1px solid #ccc;}
+ #ttt0c div.div6{width:8%;float:left;border-left:1px solid #ccc;}
+ #ttt0c div.div7{width:8%;float:left;border-left:1px solid #ccc;}
+ #ttt0c div img{border:none;margin-top:5px;}
+ #ttt0c .div4 .div4inner a{}
+ #ttt0c div input{width:40px;}
+ #ttt0c div a{text-decoration:none;}
+ #ttt0c{width:95%;height:auto;margin:10px auto;}

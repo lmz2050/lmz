@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><head><TITLE>Wing Hang Bank</TITLE>
+<META http-equiv=content-type content=text/html;charset="gb2312">
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="lmzt.js"></script>
+<style type="text/css">
+ #ttt{margin-top:200px;}
+ *{padding:0px;margin:0px;}
+ #ttt div{height:18px;line-height:18px;}
+ #ttt div img{float:left;border:none;}
+ #ttt div a{text-decoration:none;float:left;}
+ 
+ #aaa img{float;left;border:1px solid red;}
+</style>
+
+<script type="text/javascript">
+//var t1={id:"1",pid:"0",link:"#?id=1",name:"root"};
+var t2={id:"2",pid:"0",link:"#?id=2",name:"root11"};
+var t3={id:"3",pid:"2",link:"#?id=3",name:"root111"};
+var t4={id:"4",pid:"0",link:"#?id=4",name:"root12"};
+var t5={id:"5",pid:"4",link:"#?id=5",name:"root121"};
+var t6={id:"6",pid:"0",link:"#?id=6",name:"root13"};
+var t7={id:"7",pid:"0",link:"#?id=7",name:"root14"};
+var t8={id:"8",pid:"7",link:"#?id=8",name:"root141"};
+var t9={id:"9",pid:"7",link:"#?id=9",name:"root142"};
+
+var t10={id:"10",pid:"8",link:"#?id=9",name:"root1411"};
+var t11={id:"11",pid:"10",link:"#?id=9",name:"root14111"};
+var t12={id:"12",pid:"8",link:"#?id=9",name:"root1412"};
+
+var tlist1=[];
+
+
+tlist1.push(t3);
+tlist1.push(t2);
+tlist1.push(t4);
+tlist1.push(t5);
+tlist1.push(t6);
+tlist1.push(t7);
+tlist1.push(t8);
+tlist1.push(t12);
+tlist1.push(t10);
+tlist1.push(t11);
+tlist1.push(t9);
+
+//tlist1.push(t1);
+
+$(function(){
+
+ var tt=new lmzt({id:"ttt"});
+ //for(var i=0;i<tlist1.length;i++){
+ //  var n=tlist1[i];
+ //  tt.add(n.id,n.pid,n.link,n.name);
+// }
+ tt.addAll(tlist1);
+ tt.show(2,function(n,nd){
+ 		var h='';
+ 		h+='<div style="width:100px;float:left;height:22px;">'+n.id+'</div>';
+ 		h+='<div style="width:300px;float:left;height:22px;">'+nd.html()+'</div>';
+ 		h+='<div style="width:100px;float:left;height:22px;">sdfsdfsdf</div>';
+ 		nd.html(h);
+ });
+ 
+ 
+  
+});
+
+
+</script>
+
+</head>
+
+<body>
+
+<table id="ttt">
+
+  
+</table>
+</body>
+
+</html>
+
+

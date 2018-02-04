@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts> 
+  <!--  
+  <constant name="struts.multipart.saveDir" value="e:/tomcat/hnbb/webapps/ROOT/upfile"/>
+  <constant name="struts.multipart.saveDir" value="/temp"/>
+  -->
+ 
+  <!-- 配置为开发模式 --> 
+    <constant name="struts.devMode" value="true" /> 
+    <!-- 把主题配置为simple --> 
+    <constant name="struts.ui.theme" value="simple" /> 
+    
+    <constant name="struts.objectFactory" value="spring" />
+
+    <constant name="struts.multipart.saveDir" value="/"/>
+    
+  <!--  
+  <constant name="struts.multipart.saveDir" value="/temp"/>
+ --> 
+  <constant name="struts.action.excludePattern" value="/ckfinder.*"/>
+  <constant name="struts.custom.i18n.resources" value="web" />
+  <constant name="struts.action.extension" value="action" />
+  <constant name="struts.i18n.encoding" value="UTF-8" />
+  <constant name="struts.multipart.maxSize" value="1024000000" />
+   
+  <package name="default" extends="struts-default">  
+   <interceptors>
+    	<!--  
+    	<interceptor name="user"  class="org.lmz.web.util.interceptor.UserInterceptor"></interceptor> 
+    	-->
+    	<interceptor name="admin"  class="cn.lmz.mike.admin.system.util.interceptor.AdminInterceptor"></interceptor>
+    	<interceptor name="page" class="cn.lmz.mike.web.base.util.interceptor.PageInterceptor"></interceptor>
+  
+         <!-- 定义一个包含权限控制的拦截器栈 -->
+         <interceptor-stack name="mydefault">
+         	 <interceptor-ref name="defaultStack" />
+         	 <interceptor-ref name="params" />
+             <interceptor-ref name="page" />
+         </interceptor-stack>
+         
+    	<interceptor-stack name="userStack">
+    		<!--  <interceptor-ref name="user"/> -->
+    		<interceptor-ref name="mydefault"/>
+    	</interceptor-stack>
+    	<interceptor-stack name="adminStack">
+    		<interceptor-ref name="admin"/>
+    		<interceptor-ref name="mydefault"/>
+    	</interceptor-stack>
+    </interceptors>
+    
+	<default-interceptor-ref name="mydefault" />
+	<!-- 未到找Action指向页面 -->  
+    <default-action-ref name="errorPage" />  
+	
+    <global-results>
+     <result name="url">${TPATH}${t.url}?${t.param}</result> 
+     <result name="action" type="redirect">${t.url}?${t.param}</result> 
+     <!-- 
+  	 <result name="success" type="redirect">
+        	<param name="location">/web/index.action</param>
+            <param name="msg">${msg}</param>
+            <param name="encode">true</param>
+    </result>
+     -->
+    <result name="webindex" type="redirect">
+        	<param name="location">/web/index.action</param>
+            <param name="msg">${msg}</param>
+            <param name="encode">true</param>
+    </result>
+        <result name="input" type="redirect">
+            	<param name="location">/error.jsp</param>
+                <param name="msg">${msg}</param>
+                <param name="encode">true</param>
+        </result>
+        <result name="login" type="redirect">
+            	<param name="location">/user/tosignin.action</param>
+                <param name="msg">${msg}</param>
+                <param name="rparam">${rparam}</param>
+                <param name="encode">true</param>
+         </result>
+         <result name="mlogin" type="redirect">
+            	<param name="location">/user/tosignin.action</param>
+                <param name="msg">${msg}</param>
+                <param name="rparam">${rparam}</param>
+                <param name="m">1</param>
+                <param name="encode">true</param>
+         </result>
+         <result name="adminlogin" type="redirect">
+            	<param name="location">/user/login.jsp</param>
+                <param name="msg">${msg}</param>
+                <param name="encode">true</param>
+         </result>
+	</global-results>
+	<!-- 
+	<exception-mapping exception="com.lmz.base.util.exception.LMZException" result="input"/> 
+	</global-exception-mappings>	
+	 -->
+	<action name="code" class="authImageAction" method="code">
+          <result name="success" type = "stream">
+                 <param name="contentType">image/jpeg</param>
+                 <param name="inputName">imageStream</param>
+                 <param name="buffereSize">2048</param>
+          </result>
+     </action>
+     <!--  
+	 <action name="prov" class="areaAction" method="prov">
+     </action>
+     <action name="city" class="areaAction" method="city">
+     </action>
+     <action name="region" class="areaAction" method="region">
+     </action>  
+     -->   
+	 <action name="lan" class="lanAction" method="lan"></action> 
+     <action name="uploadjpg" class="uploadAction">      
+            <result name="success">/system/upload/upload.jsp</result>
+            <result name="input">/system/upload/upload.jsp</result>  
+            <interceptor-ref name="fileUpload">   
+		       <param name ="allowedTypes">image/bmp,image/png,image/gif,image/jpeg,image/jpg,image/x-png, image/pjpeg</param>   
+	        </interceptor-ref> 	          
+	        <interceptor-ref name="defaultStack"></interceptor-ref>                 
+      </action> 	 
+     <action name="upload" class="uploadAction">      
+            <result name="success">/system/upload/upload.jsp</result>
+            <result name="input">/system/upload/upload.jsp</result> 
+            <interceptor-ref name="fileUpload">   
+		       <param name ="allowedTypes">image/bmp,image/png,image/gif,image/jpeg,image/jpg,image/x-png, image/pjpeg</param>   
+	        </interceptor-ref>            
+	        <interceptor-ref name="defaultStack"></interceptor-ref>                 
+      </action> 
+     <action name="uploadPatch" class="uploadAction">      
+            <result name="success">/system/upload/upload.jsp</result>
+            <result name="input">/system/upload/upload.jsp</result> 
+            <interceptor-ref name="fileUpload">   
+		       <param name ="allowedTypes">application/excel,application/vnd.ms-excel,application/zip,text/plain</param>   
+	        </interceptor-ref>            
+	        <interceptor-ref name="defaultStack"></interceptor-ref>                 
+     </action>
+     <action name="uploadFile" class="uploadAction">      
+            <result name="success">/system/upload/upload.jsp</result>
+            <result name="input">/system/upload/upload.jsp</result> 
+            <interceptor-ref name="fileUpload">   
+		       <param name ="allowedTypes">application/excel,application/vnd.ms-excel,application/zip,text/plain</param>   
+	        </interceptor-ref>            
+	        <interceptor-ref name="defaultStack"></interceptor-ref>                 
+      </action>
+      <action name="download" class="downLoadAction">       
+            <result name="success" type="stream">
+                 <param name="contentType">text/plain,application/zip,image/jpg,application/msword,application/octet-stream;charset=UTF-8</param>
+                 <param name="contentDisposition">
+                 	attachment;fileName="${fileName}"
+                 </param>
+                 <param name="name">getInputStream</param>
+                 <param name="bufferSize">4096</param>
+            </result>                       
+      </action>
+	  <action name="l" class="lmzAction" method="l">
+	  	 <result name="action">${t.action}?url=${t.url}&amp;${rparam}</result> 
+		 <result name="url">${TPATH}${t.url}?${rparam}</result> 
+		 <result name="raction" type="redirect">${t.action}?url=${t.url}&amp;${rparam}</result> 
+		 <result name="rurl" type="redirect">${TPATH}${t.url}?${rparam}</result> 
+         <result name="input">${TPATH}/error.jsp</result> 
+	  </action>
+	  
+      <action name="errorPage">  
+          <result type="redirect">/404.html</result>  
+      </action> 
+	  
+	  
+  </package>
+  	
+  	<include file="system.xml"/>
+  	<include file="user.xml"/>
+  	<include file="settings.xml"/>
+    <include file="login.xml"/>
+    <include file="admin.xml"/>
+    <include file="api.xml"/>
+    
+</struts>

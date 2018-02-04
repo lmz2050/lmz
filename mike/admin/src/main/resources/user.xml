@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+
+	<package name="member" namespace="/member" extends="default">
+	    <default-interceptor-ref name="userStack" /> 
+		<action name="main" class="memberAction" method="main">
+       		<result name="success">${TPATH}/member/ucenter.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="toUpdate" class="memberAction" method="toUpdate">
+       		<result name="success">${TPATH}/member/info.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+         <action name="update" class="memberAction" method="update">
+       		<result name="success">${TPATH}/member/info.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>  
+       <action name="toUppwd" class="memberAction" method="toUppwd">
+       		<result name="success">${TPATH}/member/pwd.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>  
+       <action name="uppwd" class="memberAction" method="uppwd">
+       		<result name="success">${TPATH}/member/pwd.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       
+    </package>
+
+<!--     
+    <package name="memberm" namespace="/mobile/member" extends="default">
+        <default-interceptor-ref name="userStack" /> 
+		<action name="main" class="memberAction" method="main">
+       		<result name="success">${TPATH}/mobile/info.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+        <action name="update" class="memberAction" method="update">
+       		<result name="success">${TPATH}/mobile/info.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>  
+       <action name="toUppwd" class="memberAction" method="toUppwd">
+       		<result name="success">${TPATH}/mobile/uppwd.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>  
+       <action name="uppwd" class="memberAction" method="uppwd">
+       		<result name="success">${TPATH}/mobile/uppwd.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+    </package>
+-->
+
+     <package name="mord" namespace="/mord" extends="default">
+       <action name="apage" class="mordAction" method="apage">
+       		<interceptor-ref name="userStack" /> 
+       		<result name="success">${TPATH}/member/ordlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="detail" class="mordAction" method="detail">
+       		<result name="success">${TPATH}/member/orddetail.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="checkPay" class="mordAction" method="checkPay">
+       		<result name="success">${TPATH}/member/orddetail.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="cancel" class="mordAction" method="cancel">
+       		<interceptor-ref name="userStack" /> 
+       		<result name="success">${TPATH}/member/ordlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="ok" class="mordAction" method="ok">
+       		<interceptor-ref name="userStack" /> 
+       		<result name="success">${TPATH}/member/orddetail.jsp</result>
+       		<result name="input">/error.jsp</result> 
+
+       </action>           
+    </package>
+
+
+     <package name="mfarm" namespace="/mfarm" extends="default">
+       <action name="apage" class="mfarmAction" method="apage">
+       		<interceptor-ref name="userStack" /> 
+       		<result name="success">${TPATH}/member/farmlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="pay" class="mfarmAction" method="pay">
+       		<interceptor-ref name="userStack" /> 
+       		<result name="checkout" type="redirect">/shop/checkout.action?m=${m}&amp;preid=${id}</result>
+       		<result name="input">${TPATH}/member/farmlist.jsp</result> 
+       </action>
+       <action name="cancel" class="mfarmAction" method="cancel">
+       		<interceptor-ref name="userStack" /> 
+       		<result name="success">${TPATH}/member/farmlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>         
+    </package>
+
+<!--     
+     <package name="mordm" namespace="/mobile/mord" extends="default"> 
+       <action name="apage" class="mordAction" method="apage">
+       		<interceptor-ref name="userStack" /> 
+       		<result name="success">${TPATH}/mobile/ordlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="detail" class="mordAction" method="detail">
+       		<result name="success">${TPATH}/mobile/orddetail.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="checkPay" class="mordAction" method="checkPay">
+       		<result name="success">${TPATH}/mobile/orddetail.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="cancel" class="mordAction" method="cancel">
+       		<interceptor-ref name="userStack" /> 
+       		<result name="success">${TPATH}/mobile/ordlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="ok" class="mordAction" method="ok">
+       		<interceptor-ref name="userStack" /> 
+       		<result name="success">${TPATH}/mobile/orddetail.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>           
+    </package>
+--> 
+
+     <package name="addr" namespace="/addr" extends="default">
+       <default-interceptor-ref name="userStack" /> 
+       <action name="addr" class="maddrAction" method="addr">
+       		<result name="list">${TPATH}/member/member_addr.jsp</result>
+       		<result name="update">${TPATH}/member/member_addradd.jsp</result>
+       		<result name="toupdate">${TPATH}/member/member_addradd.jsp</result>
+       		<result name="add">${TPATH}/member/member_addradd.jsp</result>
+       		<result name="success">${TPATH}/member/member_addr.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="update" class="maddrAction" method="update">
+       		<result name="success">${TPATH}/member/member_addr.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="del" class="maddrAction" method="del">
+       		<result name="success">${TPATH}/member/member_addr.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+       <action name="def" class="maddrAction" method="def">
+       		<result name="success">${TPATH}/member/member_addr.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>            
+    </package> 
+ 
+ <!--     
+     <package name="addrm" namespace="/mobile/addr" extends="default">
+       <default-interceptor-ref name="userStack" /> 
+       <action name="addr" class="maddrAction" method="addr">
+       		<result name="list">${TPATH}/mobile/addrlist.jsp</result>
+       		<result name="update">${TPATH}/mobile/addradd.jsp</result>
+       		<result name="toupdate">${TPATH}/mobile/addradd.jsp</result>
+       		<result name="add">${TPATH}/mobile/addradd.jsp</result>
+       		<result name="success">${TPATH}/mobile/addrlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+       <action name="update" class="maddrAction" method="update">
+       		<result name="success">${TPATH}/mobile/addrlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>               
+        <action name="del" class="maddrAction" method="del">
+       		<result name="success">${TPATH}/mobile/addrlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action> 
+       <action name="def" class="maddrAction" method="def">
+       		<result name="success">${TPATH}/mobile/addrlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>            
+    </package> 
+ --> 
+ 
+  
+    <package name="mcoupon" namespace="/mcoupon" extends="default">
+       <action name="apage" class="mcouponAction" method="apage">
+       		<interceptor-ref name="userStack" /> 
+       		<result name="success">${TPATH}/member/couponlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+     
+    </package>
+  <!--  
+    <package name="mmcoupon" namespace="/mobile/mcoupon" extends="default">
+       <action name="apage" class="mcouponAction" method="apage">
+       		<interceptor-ref name="userStack" /> 
+       		<result name="success">${TPATH}/mobile/couponlist.jsp</result>
+       		<result name="input">/error.jsp</result> 
+       </action>
+     
+    </package>
+-->  
+       
+</struts>

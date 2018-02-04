@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 2.6//EN"
+        "http://tuckey.org/res/dtds/urlrewrite2.6.dtd">
+        
+<urlrewrite>
+
+	<!-- COMMONS==S **********-->
+		
+	<rule enabled="true">
+		<from>^/mobile/([a-zA-Z]+).html$</from>
+		<to>/l.action?m=1&amp;t.name=$1</to>
+	</rule>	
+	<rule enabled="true">
+		<from>^/mobile/$</from>
+		<to>/l.action?m=1&amp;t.name=index</to>
+	</rule>
+	<rule enabled="true">
+		<from>^/mobile$</from>
+		<to>/l.action?m=1&amp;t.name=index</to>
+	</rule>
+
+	<rule enabled="true">
+		<from>^/user/([a-zA-Z0-9_]+).html$</from>
+		<to>/user/$1.action</to>
+	</rule>
+	
+	<rule enabled="true">
+		<from>^/nav_([0-9]*).html$</from>
+		<to>/web/nav.action?id=$1</to>
+	</rule>
+
+	<rule enabled="true">
+		<from>^/checkout_([a-zA-Z0-9_]+).html$</from>
+		<to>/shop/checkout.action?prdids=$1</to>
+	</rule>	
+	<rule enabled="true">
+		<from>^/addOrd.html$</from>
+		<to>/shop/addOrd.action</to>
+	</rule>	
+	<rule enabled="true">
+		<from>^/ord_add_success_([0-9]*).html$</from>
+		<to>/l.action?t.url=/ord_add_success.jsp&amp;p.id=$1</to>
+	</rule>	
+	<rule enabled="true">
+		<from>^/ord_add_success_([0-9]*).html?([\s\S]+)$</from>
+		<to>/l.action?t.url=/ord_add_success.jsp&amp;p.id=$1&amp;p.$2</to>
+	</rule>	
+	<rule enabled="true">
+		<from>^/ord_pay_success_([0-9]*).html$</from>
+		<to>/l.action?t.url=/ord_pay_success.jsp&amp;p.id=$1</to>
+	</rule>	
+	<rule enabled="true">
+		<from>^/ord_pay_success_([0-9]*).html?([\s\S]+)$</from>
+		<to>/l.action?t.url=/ord_pay_success.jsp&amp;p.id=$1&amp;p.$2</to>
+	</rule>		
+	
+	<rule enabled="true">
+		<from>^/message/add.html$</from>
+		<to>/web/add.action?table=message&amp;t.name=message</to>
+	</rule>	
+	
+	<rule enabled="true">
+		<from>^/message.html$</from>
+		<to>/l.action?t.name=message</to>
+	</rule>	
+	<rule enabled="true">
+		<from>^/news.html$</from>
+		<to>/l.action?t.name=news</to>
+	</rule>		
+	<rule enabled="true">
+		<from>^/case.html$</from>
+		<to>/l.action?t.name=case</to>
+	</rule>	
+	<rule enabled="true">
+		<from>^/product.html$</from>
+		<to>/l.action?t.name=product</to>
+	</rule>		
+	<rule enabled="true">
+		<from>^/about.html$</from>
+		<to>/l.action?t.name=about</to>
+	</rule>	
+
+
+	
+	<rule enabled="true">
+		<from>^/addCart.html$</from>
+		<to>/shop/addCart.action</to>
+	</rule>	
+	<rule enabled="true">
+		<from>^/cart.html$</from>
+		<to>/shop/cart.action</to>
+	</rule>
+	
+	<rule enabled="true">
+		<from>^/goods_([0-9]*).html$</from>
+		<to>/shop/goods.action?id=$1</to>
+	</rule>	
+	<rule enabled="true">
+		<from>^/list_([0-9]*).html$</from>
+		<to>/shop/list.action?id=$1</to>
+	</rule>	
+
+
+		
+	<rule enabled="true">
+		<from>^/member.html$</from>
+		<to>/member/main.action</to>
+	</rule>
+	<rule enabled="true">
+		<from>^/toUppwd.html$</from>
+		<to>/member/toUppwd.action</to>
+	</rule>	
+	<rule enabled="true">
+		<from>^/ordlist.html$</from>
+		<to>/mord/apage.action</to>
+	</rule>	
+		
+	<rule enabled="true">
+		<from>^/addr_list.html$</from>
+		<to>/addr/addr.action?action=list</to>
+	</rule>
+	<rule enabled="true">
+		<from>^/addr_toupdate_([0-9]*).html$</from>
+		<to>/addr/addr.action?action=toupdate&amp;id=$1</to>
+	</rule>	
+	<rule enabled="true">
+		<from>^/addr_del_([0-9]*).html$</from>
+		<to>/addr/addr.action?action=del&amp;id=$1</to>
+	</rule>			
+	<rule enabled="true">
+		<from>^/addr_update.html$</from>
+		<to>/addr/update.action?action=list</to>
+	</rule>	
+	
+	
+	<rule enabled="true">
+		<from>^/ordlist.html$</from>
+		<to>/mord/apage.action</to>
+	</rule>
+	<rule enabled="true">
+		<from>^/ordlist.html?([\s\S]+)$</from>
+		<to>/mord/apage.action?$1</to>
+	</rule>
+	<rule enabled="true">
+		<from>^/ordlist_([0-9]*).html$</from>
+		<to>/mord/apage.action?status=$1</to>
+	</rule>	
+	<rule enabled="true">
+		<from>^/ord_detail_([0-9]*).html$</from>
+		<to>/mord/detail.action?id=$1</to>
+	</rule>
+	<rule enabled="true">
+		<from>^/ord_cancel_([0-9]*).html?([\s\S]+)$</from>
+		<to>/mord/cancel.action?status=$1&amp;$2</to>
+	</rule>	
+	
+	<rule enabled="true">
+		<from>^/bank_check_([0-9]*).html$</from>
+		<to>/l.action?t.url=/bank_check.jsp&amp;p.id=$1</to>
+	</rule>	
+	
+	
+
+	<rule enabled="true">
+		<from>^/([a-zA-Z]+)_([a-zA-Z]+).html$</from>
+		<to>/$1/$2.action</to>
+	</rule>
+	<rule enabled="true">
+		<from>^/([a-zA-Z]+)_([a-zA-Z]+).html?([\s\S]+)$</from>
+		<to>/$1/$2.action?$3</to>
+	</rule>
+						
+	<rule enabled="true">
+		<from>^/([a-zA-Z]+)_([0-9]*).html$</from>
+		<to>/l.action?t.name=$1&amp;p.id=$2</to>
+	</rule>	
+	<rule enabled="true">
+		<from>^/([a-zA-Z]+)_([0-9]*).html?([\s\S]+)$</from>
+		<to>/l.action?t.name=$1&amp;p.id=$2&amp;$3</to>
+	</rule>	
+	
+	<rule enabled="true">
+		<from>^/$</from>
+		<to>/l.action?t.name=index</to>
+	</rule>
+
+</urlrewrite>
