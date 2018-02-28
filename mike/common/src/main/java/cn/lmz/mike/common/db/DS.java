@@ -1,16 +1,18 @@
 package cn.lmz.mike.common.db;
 
 import cn.lmz.mike.common.base.StrU;
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.common.sec.SecurityU;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.*;
 import java.util.concurrent.*;
-import java.util.logging.Logger;
 
 public class DS implements DataSource{
+
+    private static final Logger log = LoggerFactory.getLogger(DS.class);
 
     /** JDBC 驱动 MySQL */
     public final static String DRIVER_MYSQL = "com.mysql.jdbc.Driver";
@@ -34,7 +36,9 @@ public class DS implements DataSource{
 
     public static Connection getConnection(String dbstr) throws Exception {
         dbstr = SecurityU.getDeValue(dbstr);
+        log.info(dbstr);
         String[] dbs = dbstr.split("\\|");
+        //log.info("{}-{}-{}",dbs[0],dbs[1],dbs[2]);
         return getConnection(dbs[0],dbs[1],dbs[2]);
     }
 
@@ -47,9 +51,9 @@ public class DS implements DataSource{
         }
         Connection con = DriverManager.getConnection(url,username,password);
         if(testConnection(con)){
-            O.info("connected system:"+url+"---"+username);
+            log.info("connected system:{}---{}",url,username);
         }else{
-            O.info("connected system:"+url+"---"+username);
+            log.info("connected system:{}---{}",url,username);
             throw new SQLException("连接失败!"+url+"---"+username);
         }
         return con;
@@ -177,7 +181,7 @@ public class DS implements DataSource{
     }
 
     @Override
-    public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+    public java.util.logging.Logger getParentLogger() throws SQLFeatureNotSupportedException {
         throw new SQLFeatureNotSupportedException("DataSource can't support getParentLogger method!");
     }
 

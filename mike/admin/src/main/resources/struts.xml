@@ -135,7 +135,7 @@
             <result name="success">/system/upload/upload.jsp</result>
             <result name="input">/system/upload/upload.jsp</result> 
             <interceptor-ref name="fileUpload">   
-		       <param name ="allowedTypes">application/excel,application/vnd.ms-excel,application/zip,text/plain</param>   
+		       <param name ="allowedTypes">application/excel,application/vnd.ms-excel,application/zip,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
 	        </interceptor-ref>            
 	        <interceptor-ref name="defaultStack"></interceptor-ref>                 
      </action>

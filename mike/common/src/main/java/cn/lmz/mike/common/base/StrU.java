@@ -1,11 +1,13 @@
 package cn.lmz.mike.common.base;
 
 import cn.lmz.mike.common.MC;
+import cn.lmz.mike.common.V;
+import cn.lmz.mike.common.json.JsonU;
 import cn.lmz.mike.common.log.O;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
-import cn.lmz.mike.common.json.JsonU;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -17,6 +19,9 @@ import java.util.List;
 
 public class StrU extends StringUtils {
 
+    public static void main(String[] args){
+
+    }
 
     public static String toStr(Object o)
     {
@@ -30,7 +35,7 @@ public class StrU extends StringUtils {
         try {
             return JsonU.obj2json(o);
         } catch (Exception e) {
-            O.error(e.getMessage(),e);
+            System.err.println(e.getMessage()+","+o);
         }
         return o.toString();
     }
@@ -71,6 +76,14 @@ public class StrU extends StringUtils {
     }
 
     public static String getRoot(){
+        String APPHOME=System.getProperty(V.APPHOME);
+        if(isBlank(APPHOME)){
+            APPHOME = StrU.class.getClassLoader().getResource("").getPath();
+            System.setProperty(V.APPHOME,APPHOME);
+        };
+        APPHOME = APPHOME.replaceAll("\\\\","/");
+        return APPHOME;
+        /*
         String path = StrU.class.getClassLoader().getResource("").getPath();
         if(path.contains("/bin/")){
             path = path.replaceAll("/bin/", "/");
@@ -80,7 +93,9 @@ public class StrU extends StringUtils {
             path = path.replaceAll("/target/classes/", "/");
         }
         return path;
+        */
     }
+
     public static String getWebRoot(){
         File cf = new File(StrU.class.getClassLoader().getResource("/").getPath());
         return cf.getParentFile().getParentFile().getAbsolutePath();

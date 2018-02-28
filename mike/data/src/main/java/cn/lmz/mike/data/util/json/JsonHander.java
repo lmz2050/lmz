@@ -1,9 +1,9 @@
 package cn.lmz.mike.data.util.json;
 
 
+import cn.lmz.mike.common.MC;
 import cn.lmz.mike.common.exception.LMZException;
 import cn.lmz.mike.common.invoke.Handler;
-import cn.lmz.mike.common.str.StrU;
 
 public class JsonHander implements Handler {
 
@@ -13,12 +13,16 @@ public class JsonHander implements Handler {
 	}
 	
 	public String getJStr(){
-      if(!StrU.isBlank(jstr)){
-       	  jstr = "{"+StrU.removeLastF(jstr)+"}";
+      if(!MC.string.isBlank(jstr)){
+       	  jstr = "{"+removeLastF(jstr)+"}";
         }else{
        	  jstr = "{}";
         } 
 	    return jstr;
+	}
+
+	public static String removeLastF(String str){
+		return str.substring(0,str.length()-1);
 	}
     
 }

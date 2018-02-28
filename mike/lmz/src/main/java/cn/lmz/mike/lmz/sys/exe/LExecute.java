@@ -1,7 +1,7 @@
 package cn.lmz.mike.lmz.sys.exe;
 
 import cn.lmz.mike.common.MC;
-import cn.lmz.mike.common.base.PkgU;
+import cn.lmz.mike.common.V;
 import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.lmz.sys.L;
 import cn.lmz.mike.lmz.sys.context.Cfg;
@@ -13,14 +13,20 @@ import cn.lmz.mike.lmz.sys.expression.NodeExpression;
 import cn.lmz.mike.lmz.sys.expression.RowExpression;
 import cn.lmz.mike.lmz.sys.lexer.Block;
 import cn.lmz.mike.lmz.sys.node.BlockNode;
-import com.xiaoleilu.hutool.log.level.Level;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class LExecute {
+
+	private static final Logger log = LoggerFactory.getLogger(LExecute.class);
 
 	public static final String INIT_LMZ="init/init.lmz";
 	
@@ -37,7 +43,7 @@ public class LExecute {
 	}
 	public void init(Context ctxi,Map params) throws Exception{
 		if(!O.isDev){
-			O.setLev(Level.ERROR.toString(),"N");
+			O.setLev(java.util.logging.Level.ALL.toString(),"N");
 		}
 		if(ctxi!=null){
 			root = ctxi;
@@ -60,7 +66,8 @@ public class LExecute {
 		explist.add(new RowExpression());
 		explist.add(new NodeExpression());
 		
-		String rootPath = MC.string.getRoot();
+		String rootPath = (String)cfg.get(V.APPHOME);
+		//System.out.println(rootPath);
 		
 		root.put(Const.ROOT, rootPath);
 		root.getCfg().put(Const.ROOT, rootPath);
@@ -72,15 +79,11 @@ public class LExecute {
 		root.put(Const.$+"M",monitor);
 		root.put(Const.$+"CTX",root);
 
-		Map<String,String> pkgMap = PkgU.getClassNamePathMap("org.lmz.common","org.lmz.db","org.lmz.ext");
+		Map<String,Class<?>> pkgMap = new HashMap<String,Class<?>>();
 		root.getCfg().put(Const.PKG_MAP,pkgMap);
 
-		List<String> pkgList = new ArrayList<String>();
-		pkgList.add("java.lang");
-		pkgList.add("java.util");
-		root.getCfg().put(Const.PKG_LIST,pkgList);
-
 		String initF = rootPath+INIT_LMZ;
+		log.info(">>init execute<<---------------:"+initF);
 		read(initF);
 		
 		inited = true;
@@ -90,12 +93,10 @@ public class LExecute {
 
 		File f = new File(file);
 		if(!f.exists()){
-			throw new Exception("文件不存在："+file);
+			throw new Exception("file is not exists:"+file);
 		}
 		root.getCfg().put(Const.EXP_SRC_FILE, file);
-		
-		
-		
+
 		for(int i=0;i<explist.size();i++){
 			IExpression exp = explist.get(i);
 			exp.interpret(root);
@@ -103,17 +104,17 @@ public class LExecute {
 		
 		if(O.isDev){
 			List clist = (List)root.getCfg().get(Const.EXP_CODE_LIST);
-			O.info("======================CODE========================");
+			log.trace("======================CODE========================");
 			for(int i=0;i<clist.size();i++){
-				O.info(clist.get(i).toString());
+				log.trace(clist.get(i).toString());
 			}		
 			Block b = (Block)root.getCfg().get(Const.EXP_BLOCK);
-			O.info("======================BLOCK========================");
-			O.info(b.toString());
+			log.trace("======================BLOCK========================");
+			log.trace(b.toString());
 		}
 		
 		BlockNode bn = (BlockNode)root.getCfg().get(Const.EXP_NODE);
-		O.dev("RUN>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+file);
+		log.trace("RUN>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+file);
 		bn.execute(root);
 	}
 	
@@ -126,16 +127,25 @@ public class LExecute {
 	
 	
 	public void execute(String file,Map params) throws Exception{
+
+		File f = new File(file);
+		if(!f.exists()){
+			throw new Exception("file is not exists:"+file);
+		}
+		if(f.isDirectory()){
+			throw new Exception("file is Directory:"+file);
+		}
+
 		if(!inited){
 			init(params);
 		}
 		try{
 			monitor.start();
-			O.info(">>read<<---------------:"+file);		
+			log.info(">>execute<<---------------:"+file);
 			if(file!=null&&file.trim().length()>0){
 				read(file);	
 			}else{
-				O.error("file is null :"+file);
+				log.error("file is null :"+file);
 				throw new FileNotFoundException("file is null :"+file);
 			}
 			
@@ -146,7 +156,7 @@ public class LExecute {
 		}finally{
 			closeResource();
 		}
-		O.info(">>end<<");
+		log.info(">>end<<");
 	}
 	
 	public boolean isInited() {

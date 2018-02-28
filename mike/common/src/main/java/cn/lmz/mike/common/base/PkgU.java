@@ -1,6 +1,7 @@
 package cn.lmz.mike.common.base;
 
-import cn.lmz.mike.common.log.O;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.net.URL;
@@ -10,6 +11,8 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 public class PkgU {
+
+    private static final Logger log = LoggerFactory.getLogger(PkgU.class);
 
     private static final String fileSeparator = System.getProperty("file.separator");
 
@@ -56,7 +59,7 @@ public class PkgU {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         String packagePath = packageName.replace(".", "/");
         URL url = loader.getResource(packagePath);
-        O.info("package url: {}"+url+",pkgname:"+packageName);
+        log.info("package url: {}"+url+",pkgname:"+packageName);
         if (url != null) {
             String type = url.getProtocol();
             if (type.equals("file")) {

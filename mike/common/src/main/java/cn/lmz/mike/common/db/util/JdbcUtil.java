@@ -1,7 +1,8 @@
 package cn.lmz.mike.common.db.util;
 
 import cn.lmz.mike.common.base.StrU;
-import cn.lmz.mike.common.log.O;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ import java.util.regex.Pattern;
  */
 public class JdbcUtil {
 
+	private static final Logger log = LoggerFactory.getLogger(JdbcUtil.class);
+
 	public static final Pattern pattern_fixed_args = Pattern.compile("\\#\\{([^}]+)\\}");
 
 	/**
@@ -35,7 +38,7 @@ public class JdbcUtil {
 			setParams(pstmt,paramNames,argMap);
 			pstmt.executeUpdate();
 		}catch (SQLException e) {
-			O.error("JdbcUtil.executeUpdate() 异常 -> sql:  【"+sql+"】  参数：【"+argMap+"】",e);
+			log.error("JdbcUtil.executeUpdate() 异常 -> sql:  【"+sql+"】  参数：【"+argMap+"】",e);
 			throw e;
 		}
 	}
@@ -65,9 +68,9 @@ public class JdbcUtil {
 				if(i % rowCount != 0){
 					pstmt.executeBatch();
 				}
-				O.info(" 数据分批提交 结束(条数："+argListMap.size()+",时间："+(System.currentTimeMillis() - time)+"ms)。。。");
+				log.info(" 数据分批提交 结束(条数："+argListMap.size()+",时间："+(System.currentTimeMillis() - time)+"ms)。。。");
 			} catch (SQLException e) {
-				O.error("JdbcUtil.executeBatchUpdate() 异常 -> sql:  【"+sql+"】",e);
+				log.error("JdbcUtil.executeBatchUpdate() 异常 -> sql:  【"+sql+"】",e);
 				throw e;
 			}
 		}
@@ -111,9 +114,9 @@ public class JdbcUtil {
 				if(CommitType.endSubmit.equals(commitType)){
 					connection.commit();
 				}
-				O.info(" 数据分批提交 结束(条数："+argListMap.size()+",时间："+(System.currentTimeMillis() - time)+"ms)。。。"+commitType.name());
+				log.info(" 数据分批提交 结束(条数："+argListMap.size()+",时间："+(System.currentTimeMillis() - time)+"ms)。。。"+commitType.name());
 			} catch (SQLException e) {
-				O.error("JdbcUtil.executeBatchUpdate() 异常 -> sql:  【"+sql+"】",e);
+				log.error("JdbcUtil.executeBatchUpdate() 异常 -> sql:  【"+sql+"】",e);
 				throw e;
 			}
 		}
@@ -121,7 +124,6 @@ public class JdbcUtil {
 	/**
 	 * 获取唯一单元（单行单列）
 	 * (考虑Statement复用,此方法不会关闭Statement,请自行关闭)
-	 * @param sqlKey
 	 * @param argMap
 	 * @return
 	 * @throws SQLException
@@ -138,7 +140,7 @@ public class JdbcUtil {
 			}
 			return null == obj ? null : obj.toString();
 		}catch (SQLException e) {
-			O.error("JdbcUtil.selectUnique() 异常 -> sql:  【"+sql+"】  参数：【"+argMap+"】",e);
+			log.error("JdbcUtil.selectUnique() 异常 -> sql:  【"+sql+"】  参数：【"+argMap+"】",e);
 			throw e;
 		}finally {
 			JdbcUtil.closeResultSet(resultSet);
@@ -166,7 +168,7 @@ public class JdbcUtil {
 				map = getMap(metaData, resultSet);
 			}
 		}catch (SQLException e) {
-			O.error("JdbcUtil.selectRow() 异常 -> sql:  【"+sql+"】  参数：【"+argMap+"】",e);
+			log.error("JdbcUtil.selectRow() 异常 -> sql:  【"+sql+"】  参数：【"+argMap+"】",e);
 			throw e;
 		}finally {
 			JdbcUtil.closeResultSet(resultSet);
@@ -196,7 +198,7 @@ public class JdbcUtil {
 				list.add(map);
 			}
 		}catch (SQLException e) {
-			O.error("JdbcUtil.selectRows() 异常 -> sql:  【"+sql+"】  参数：【"+argMap+"】",e);
+			log.error("JdbcUtil.selectRows() 异常 -> sql:  【"+sql+"】  参数：【"+argMap+"】",e);
 			throw e;
 		}finally {
 			JdbcUtil.closeResultSet(resultSet);
@@ -311,7 +313,7 @@ public class JdbcUtil {
 				sta.close();
 			}
 		} catch (SQLException e) {
-			O.error("Statement.close()", e);
+			log.error("Statement.close()", e);
 			e.printStackTrace();
 		}
 	}
@@ -322,7 +324,7 @@ public class JdbcUtil {
 				resultSet.close();
 			}
 		} catch (SQLException e) {
-			O.error("ResultSet.close()", e);
+			log.error("ResultSet.close()", e);
 			e.printStackTrace();
 		}
 

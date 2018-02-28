@@ -1,14 +1,17 @@
 package cn.lmz.mike.lmz.sys.node;
 
 
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.lmz.sys.context.Context;
 import cn.lmz.mike.lmz.sys.lexer.Code;
 import cn.lmz.mike.lmz.sys.lexer.ICode;
 import cn.lmz.mike.lmz.sys.lexer.ICodeList;
 import cn.lmz.mike.lmz.sys.lexer.INode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class ANode implements INode {
+
+	private static final Logger log = LoggerFactory.getLogger(ANode.class);
 
 	protected Object codeObj;
 	protected String codeStr;
@@ -21,12 +24,12 @@ public abstract class ANode implements INode {
 	public Object runNode(Context ctx) throws Exception{
 		ctx.push(this);
 		if(this.codeStr!=null&&this.codeStr.trim().length()>0){
-			O.dev("RUN:"+this.codeStr);
-			O.dev("RUN:"+this.toString(ctx));
+			log.trace("RUN:"+this.codeStr);
+			log.trace("RUN:"+this.toString(ctx));
 		}
 		Object v = execute(ctx);
 		if(this.codeStr!=null&&this.codeStr.trim().length()>0&&v!=null){
-			O.dev("==》"+v);
+			log.trace("==》"+v);
 		}
 		ctx.pop();
 		return v;

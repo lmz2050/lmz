@@ -1,22 +1,44 @@
 package cn.lmz.mike.common.log;
 
-
-import cn.lmz.mike.common.MC;
+import org.apache.logging.log4j.core.config.ConfigurationSource;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
+
+
 public class O {
 
-	private static Logger logger = LoggerFactory.getLogger(O.class);
+	private static Logger log = null;
 	public static String lev="";
-	private static final Logger log = null;
-	public static boolean isDev=true;
+	public static boolean isDev=false;
 
-	public static void dev(String str){
-		if(isDev){
-			getLog().info("[D]"+str);
+	public static String getLev() {
+		return lev;
+	}
+	public static void setLev(String lev) {
+		setLev(lev, "Y");
+	}
+	public static void setLev(String lev,String showLog) {
+		O.lev = lev;
+		changeLogLev(lev);
+		if("Y".equalsIgnoreCase(showLog)){
+			log.info("log lev:"+lev);
 		}
 	}
+
+	public static void pNull(Object o,String message) throws Exception{
+		if(o==null){
+			throw new Exception(message);
+		}
+	}
+
+	/*
 	public static void pn(Object str){
 		info(str);
 	}
@@ -44,18 +66,6 @@ public class O {
 		}
 	}
 
-	public static String getLev() {
-		return lev;
-	}
-	public static void setLev(String lev) {
-		setLev(lev, "Y");
-	}
-	public static void setLev(String lev,String showLog) {
-		O.lev = lev;
-		if("Y".equalsIgnoreCase(showLog)){
-			O.info("log lev:"+lev);
-		}
-	}
 	public static Logger getLog()
 	{
         StackTraceElement caller = findCaller();//最原始被调用的堆栈对象
@@ -68,11 +78,7 @@ public class O {
         //log.setLevel(Level.toLevel(lev));
         return log;
 	}
-	
-	/**
-     * 获取最原始被调用的堆栈信息
-     * @return
-     */
+
     private static StackTraceElement findCaller() {
         // 获取堆栈信息
         StackTraceElement[] callStack = Thread.currentThread().getStackTrace();
@@ -103,5 +109,47 @@ public class O {
         }
         return caller;
     }
+    */
+
+	//log4j.configurationFile
+	public static void initLog(String cfgName){
+		System.out.println(cfgName);
+		InputStream fis = null;
+		try {
+			ConfigurationSource source;
+			//String relativePath = "config" + System.getProperty("file.separator") + "log4j2.xml";
+			File f = new File(cfgName);
+			if(!f.exists()){
+				f = new File(O.class.getClassLoader().getResource(cfgName).getPath());
+			}
+			if(f.exists()){
+				fis = new FileInputStream(f);
+				Configurator.initialize(null,new ConfigurationSource(fis,f));
+				log = LoggerFactory.getLogger(O.class);
+			}else{
+				System.out.println("cfg file not find:"+cfgName);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			if (fis != null)
+				try {
+					fis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			fis = null;
+		}
+	}
+
+	public static void changeLogLev(String lev){
+		Collection<org.apache.logging.log4j.core.Logger> notCurrentLoggerCollection = org.apache.logging.log4j.core.LoggerContext.getContext(false).getLoggers();
+		Collection<org.apache.logging.log4j.core.Logger> currentLoggerCollection = org.apache.logging.log4j.core.LoggerContext.getContext().getLoggers();
+		Collection<org.apache.logging.log4j.core.Logger> loggerCollection = notCurrentLoggerCollection;
+		loggerCollection.addAll(currentLoggerCollection);
+		for (org.apache.logging.log4j.core.Logger logger:loggerCollection){
+			logger.setLevel(org.apache.logging.log4j.Level.toLevel(lev));
+		}
+	}
 	
 }

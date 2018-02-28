@@ -1,12 +1,7 @@
 package cn.lmz.mike.admin.system.action;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import cn.lmz.mike.common.base.StrU;
 import cn.lmz.mike.common.exception.LMZException;
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.common.page.Page;
 import cn.lmz.mike.common.page.PageUtil;
 import cn.lmz.mike.common.sec.MD5U;
@@ -17,8 +12,14 @@ import cn.lmz.mike.web.base.bean.BaseBean;
 import cn.lmz.mike.web.base.bean.Lmzadmin;
 import cn.lmz.mike.web.base.util.LoginMsg;
 import cn.lmz.mike.web.base.util.WebSV;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Controller;
 @Scope("prototype")
 public class AdminAction extends BaseAction {
 
+	private static final Logger log = LoggerFactory.getLogger(AdminAction.class);
 	private static final long serialVersionUID = 1L;
 	protected Lmzadmin info = new Lmzadmin();
 
@@ -131,7 +133,7 @@ public class AdminAction extends BaseAction {
 						r.setSuccess(false);
 						r.setMsg(msg);
 					}else{
-						O.pn(info.getUsername()+":"+info.getUsername());
+						log.info(info.getUsername()+":"+info.getUsername());
 						info.setUserpwd(MD5U.calc(info.getUserpwd()));
 						info= getwService().create(info);
 						r.setSuccess(true);

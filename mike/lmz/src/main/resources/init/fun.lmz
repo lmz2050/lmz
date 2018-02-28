@@ -1,0 +1,16 @@
+
+
+//监控
+$M.setStart(function(ctx){
+	$.alert("monitor start"+ctx.getRunFile());
+});
+$M.setEnd(function(ctx){
+	$.alert("monitor end"+ctx.getRunFile());
+//	new MsgU(sms_host).send("monitor end"+ctx.getRunFile(),"18927427285");
+new MailU(mail_from).send("monitor end"+ctx.getRunFile(),"monitor end"+ctx.getRunFile(),"zhijun.li@bqjr.cn");
+});
+$M.setError(function(ctx){
+	$.alert("monitor error"+ctx.getRunFile());
+});
+
+//其他函数

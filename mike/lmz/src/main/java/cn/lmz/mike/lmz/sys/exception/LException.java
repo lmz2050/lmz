@@ -5,8 +5,8 @@ import cn.lmz.mike.lmz.sys.lexer.INode;
 
 public class LException extends Exception{
 
-	public static final String ERR_SYNTAX="语法错误";
-	public static final String ERR_RUN="运行异常";
+	public static final String ERR_SYNTAX="Syntax error";
+	public static final String ERR_RUN="Run abnormity";
 
 	private static final long serialVersionUID = 1L;
 	

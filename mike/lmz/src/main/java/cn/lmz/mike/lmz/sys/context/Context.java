@@ -44,7 +44,7 @@ public class Context {
 		msg+="]";
 		return msg;
 	}
-	
+
 	public String getCodeStr(){
 		String msg="[\r\n";
 		for(int i=0;i<stack.size();i++){
@@ -134,6 +134,7 @@ public class Context {
 	
 	public String findValue(String str){
 		if(str==null) return null;
+
 		if(str.contains("${")){
 			StringBuffer sb = new StringBuffer();
 			Matcher m = p.matcher(str);
@@ -147,6 +148,7 @@ public class Context {
 			m.appendTail(sb);
 			return sb.toString();
 		}
+
 		if(str.contains("#{")){
 			StringBuffer sb = new StringBuffer();
 			Matcher m = p.matcher(str);

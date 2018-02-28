@@ -1,7 +1,7 @@
 package cn.lmz.mike.data.util.json;
 
+import cn.lmz.mike.common.MC;
 import cn.lmz.mike.common.invoke.InvokeBean;
-import cn.lmz.mike.common.str.StrU;
 import cn.lmz.mike.data.BeanUtil;
 
 import java.util.Iterator;
@@ -60,8 +60,8 @@ public static String mapToJson(Map map){
          Map.Entry mapentry=(Map.Entry)iterator.next(); 
          jstr+=JsonUtil.getjStrByKV(mapentry.getKey()+"",mapentry.getValue()); 
       }
-      if(!StrU.isBlank(jstr)){
-      	 jstr = "{"+StrU.removeLastF(jstr)+"}";
+      if(!MC.string.isBlank(jstr)){
+      	 jstr = "{"+JsonHander.removeLastF(jstr)+"}";
        }else{
       	 jstr = "{}";
        } 

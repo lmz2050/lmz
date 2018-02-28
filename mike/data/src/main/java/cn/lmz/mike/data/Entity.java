@@ -1,17 +1,20 @@
 package cn.lmz.mike.data;
 
 import cn.lmz.mike.common.exception.LMZException;
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.common.page.Page;
 import cn.lmz.mike.common.page.PageUtil;
 import cn.lmz.mike.data.bean.DataBean;
 import cn.lmz.mike.data.support.IEntity;
 import cn.lmz.mike.data.support.LDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
 
 public class Entity implements IEntity {
+
+	private static final Logger log = LoggerFactory.getLogger(Entity.class);
 
 	protected LDao dao;
 
@@ -29,7 +32,7 @@ public class Entity implements IEntity {
 	@SuppressWarnings("unchecked")
 	public PageUtil searchMap(DataBean b, Page page, String ord)throws LMZException {
 		PageUtil pu = dao.searchMap(b,page, ord);
-		O.pn(pu.getList().size()+"");
+		log.info(pu.getList().size()+"");
 		return pu;
 	}
 	public DataBean create(DataBean b) throws LMZException {

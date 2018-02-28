@@ -12,7 +12,6 @@ public class Const {
 	public static final String EXP_NODE="@EXP_NODE";
 	
 	public static final String PKG_MAP="@PKG_MAP";
-	public static final String PKG_LIST="@PKG_LIST";
 	public static final String SUR_LIST="@SUR_LIST";
 	
 	public static final String IS_IN_BLOCK="@IS_IN_BLOCK";
@@ -33,4 +32,5 @@ public class Const {
 	public static final String TIME = "TIME";
 	public static final String ROOT = "ROOT";
 	public static final String $ = "$";
+
 }

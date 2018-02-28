@@ -1,17 +1,19 @@
 package cn.lmz.mike.admin.system.util;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import cn.lmz.mike.common.base.StrU;
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.web.base.bean.BaseBean;
 import cn.lmz.mike.web.base.service.IWService;
 import cn.lmz.mike.web.bean.Lmzweb;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public class SysU {
+
+	private static final Logger log = LoggerFactory.getLogger(SysU.class);
 
 	public static String DOMAIN=null;
 	public static String MDOMAIN=null;
@@ -52,8 +54,8 @@ public class SysU {
 			}catch(Exception e){e.printStackTrace();}
 			DOMAIN = rt;
 			MDOMAIN=rtm;
-			O.debug(DOMAIN);
-			O.debug(MDOMAIN);
+			log.debug(DOMAIN);
+			log.debug(MDOMAIN);
 		}
 		if(StrU.isBlank(m)){
 			return DOMAIN;

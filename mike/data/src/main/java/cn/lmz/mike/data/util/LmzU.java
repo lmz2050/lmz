@@ -1,19 +1,17 @@
 package cn.lmz.mike.data.util;
 
+import cn.lmz.mike.common.MC;
 import cn.lmz.mike.common.exception.LMZException;
-import cn.lmz.mike.common.log.O;
-import cn.lmz.mike.common.str.StrU;
 import cn.lmz.mike.data.bean.DataBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class LmzU {
 
+	private static final Logger log = LoggerFactory.getLogger(LmzU.class);
 	
 	public static Object getBean(String cls) throws LMZException {
 		Object o = null;
@@ -43,12 +41,12 @@ public class LmzU {
 	public static int getInt(Object o){
 		int i=0;
 		if(o!=null){
-			if(!StrU.isBlank(o)){
+			if(o!=null&&!MC.string.isBlank(o+"")){
 				try{
 					i = new Integer(String.valueOf(o));
 				}catch(Exception e){
 					e.printStackTrace();
-					O.info("error int str:"+o);
+					log.info("error int str:"+o);
 				}
 			}
 		}
@@ -58,12 +56,12 @@ public class LmzU {
 	public static Integer getInteger(Object o){
 		Integer i = null;
 		if(o!=null){
-			if(!StrU.isBlank(o)){
+			if(o!=null&&!MC.string.isBlank(o+"")){
 				try{
 					i = new Integer(String.valueOf(o));
 				}catch(Exception e){
 					e.printStackTrace();
-					O.info("error int str:"+o);
+					log.info("error int str:"+o);
 				}
 			}
 		}

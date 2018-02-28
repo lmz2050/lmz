@@ -1,22 +1,24 @@
 package cn.lmz.mike.common.mail;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Properties;
+import cn.lmz.mike.common.base.ArrayU;
+import cn.lmz.mike.common.base.StrU;
+import cn.lmz.mike.common.sec.SecurityU;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-import cn.lmz.mike.common.base.ArrayU;
-import cn.lmz.mike.common.base.StrU;
-import cn.lmz.mike.common.log.O;
-import cn.lmz.mike.common.sec.SecurityU;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
 
 public class MailU  {
-	
+
+	private static final Logger log = LoggerFactory.getLogger(MailU.class);
+
 	private static String host=null;
 	private static String username=null;	
 	private static String password=null;
@@ -53,9 +55,9 @@ public class MailU  {
 				ts.sendMessage(message, message.getAllRecipients());
 			}
 			ts.close();
-			O.info("success:"+ ArrayU.toString(tos));
+			log.info("success:"+ ArrayU.toString(tos));
 		 }catch(Exception e){
-			 O.error(e.getMessage(), e);
+			 log.error(e.getMessage(), e);
 			 throw e;
 		}
 	}

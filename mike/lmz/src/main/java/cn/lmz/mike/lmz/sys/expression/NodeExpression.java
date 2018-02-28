@@ -1,16 +1,18 @@
 package cn.lmz.mike.lmz.sys.expression;
 
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.lmz.sys.context.Const;
 import cn.lmz.mike.lmz.sys.context.Context;
 import cn.lmz.mike.lmz.sys.exception.ErrCodeException;
 import cn.lmz.mike.lmz.sys.lexer.*;
 import cn.lmz.mike.lmz.sys.node.*;
 import cn.lmz.mike.lmz.sys.util.TypeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class NodeExpression implements IExpression {
 
-	
+	private static final Logger log = LoggerFactory.getLogger(NodeExpression.class);
+
 	@Override
 	public void interpret(Context ctx) throws Exception {
 
@@ -33,7 +35,7 @@ public class NodeExpression implements IExpression {
 		if(cl.getList().size()==0){
 			return null;
 		}
-		O.dev("[EXP]"+ctx.getCodeStr()+cl.getCodeStr());
+		log.trace("[EXP]"+ctx.getCodeStr()+cl.getCodeStr());
 		
 		TypeUtil tu = new TypeUtil();
 		boolean contain_oper = false;
@@ -131,8 +133,8 @@ public class NodeExpression implements IExpression {
 			}
 			
 			if(cl.getList().size()>1){
-				O.error(cl.getList().get(0).getCodeStr()+"--"+cl.getList().get(1).getCodeStr());
-				O.error(cl.getCodeStr()+"="+cl.toString());
+				log.error(cl.getList().get(0).getCodeStr()+"--"+cl.getList().get(1).getCodeStr());
+				log.error(cl.getCodeStr()+"="+cl.toString());
 				throw new ErrCodeException(cl.getList().get(1),"code lenth["+cl.getList().size()+"]");
 			}
 			

@@ -1,8 +1,9 @@
 package cn.lmz.mike.common.db;
 
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.common.support.IFunction;
 import oracle.jdbc.OracleTypes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.Map;
 
 
 public class DB extends JdbcDao {
+
+	private static final Logger log = LoggerFactory.getLogger(DB.class);
 
 	private String dbname = null;
 	PreparedStatement stmt = null;
@@ -60,9 +63,9 @@ public class DB extends JdbcDao {
 		if(connection!=null){
 			try{
 				connection.commit();
-				O.info("commit");
+				log.info("commit");
 			}catch(Exception e){
-				O.error(e.getMessage());
+				log.error(e.getMessage());
 				throw e;
 			}
 		}
@@ -71,9 +74,9 @@ public class DB extends JdbcDao {
 		if(connection!=null){
 			try{
 				connection.rollback();
-				O.info("rollback");
+				log.info("rollback");
 			}catch(Exception e){
-				O.error(e.getMessage());
+				log.error(e.getMessage());
 				throw e;
 			}
 		}
@@ -102,20 +105,20 @@ public class DB extends JdbcDao {
 				for(int i=0;i<rsmt.getColumnCount();i++){
 					//String name = rsmt.getColumnName(i+1);
 					Object val = rs2.getObject(i+1);
-					//O.info(name+":"+val);
+					//log.info(name+":"+val);
 					stmt.setObject(i+1, val);
 				}
 				stmt.executeUpdate();
 				if(ii>5000){
-					O.info("completed! "+jj);
+					log.info("completed! "+jj);
 					getCon().commit();
 					ii=0;
 				}
 			}
 			getCon().commit();
-			O.info("completed! "+jj);
+			log.info("completed! "+jj);
 		}catch(Exception e){
-			O.info(e.getMessage());
+			log.info(e.getMessage());
 			getCon().rollback();
 			throw e;
 		}finally{
@@ -134,7 +137,7 @@ public class DB extends JdbcDao {
 	
 	public List<Object[]> queryHeader(String sql, Object... obj) throws Exception{
 		
-		O.info(" queryHeader ");
+		log.info(" queryHeader ");
 		List<Object[]> tlist = new ArrayList<Object[]>();
 		try{
 			stmt = getCon().prepareStatement(sql);
@@ -151,7 +154,7 @@ public class DB extends JdbcDao {
 				tlist.add(t);
 			}
 		}catch(Exception e){
-			O.error(e.getMessage());
+			log.error(e.getMessage());
 			throw e;
 		}finally{
 			close(null,stmt,rs);
@@ -162,7 +165,7 @@ public class DB extends JdbcDao {
 	public List<Object[]> queryList(String sql,Object... obj) throws Exception{
 		List<Object[]> list = new ArrayList<Object[]>();
 
-		O.info(" queryList ");
+		log.info(" queryList ");
 		try{
 			stmt = getCon().prepareStatement(sql);
 			if(obj!=null&&obj.length>0) {
@@ -179,7 +182,7 @@ public class DB extends JdbcDao {
 				list.add(objs);
 			}
 		}catch(Exception e){
-			O.error(e.getMessage());
+			log.error(e.getMessage());
 			throw e;
 		}finally{
 			close(null,stmt,rs);
@@ -189,7 +192,7 @@ public class DB extends JdbcDao {
 	}
 
 	public ResultSet query(String sql,Object... obj) throws Exception{
-		O.info(" query ");
+		log.info(" query ");
 
 		try{
 			stmt = getCon().prepareStatement(sql);
@@ -198,13 +201,13 @@ public class DB extends JdbcDao {
 			}
 			return stmt.executeQuery();
 		}catch(Exception e) {
-			O.error(e.getMessage());
+			log.error(e.getMessage());
 			throw e;
 		}
 	}
 
 	public List<Map<String,Object>> queryMap(String sql,Object... obj) throws Exception{
-		O.info(" queryMap ");
+		log.info(" queryMap ");
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
 
 		try{
@@ -226,7 +229,7 @@ public class DB extends JdbcDao {
 			}
 
 		}catch(Exception e){
-			O.error(e.getMessage());
+			log.error(e.getMessage());
 			throw e;
 		}finally{
 			close(null,stmt,rs);
@@ -251,7 +254,7 @@ public class DB extends JdbcDao {
 			fun.executeFun();
 
 		}catch(Exception e){
-			O.info(e.getMessage());
+			log.info(e.getMessage());
 			throw e;
 		}finally{
 			close(null,stmt,rs);
@@ -275,7 +278,7 @@ public class DB extends JdbcDao {
 				stmt.executeBatch();
 				
 			}catch(Exception e){
-				O.error(e.getMessage());
+				log.error(e.getMessage());
 				throw e;
 			}finally{
 				if(stmt!=null){stmt.close();}
@@ -292,7 +295,7 @@ public class DB extends JdbcDao {
 			}
 			stmt.executeUpdate();
 		}catch(Exception e){
-			O.error(e.getMessage());
+			log.error(e.getMessage());
 			throw e;
 		}finally{
 			close(null,stmt,null);
@@ -312,7 +315,7 @@ public class DB extends JdbcDao {
 			}
 
 		}catch(Exception e){
-			O.error(e.getMessage());
+			log.error(e.getMessage());
 			throw e;
 		}finally{
 			close(null,stmt,rs);
@@ -335,12 +338,12 @@ public class DB extends JdbcDao {
 					stmtp.registerOutParameter(i+1, OracleTypes.JAVA_OBJECT);
 				}
 			}
-			O.info(" executeP ");
+			log.info(" executeP ");
 			stmtp.execute();
-			O.info(" executeP ");
+			log.info(" executeP ");
 
 		}catch(Exception e){
-			O.error(e.getMessage());
+			log.error(e.getMessage());
 			throw e;
 		}finally{
 			close(null,null,null);

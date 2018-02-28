@@ -2,7 +2,6 @@ package cn.lmz.mike.lmz.sys.node;
 
 import cn.lmz.mike.common.MC;
 import cn.lmz.mike.common.invoke.InvokeU;
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.lmz.sys.context.Context;
 import cn.lmz.mike.lmz.sys.exception.RunCodeException;
 import cn.lmz.mike.lmz.sys.expression.NodeExpression;
@@ -12,12 +11,16 @@ import cn.lmz.mike.lmz.sys.lexer.Row;
 import cn.lmz.mike.lmz.sys.util.TypeUtil;
 import cn.lmz.mike.lmz.sys.util.param.ParamBean;
 import cn.lmz.mike.lmz.sys.util.param.ParamUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
 
 public class MethodNode extends ANode {
-	
+
+	private static final Logger log = LoggerFactory.getLogger(MethodNode.class);
+
 	private Code key;
 	private String methodName;
 	private ParamNode paramNode;
@@ -39,8 +42,12 @@ public class MethodNode extends ANode {
 			if(b==null){
 				throw new RunCodeException(this, methodName+"("+paramNode+")"+paramNode.getParamr().toString());
 			}
-			if(b.getParams()!=null&&b.getParams().size()>0){
+			if(b.getArgs()!=null&&b.getArgs().size()>0){
 				Object obj = paramNode.execute(ctx);
+				if(obj!=null&&obj instanceof Object[]) {
+					b.setParams((Object[]) obj);
+				}
+				/*
 				Map<String,Object> params = (Map<String,Object>) b.getParams();
 				if(obj!=null&&obj instanceof Object[]){
 					Object[] paramsv = (Object[])obj;
@@ -52,6 +59,7 @@ public class MethodNode extends ANode {
 						params.put((String)keys[k], paramsv[k]);
 					}
 				}
+				*/
 				
 			}
 			
@@ -107,14 +115,14 @@ public class MethodNode extends ANode {
 		try{
 			bean = key.getV(ctx);
 			//O.pn("EXE:"+key.getVal()+"."+mm+"("+p+"): bean="+bean);
-			O.debug(ctx.getRunCode()+key+"."+mm+"("+p+")");
+			log.debug(ctx.getRunCode()+key+"."+mm+"("+p+")");
 			if(bean==null){
 				throw new RunCodeException(key.getVal()+"."+mm+"("+p+")", " class is null "+p.getParamr().toString());
 			}
 			param = (Object[])p.runNode(ctx);
 			return InvokeU.invokeMethod(bean,mm,param);
 		}catch(Exception e){
-			O.error("executeMethod:"+bean+"."+mm+"("+ MC.toStr(param)+")==>"+e.getMessage());
+			log.error("executeMethod:"+bean+"."+mm+"("+ MC.toStr(param)+")==>"+e.getMessage());
 			throw new RunCodeException("cmdU "+key.getVal()+"."+mm+"("+p+")", p.getParamr().toString(),e);
 		}
 	}

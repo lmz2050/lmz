@@ -1,22 +1,8 @@
 package cn.lmz.mike.admin.business.action;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
-
 import cn.lmz.mike.admin.business.bean.Adm_dev_patch;
 import cn.lmz.mike.admin.system.util.SysU;
 import cn.lmz.mike.common.base.MapU;
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.common.page.Page;
 import cn.lmz.mike.common.page.PageUtil;
 import cn.lmz.mike.data.bean.DataBean;
@@ -25,14 +11,24 @@ import cn.lmz.mike.web.base.action.BaseAction;
 import cn.lmz.mike.web.base.bean.BaseBean;
 import cn.lmz.mike.web.base.bean.Lmzadmin;
 import cn.lmz.mike.web.base.util.WebSV;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 
 @Controller()
 @Scope("prototype")
 public class PatchAction extends BaseAction {
+
+	private static final Logger log = LoggerFactory.getLogger(PatchAction.class);
 
 	private static final long serialVersionUID = 1L;
 	protected Adm_dev_patch info = new Adm_dev_patch();
@@ -123,7 +119,7 @@ public class PatchAction extends BaseAction {
 			String fileFullName = UPLOADDIR+File.separator+adp.getUrl();
 			this.fileName="patch_"+adp.getId()+"_"+adp.getVname()+"_"+adp.getCby();
 			
-			O.pn(oem_type+"download patch:"+fileFullName+"==>"+fileName);
+			log.info(oem_type+"download patch:"+fileFullName+"==>"+fileName);
 			InputStream is = new FileInputStream(fileFullName);
 			
 			return is;
@@ -162,7 +158,7 @@ public class PatchAction extends BaseAction {
 			String fileFullName = UPLOADDIR+File.separator+adp.getUrl();
 			String downname="patch_"+adp.getId()+"_"+adp.getVname()+"_"+adp.getCby();
 			
-			O.pn(oem_type+"download patch:"+fileFullName+"==>"+downname);
+			log.info(oem_type+"download patch:"+fileFullName+"==>"+downname);
 			InputStream is = new FileInputStream(fileFullName);
 	        
 	        //下载到哪里？客户端

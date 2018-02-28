@@ -1,0 +1,22 @@
+
+//import java.* , cn.lmz.*
+@java.lang,java.util,cn.lmz
+//import env properties
+@F:"${ROOT}etc/db.properties",F:"${ROOT}etc/ftp.properties",F:"${ROOT}etc/mail.properties"
+//function
+@F:"${ROOT}init/fun.lmz"
+
+
+//log
+var O=new O();
+O.setLev("DEBUG","N");
+
+//some custom parameters...
+var DU=new DateU();
+var DATE=DU.getDateString();
+var DATE1=DU.dateToStr(DU.getCurDate(),"yyyy/MM/dd");
+var MONTH=DU.dateToStr(DU.getCurDate(),"yyyyMM");
+var MONTH1=DU.dateToStr(DU.getCurDate(),"yyyy/MM");
+var PMONTH=DU.dateToStr(DU.getPMonth(),"yyyyMM");
+var PMONTH1=DU.dateToStr(DU.getPMonth(),"yyyy/MM");
+var TIME=DU.getTimeString();

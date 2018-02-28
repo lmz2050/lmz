@@ -14,6 +14,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -24,6 +26,7 @@ import java.util.Map;
 
 public class HttpC {
 
+    private static final Logger log = LoggerFactory.getLogger(HttpC.class);
 
     public static void get(String url, Map<String, String> params){
         CloseableHttpClient httpClient = null;
@@ -119,7 +122,7 @@ public class HttpC {
         OutputStream outputStream = null;
         BufferedReader reader = null;
         try {
-            O.info(" ("+time+")-> url:"+urlStr);
+            log.info(" ({})-> url:{}",time,urlStr);
             URL url = new URL(urlStr);
             conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(null == connectTimeout ? 60000 : connectTimeout);
@@ -144,9 +147,9 @@ public class HttpC {
             }
             inputStream.close();
             reader.close();
-            O.info("请求结束("+time+")-> url:"+urlStr+" 内容长度："+ result.length() +" 耗时："+(System.currentTimeMillis() - time));
+            log.info("请求结束({})-> url:{} 内容长度：{} 耗时：",time,urlStr,result.length(),(System.currentTimeMillis() - time));
         } catch (Throwable e) {
-            O.error(" url: "+urlStr+" 请求异常! 参数-> "+data, e);
+            log.error(" url: "+urlStr+" 请求异常! 参数->"+data, e);
             throw new Exception(e);
         } finally {
             if(null != conn) {

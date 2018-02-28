@@ -24,7 +24,7 @@ public class PropU {
 			Properties pro = new Properties();
 			in = new BufferedInputStream (new FileInputStream(pfile));
 			pro.load(in);
-			boolean isde = encrypt(pro,map);			
+			boolean isde = getProValue(pro,map);
 			if(isde){
 				FileOutputStream oi = new FileOutputStream(pfile);
 				pro.store(oi, "updated by DE");
@@ -67,7 +67,7 @@ public class PropU {
 		return strs;
 	}
 	
-	public static boolean encrypt(Properties pro,Map<String,String> map){
+	public static boolean getProValue(Properties pro,Map<String,String> map){
 		boolean de=false;
 		if(pro!=null){
 			Iterator it = pro.keySet().iterator();
@@ -75,19 +75,56 @@ public class PropU {
 				String key= (String)it.next();
 				
 				String val = pro.getProperty(key);
-				
-				if(val!=null&&val.startsWith("{E}")){
-					val = val.substring(3);
-					val = SecurityU.en(val);
-					pro.put(key, "{D}"+val);
-					de=true;
+
+				if(val!=null&&val.startsWith("{")){
+					if(val.startsWith("{E}")){
+						val = val.substring(3);
+						String val_pro = SecurityU.en(val);
+						pro.put(key, "{D}"+val_pro);
+						de = true;
+					}else if(val.startsWith("{D}")){
+						val = val.substring(3);
+						val = SecurityU.de(val);
+					}
+
 				}
 				map.put(key, val);
 			}
 		}
 		return de;
 	}
-	
+
+	public static boolean encrypt(String file){
+		boolean de=false;
+		try{
+			Properties pro = new Properties();
+			InputStream in = new BufferedInputStream (new FileInputStream(file));
+			pro.load(in);
+			if(pro!=null){
+				Iterator it = pro.keySet().iterator();
+				while(it.hasNext()){
+					String key= (String)it.next();
+
+					String val = pro.getProperty(key);
+
+					if(val!=null&&val.startsWith("{E}")){
+						val = val.substring(3);
+						val = SecurityU.en(val);
+						pro.put(key, "{D}"+val);
+						de=true;
+					}
+				}
+				FileOutputStream oi = new FileOutputStream(file);
+				pro.store(oi, "updated by DE");
+				oi.close();
+			}
+			in.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return de;
+	}
+
 	public static boolean decrypt(String file){
 		boolean de=false;
 		try{

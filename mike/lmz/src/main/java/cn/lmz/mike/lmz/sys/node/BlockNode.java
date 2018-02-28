@@ -1,20 +1,19 @@
 package cn.lmz.mike.lmz.sys.node;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.lmz.sys.context.Const;
 import cn.lmz.mike.lmz.sys.context.Context;
 import cn.lmz.mike.lmz.sys.expression.NodeExpression;
 import cn.lmz.mike.lmz.sys.lexer.Block;
 import cn.lmz.mike.lmz.sys.lexer.Row;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlockNode extends ANode {
 	
-	private static Log log =LogFactory.getLog(BlockNode.class);
+	private static Logger log = LoggerFactory.getLogger(BlockNode.class);
 	
 	private List<ANode> nlist = new ArrayList<ANode>();
 
@@ -32,7 +31,7 @@ public class BlockNode extends ANode {
 			
 			try{
 				if(ctx.getStack().size()==0){
-					O.info("[R]"+node.getCodeStr());
+					log.info("[R]{}",node.getCodeStr());
 				}
 				//O.pn(ctx.getRunPath()+"R:"+node.getRowStr());
 				//O.dn("B:"+node.toString(this.ctx));
@@ -49,8 +48,8 @@ public class BlockNode extends ANode {
 				
 				
 			}catch(Exception e){
-				O.error("EXE:"+ctx.getRunCode()+node.getCodeStr());
-				O.error("EXE:"+ctx.getRunCode()+node.toString(this.ctx));
+				log.error("EXE:"+ctx.getRunCode()+node.getCodeStr());
+				log.error("EXE:"+ctx.getRunCode()+node.toString(this.ctx));
 				log.error(" Object execute(Context ctx) ",e);
 				throw e;
 			}
@@ -64,18 +63,18 @@ public class BlockNode extends ANode {
 		for(int i=0;i<b.getList().size();i++){
 			Row r = (Row)b.getList().get(i);
 			try{
-				O.debug("EXP:"+r.getCodeStr());
+				log.debug("EXP:"+r.getCodeStr());
 				ANode an = NodeExpression.interpret(this.ctx, r);
 				an.setCodeStr(r.getCodeStr());
 				
-				O.debug("NODE:"+an.toString(this.ctx));
+				log.debug("NODE:"+an.toString(this.ctx));
 				
 				if(!(an instanceof FunctionNode)){
 					nlist.add(an);
 				}
 			}catch(Exception e){
-				O.error("EXP:"+ctx.getCodeStr()+">>"+e.getMessage());
-				O.error("EXP:"+ctx.getExpCode());
+				log.error("EXP:"+ctx.getCodeStr()+">>"+e.getMessage());
+				log.error("EXP:"+ctx.getExpCode());
 				log.error(" Object interpret(Context ctx) ",e);
 				throw e;
 			}

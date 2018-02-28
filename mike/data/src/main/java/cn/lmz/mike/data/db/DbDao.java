@@ -1,8 +1,5 @@
 package cn.lmz.mike.data.db;
 
-import java.util.List;
-import java.util.Map;
-
 import cn.lmz.mike.common.exception.LMZException;
 import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.common.page.Page;
@@ -11,19 +8,25 @@ import cn.lmz.mike.data.Dao;
 import cn.lmz.mike.data.bean.DataBean;
 import cn.lmz.mike.data.db.sql.*;
 import cn.lmz.mike.data.support.LDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcOperations;
-
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class DbDao extends Dao implements LDao {
-	
+
+	private static final Logger log = LoggerFactory.getLogger(DbDao.class);
+
 	protected JdbcOperations jdbcTemplate;
 	protected LQuery lq = null;
 
 	public DataBean create(DataBean b) throws LMZException {
 		try{
-			O.info("create: ");
+			log.info("create: ");
 			lq = new Insert(b.getClz(),b);
 			jdbcTemplate.update(lq.getSql(),lq.getParam());		
 			return b;
@@ -56,13 +59,13 @@ public class DbDao extends Dao implements LDao {
 	}
 	public void execute(String sql,Object...objs) throws LMZException {
 		try{
-			O.info(sql);
+			log.info(sql);
 			if(objs==null){
 				Object o =jdbcTemplate.update(sql);
-				O.info(o);
+				log.info(o+"");
 			}else{
 				Object o =jdbcTemplate.update(sql, objs);
-				O.info(o);
+				log.info(o+"");
 			}
 		}catch(Exception e){
 			throw new LMZException(this.getClass().getName(),"execute(String sql)",e,sql);
@@ -98,7 +101,7 @@ public class DbDao extends Dao implements LDao {
 	@SuppressWarnings("unchecked")
 	public PageUtil searchMap(String sql,Page page,Object...objs) throws LMZException {
 		PageUtil re = new PageUtil();
-		O.info(sql);
+		log.info(sql);
 		try{
 			if(page!=null){
 				int count = jdbcTemplate.queryForObject(String.format(COUNT_SQL, sql),objs,Integer.class);

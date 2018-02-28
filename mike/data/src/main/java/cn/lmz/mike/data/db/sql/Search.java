@@ -1,7 +1,7 @@
 package cn.lmz.mike.data.db.sql;
 
+import cn.lmz.mike.common.MC;
 import cn.lmz.mike.common.page.Page;
-import cn.lmz.mike.common.str.StrU;
 import cn.lmz.mike.data.Data;
 import cn.lmz.mike.data.util.LanU;
 
@@ -27,7 +27,7 @@ public class Search extends LQuery {
 	public void init(Class<?> c,Map<String,Object> param,Page page,String ord) throws Exception{
 		String order = "";
 		String limit = "";
-		if(!StrU.isBlank(ord)){
+		if(!MC.string.isBlank(ord)){
 			order = " ORDER BY "+ord;
 		}
 		if(page!=null){
@@ -35,7 +35,7 @@ public class Search extends LQuery {
 			limit = " LIMIT "+page.getStartNum()+" , "+page.getIntPageSize();
 		}
 		
-		if(StrU.isBlank(s)){
+		if(MC.string.isBlank(s)){
 			s = Data.selectMap.get(c);
 			if(s.contains(":lan")){
 				String lann= LanU.getLan();

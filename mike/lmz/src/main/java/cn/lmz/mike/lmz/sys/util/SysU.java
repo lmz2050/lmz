@@ -16,14 +16,14 @@ public class SysU {
     }
 
     public static void showPkgs(){
-        Map<String,String> pkgMap = (Map<String,String>)ctx.getCfg().get(Const.PKG_MAP);
-        for(Map.Entry<String,String> en:pkgMap.entrySet()){
-            System.out.println(en.getKey()+"=="+en.getValue());
+        Map<String,Class<?>> pkgMap = (Map<String,Class<?>>)ctx.getCfg().get(Const.PKG_MAP);
+        for(Map.Entry<String,Class<?>> en:pkgMap.entrySet()){
+            System.err.println(en.getKey()+"=="+getClsStr(en.getValue()));
         }
     }
     public static void showPkg(String name){
-        Map<String,String> pkgMap = (Map<String,String>)ctx.getCfg().get(Const.PKG_MAP);
-        System.out.println(name+"=="+pkgMap.get(name));
+        Map<String,Class<?>> pkgMap = (Map<String,Class<?>>)ctx.getCfg().get(Const.PKG_MAP);
+        System.out.println(name+"=="+getClsStr(pkgMap.get(name)));
     }
 
     public static void showCfg(){
@@ -35,6 +35,10 @@ public class SysU {
     }
 
 
+    public static String getClsStr(Class<?> c){
+        if(c==null) return null;
+        return c.getName();
+    }
 
 
 }

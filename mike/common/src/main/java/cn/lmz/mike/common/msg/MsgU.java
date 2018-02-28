@@ -1,5 +1,9 @@
 package cn.lmz.mike.common.msg;
 
+import cn.lmz.mike.common.sec.SecurityU;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -8,10 +12,9 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import cn.lmz.mike.common.log.O;
-import cn.lmz.mike.common.sec.SecurityU;
-
 public class MsgU {
+
+	private static final Logger log = LoggerFactory.getLogger(MsgU.class);
 
 	public static final SimpleDateFormat hmsFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	public static String host = null;
@@ -50,9 +53,9 @@ public class MsgU {
 				result += line;
 			}
 			br.close();
-			O.info("发送短信消息结果：" + result+"-"+mobile);
+			log.info("send msg success：" + result+"-"+mobile);
 		} catch (Exception e) {
-			O.error("发送短信失败！"+content,e);
+			log.error("send msg error！"+content,e);
 			throw e;
 		} finally {
 			if (conn != null)

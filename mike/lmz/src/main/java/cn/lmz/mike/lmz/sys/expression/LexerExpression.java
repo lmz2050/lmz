@@ -1,11 +1,15 @@
 package cn.lmz.mike.lmz.sys.expression;
 
+import cn.lmz.mike.common.io.FileU;
 import cn.lmz.mike.common.log.O;
+import cn.lmz.mike.lmz.sys.L;
 import cn.lmz.mike.lmz.sys.context.Cfg;
 import cn.lmz.mike.lmz.sys.context.Const;
 import cn.lmz.mike.lmz.sys.context.Context;
 import cn.lmz.mike.lmz.sys.lexer.Code;
 import cn.lmz.mike.lmz.sys.util.TypeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +18,14 @@ import java.util.List;
 
 public class LexerExpression implements IExpression {
 
+	private static final Logger log = LoggerFactory.getLogger(LexerExpression.class);
+
 	private StringBuffer buffer = new StringBuffer(); // 缓冲区
 	private int i = 0;
-	private char ch; // 字符变量，存放最新读进的源程序字符
+	//private char ch; // 字符变量，存放最新读进的源程序字符
 	private String strToken; // 字符数组，存放构成单词符号的字符串
-
 	private TypeUtil tu = new TypeUtil();
+	private Character ch;
 	
 	public Character getCharI(int i){
 		if(i<buffer.length()){
@@ -37,6 +43,7 @@ public class LexerExpression implements IExpression {
 		FileU.readFile(buffer, fileSrc);
 		
 		strToken = ""; // 置strToken为空串
+
 		boolean is_In_Quote = false; //是否在引号之中
 		boolean is_In_Char = false;
 		boolean is_In_Def = false;
@@ -46,7 +53,7 @@ public class LexerExpression implements IExpression {
 		
 		while (i < buffer.length()) {
 			getChar();
-			
+
 			if(!is_In_Char&&!is_In_Def&&'"'==ch){
 				if(!is_In_Quote){
 					is_In_Quote = true;
@@ -92,13 +99,12 @@ public class LexerExpression implements IExpression {
 					i++;
 					
 					slist.add(strToken);
-					Code codeChr = new Code(TypeUtil.TYPE_VAR,ctx.put(slist), LC.string.toStr(slist));
+					Code codeChr = new Code(TypeUtil.TYPE_VAR,ctx.put(slist), L.string.toStr(slist));
 					preCode = new Code(TypeUtil.TYPE_OPER,">>",">>");
 					clist.add(codeChr);
 					clist.add(preCode);
 					
 					strToken="";
-					
 					continue;
 				}
 				
@@ -122,8 +128,10 @@ public class LexerExpression implements IExpression {
 			}
 			
 			getBC();
+			if(ch==null) continue;
+
 			if (tu.isLetter(ch)) { // 如果ch为字母
-				while (tu.isLetter(ch) || tu.isDigit(ch)) {
+				while (ch!=null&&(tu.isLetter(ch) || tu.isDigit(ch))) {
 					concat();
 					getChar();
 				}
@@ -137,11 +145,11 @@ public class LexerExpression implements IExpression {
 				}
 				strToken = "";
 			} else if (tu.isDigit(ch)) { 
-				while (tu.isDigit(ch)) {//ch为数字
+				while (ch!=null&&tu.isDigit(ch)) {//ch为数字
 					concat();
 					getChar();
 				}
-				if(!tu.isLetter(ch)){//不能数字+字母
+				if(ch==null||!tu.isLetter(ch)){//不能数字+字母
 					retract(' '); // 回调
 					preCode = new Code(TypeUtil.TYPE_DIGIT,strToken,strToken);
 					clist.add(preCode); // 是整形
@@ -154,7 +162,7 @@ public class LexerExpression implements IExpression {
 				if(ch == '/'){
 					getChar();
 					if(ch == '*') {//为/*注释
-						while(true){
+						while(ch!=null&&true){
 							getChar();
 							if(ch == '*'){// 为多行注释结束
 								getChar();
@@ -166,7 +174,7 @@ public class LexerExpression implements IExpression {
 						}
 					}
 					if(ch == '/'){//为//单行注释
-						while(ch != 10&&ch!=13&&ch!=9){
+						while(ch!=null&&ch != 10&&ch!=13&&ch!=9){
 							//System.out.println(ch+"   "+(int)ch);
 							getChar();
 						}
@@ -215,7 +223,7 @@ public class LexerExpression implements IExpression {
 	 * 将下一个输入字符读到ch中，搜索指示器前移一个字符
 	 */
 	public void getChar() {
-		ch = buffer.charAt(i);
+		ch = getCharI(i);
 		i++;
 		//System.out.println(ch+"---"+(int)ch);
 	}
@@ -224,7 +232,7 @@ public class LexerExpression implements IExpression {
 		//isSpaceChar(char ch) 确定指定字符是否为 Unicode 空白字符。
 		//上述方法不能识别换行符
 		//while (Character.isWhitespace(ch)){//确定指定字符依据 Java 标准是否为空白字符。
-		while (Character.isSpaceChar(ch)){
+		while (ch!=null&&Character.isSpaceChar(ch)){
 			//System.out.println(ch+"A---"+(int)ch);
 			getChar();
 		}
@@ -242,7 +250,7 @@ public class LexerExpression implements IExpression {
 	
 	public static void main(String[] args){
 		try {
-			String srcFile = LC.string.getRoot()+"input.txt";
+			String srcFile = L.string.getRoot()+"input.txt";
 			Context ctx = new Context();
 			Cfg cfg = new Cfg();
 			ctx.setCfg(cfg);

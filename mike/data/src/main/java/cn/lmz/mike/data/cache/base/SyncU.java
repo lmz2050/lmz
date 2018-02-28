@@ -1,18 +1,21 @@
 package cn.lmz.mike.data.cache.base;
 
 import cn.lmz.mike.common.exception.LMZException;
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.data.bean.DataBean;
 import cn.lmz.mike.data.cache.CacheDao;
 import cn.lmz.mike.data.cache.ISyncBean;
 import cn.lmz.mike.data.cache.SyncBean;
 import cn.lmz.mike.data.util.define.DataSV;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class SyncU {
+
+	private static final Logger log = LoggerFactory.getLogger(SyncU.class);
 
 	public static void addCync(DataBean b, Integer op) throws Exception {
 		try{
@@ -36,7 +39,7 @@ public class SyncU {
 	}
 	
 	public static void show(DataBean b,Integer op){
-		O.info("add to sync - [name:"+b.getClass().getName()+",id:"+b.getId()+",op:"+op);
+		log.info("add to sync - [name:"+b.getClass().getName()+",id:"+b.getId()+",op:"+op);
 	}
 	
 	@SuppressWarnings("unchecked")

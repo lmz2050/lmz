@@ -1,10 +1,5 @@
 package cn.lmz.mike.admin.system.service.impl;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import cn.lmz.mike.admin.system.bean.Lmzmenu;
 import cn.lmz.mike.admin.system.bean.Lmzrolemenu;
 import cn.lmz.mike.admin.system.bean.Lmzroleuser;
@@ -12,17 +7,24 @@ import cn.lmz.mike.admin.system.service.ISystemService;
 import cn.lmz.mike.admin.system.util.ltree.LTreeU;
 import cn.lmz.mike.common.base.StrU;
 import cn.lmz.mike.common.exception.LMZException;
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.common.page.PageUtil;
 import cn.lmz.mike.data.util.LmzU;
 import cn.lmz.mike.web.base.service.impl.WService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 @Service
 public class SystemService extends WService implements ISystemService {
-	
-	
+
+	private static final Logger log = LoggerFactory.getLogger(SystemService.class);
+
 	private Set<String> findMenuAndParentId(Lmzmenu m) throws LMZException {
 		Set<String> mpidSet = new HashSet<String>();
 		if(m!=null){
@@ -85,7 +87,7 @@ public class SystemService extends WService implements ISystemService {
 		List<Map> tlist = LTreeU.convertTreeNodeList(pu.getList());
 		tlist =	LTreeU.buildTree(tlist, 0);
 		for(int i=0;i<tlist.size();i++){
-			O.info(tlist.get(i).get("text"));
+			log.info(tlist.get(i).get("text")+"");
 		}
 		return tlist;
 	}

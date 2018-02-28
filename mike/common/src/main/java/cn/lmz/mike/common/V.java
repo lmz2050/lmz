@@ -10,5 +10,7 @@ public class V {
 
 	public static final String Y="Y";
 	public static final String N="N";
+	public static final String APPHOME="APPHOME";
+	public static final String LOG_CFG="log4j.configurationFile";
 
 }

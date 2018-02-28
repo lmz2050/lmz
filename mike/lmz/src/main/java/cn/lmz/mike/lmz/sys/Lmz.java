@@ -1,26 +1,39 @@
 package cn.lmz.mike.lmz.sys;
 
 import cn.lmz.mike.common.MC;
+import cn.lmz.mike.common.V;
 import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.lmz.sys.exe.LExecute;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Lmz {
-	
+
+	private static Logger log = null;
+
 	public void execute(String[] args) throws Exception{
-		O.info("START-"+args.length);
+		//初始化log
+		String APPHOME = L.string.getRoot();
+		String log4jCfg = System.getProperty(V.LOG_CFG);
+		if(L.string.isBlank(log4jCfg)){
+			log4jCfg = APPHOME+"etc/log4j2.xml";
+			O.initLog(log4jCfg);
+			System.setProperty(V.LOG_CFG,log4jCfg);
+		}
+		log = LoggerFactory.getLogger(Lmz.class);
+
+		log.info("START-"+args.length);
+
 		Map<String,Object> val = new LinkedHashMap<String,Object>();
+		val.put(V.APPHOME,APPHOME);
+
 		if(args!=null&&args.length>0){
 			String param = args[0];
-			O.debug(param);
-			if(param!=null&&param.trim().length()>0){				
+			log.debug(param);
+			if(param!=null&&param.trim().length()>0){
 				String[] vs = param.split(",");
 				for(int i=0;i<vs.length;i++){
 					String vss = vs[i];
@@ -31,26 +44,30 @@ public class Lmz {
 				}
 			}
 		}
-		
+
 		String lp=(String)val.get("@LP@");//run cfg -d
-		String file = (String)val.get("@FILE@");
-		String rpwd = (String)val.get("@RPWD@");//run path
+		String file = (String)val.get("@LF@");
+		String rpwd = (String)val.get("@LD@");//run path
 		if(rpwd==null) rpwd = "";
+		if(lp==null) lp="";
 
 		boolean isBatch=false;
-		if(lp!=null&&lp.startsWith("-")){
+		if(lp.trim().startsWith("-")){
 			
 			if(lp.contains("d")||lp.contains("D")){
-				O.isDev = true;
-				O.dev("　DEV MODE　");
+				O.changeLogLev("trace");
 			}
 			
 			if(lp.contains("f")||lp.contains("F")){
-				O.dev("batch mode");
+				log.trace("batch mode");
 				isBatch = true;
 				val.put("$BATCH", true);
 			}
 			
+		}else{
+			if(!L.string.isBlank(lp)) {
+				file = lp;
+			}
 		}
 		
 		if(file!=null&&file.trim().length()>0){
@@ -64,13 +81,13 @@ public class Lmz {
 					}
 				}
 				
-				O.info("batch folder:"+file);
+				log.info("batch folder:{}",file);
 				File lfile = new File(file);
 				if(!lfile.exists()){
-					throw new Exception("file not exists! "+file);
+					throw new Exception("file not exists!"+file);
 				}
 				if(!lfile.isDirectory()){
-					throw new Exception("file is not Directory "+file);
+					throw new Exception("file is not Directory!"+file);
 				}
 				List<Lmzrpt> rptList = getRptList(file);
 				
@@ -89,10 +106,10 @@ public class Lmz {
 				new LExecute().execute(file, val);
 			}
 		}else{
-			O.error("error params:"+args==null?null:args[0]);
+			log.error("error params:{}",args==null?null:args[0]);
 		}
 
-		O.info("END-");
+		log.info("END-");
 	}
 	
 	
@@ -130,7 +147,7 @@ public class Lmz {
 	class Lmzrpt{
 		private Integer i;
 		private String name;
-		
+
 		public Integer getI() {
 			return i;
 		}
@@ -155,8 +172,9 @@ public class Lmz {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		args = new String[2];
-		args[0]="@FILE@:E:\\wkidea\\idea1\\lmz\\bin\\test\\ttt2.lmz,@SA@:1111222";
+		//args = new String[2];
+		//args[0]="@LP@:-f,@LF@:./,@LD@:E:/wkspace/wi2017i/id2/mike/lmz/target/lmz/scripts/test,@LA@:";
+		//args[0]="@LP@:,@LF@:./test.lmz,@LD@:E:/wkspace/wi2017i/id2/mike/lmz/target/lmz/scripts/test,@LA@:";
 		Lmz lmz = new Lmz();
 		lmz.execute(args);
 

@@ -19,6 +19,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.mozilla.intl.chardet.nsDetector;
 
 
 public class FileU {
@@ -167,7 +168,6 @@ public class FileU {
 		File directory = new File("");// 参数为空
 		return directory.getCanonicalPath();
 	}
-
 
 	public static void main(String[] args){
 

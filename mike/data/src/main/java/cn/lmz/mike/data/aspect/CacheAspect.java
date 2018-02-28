@@ -1,6 +1,5 @@
 package cn.lmz.mike.data.aspect;
 
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.data.bean.DataBean;
 import cn.lmz.mike.data.cache.base.SyncU;
 import cn.lmz.mike.data.util.define.DataSV;
@@ -35,7 +34,7 @@ public class CacheAspect {
 	
 
 	public void addSync(ProceedingJoinPoint jp,Integer op) throws Throwable{
-		 O.info("aspect...................."+op);
+		 System.out.println("aspect...................."+op);
 		 jp.proceed();
 		 if(jp.getArgs().length==1){
 			 DataBean b = (DataBean)jp.getArgs()[0];

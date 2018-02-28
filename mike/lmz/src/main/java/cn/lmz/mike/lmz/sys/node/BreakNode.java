@@ -1,11 +1,14 @@
 package cn.lmz.mike.lmz.sys.node;
 
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.lmz.sys.context.Const;
 import cn.lmz.mike.lmz.sys.context.Context;
 import cn.lmz.mike.lmz.sys.lexer.ICode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BreakNode extends ANode {
+
+	private static final Logger log = LoggerFactory.getLogger(BreakNode.class);
 
 	public BreakNode(Context ctx) {
 		super(ctx);
@@ -17,7 +20,7 @@ public class BreakNode extends ANode {
 		
 		ctx.getCfg().put(Const.V_BREAK,true);
 		
-		O.debug(ctx.getRunCode()+"break");
+		log.debug(ctx.getRunCode()+"break");
 		
 		return null;
 		

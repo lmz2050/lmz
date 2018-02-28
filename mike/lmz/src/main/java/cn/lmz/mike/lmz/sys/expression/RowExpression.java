@@ -165,6 +165,7 @@ public class RowExpression  implements IExpression {
 						is_In_For=0;
 					}
 				}else{
+					r.add(code);
 					is_In_For--;
 				}
 

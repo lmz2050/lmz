@@ -1,6 +1,6 @@
 package cn.lmz.mike.data.bean;
 
-import cn.lmz.mike.common.str.StrU;
+import cn.lmz.mike.common.MC;
 import cn.lmz.mike.data.BeanUtil;
 
 import java.io.Serializable;
@@ -102,7 +102,7 @@ public class DataBean<T> extends LinkedHashMap implements Serializable,Cloneable
 		while(it.hasNext()){
 			Object key = it.next();
 			Object val = this.get(key);
-			str+=key+":"+ StrU.getOStr(val)+",";
+			str+=key+":"+ MC.string.toStr(val)+",";
 		}
 		str+="}";
 		return str;

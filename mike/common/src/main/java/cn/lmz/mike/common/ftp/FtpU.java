@@ -1,5 +1,13 @@
 package cn.lmz.mike.common.ftp;
 
+import cn.lmz.mike.common.base.StrU;
+import cn.lmz.mike.common.log.O;
+import cn.lmz.mike.common.sec.SecurityU;
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPReply;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,12 +15,6 @@ import java.io.InputStream;
 import java.net.SocketException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import cn.lmz.mike.common.base.StrU;
-import cn.lmz.mike.common.log.O;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPReply;
-import cn.lmz.mike.common.sec.SecurityU;
 
 /**
  * =================================================================
@@ -26,10 +28,12 @@ import cn.lmz.mike.common.sec.SecurityU;
  */
 public class FtpU extends FTPClient{
 
+	private static final Logger log = LoggerFactory.getLogger(FtpU.class);
+
     public boolean openServer(String ip,String user,String pass,int port) throws Exception{           
     	boolean result = false;
     	try {
-        	O.info("openServer:"+ip+","+user+",******,"+port);
+        	log.info("openServer:"+ip+","+user+",******,"+port);
 			this.connect(ip, port);
 			this.login(user,pass);
 			this.setFileType(FTPClient.BINARY_FILE_TYPE);
@@ -40,12 +44,12 @@ public class FtpU extends FTPClient{
 	        }
 	        result = true; 
 	        this.enterLocalPassiveMode();
-	        O.info("connect:"+result);
+	        log.info("connect:"+result);
 		} catch (SocketException e) {
-			O.error(e.getMessage());
+			log.error(e.getMessage(),e);
 			throw e;
 		} catch (IOException e) {
-			O.error(e.getMessage());
+			log.error(e.getMessage());
 			throw e;
 		}
     	
@@ -66,7 +70,7 @@ public class FtpU extends FTPClient{
 		try{
 			return super.deleteFile(pathname);
 		}catch(IOException e){
-			O.error("deleteFile 异常："+e.getMessage());
+			log.error("deleteFile 异常："+e.getMessage(),e);
 			throw e;
 		}
     }
@@ -76,10 +80,10 @@ public class FtpU extends FTPClient{
 
     public boolean upload(String fileName, String newName) throws Exception{
     	boolean result = false;
-    	O.info("---upload---"+fileName+"-->"+newName);
+    	log.info("---upload---"+fileName+"-->"+newName);
     	InputStream is = null;
         try{     
-            File file_in = new File(fileName);//打开本地待长传的文件      
+            File file_in = new File(fileName);//打开本地待长传的文件
             if(!file_in.exists()){      
                 throw new Exception("此文件或文件夹[" + file_in.getName() + "]有误或不存在!");      
             }
@@ -95,10 +99,10 @@ public class FtpU extends FTPClient{
                         
             result = storeFile(newName, is);
 
-            O.info("upload completed!"+result);
+            log.info("upload completed!"+result);
             return true;
         }catch(Exception e){       
-            O.error(e.getMessage());      
+            log.error(e.getMessage());      
             throw e; 
         }finally{      
             try{      
@@ -125,7 +129,7 @@ public class FtpU extends FTPClient{
      * @throws Exception
      */
     public boolean upload(String path,String fileName,InputStream file) throws IOException{
-    	O.info("---开始ftp文件上传---"+path+","+fileName);
+    	log.info("---开始ftp文件上传---"+path+","+fileName);
     	boolean result=false;
     	try {
     		
@@ -146,16 +150,16 @@ public class FtpU extends FTPClient{
 			
     		result = storeFile(fileName, file);
 		} catch (IOException e) {
-			O.info("---IOException---upload---ftp上传失败---"+path+","+fileName+":"+e.getMessage());
+			log.info("---IOException---upload---ftp上传失败---"+path+","+fileName+":"+e.getMessage());
 			throw e;
 		}
-    	O.info(result+"");
+    	log.info(result+"");
     	return result;
        
     }
     
     public boolean CreateDirecroty(String remote) throws IOException {
-    	O.debug("远程文件夹地址：" + remote);
+    	log.debug("远程文件夹地址：" + remote);
         boolean success = true;
         String directory = remote.substring(0, remote.lastIndexOf("/") + 1);
         // 如果远程目录不存在，则递归创建远程服务器目录
@@ -176,7 +180,7 @@ public class FtpU extends FTPClient{
                     if (makeDirectory(subDirectory)) {
                         changeWorkingDirectory(subDirectory);
                     } else {
-                    	O.error("---- ftp创建目录失败 -----");
+                    	log.error("---- ftp创建目录失败 -----");
                         success = false;
                         return success;
                     }
@@ -207,7 +211,7 @@ public class FtpU extends FTPClient{
     	String newname = "/asd/1234.jpg";
 		try {
 
-			O.setLev("O");
+			O.changeLogLev("trace");
 			String host="10.45.1.17";
 			String username="ftp31";
 			String password="admin@c2sbo3";

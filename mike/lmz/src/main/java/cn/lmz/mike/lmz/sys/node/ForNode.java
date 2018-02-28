@@ -1,6 +1,5 @@
 package cn.lmz.mike.lmz.sys.node;
 
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.lmz.sys.context.Const;
 import cn.lmz.mike.lmz.sys.context.Context;
 import cn.lmz.mike.lmz.sys.exception.ErrCodeException;
@@ -14,11 +13,15 @@ import cn.lmz.mike.lmz.sys.util.TypeUtil;
 import cn.lmz.mike.lmz.sys.util.param.IParamLexer;
 import cn.lmz.mike.lmz.sys.util.param.ParamBean;
 import cn.lmz.mike.lmz.sys.util.param.ParamUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class ForNode extends ANode implements IParamLexer {
-	
+
+	private static final Logger log = LoggerFactory.getLogger(ForNode.class);
+
 	private ANode initNode;
 	private ANode blNode;
 	private ANode afterNode;
@@ -101,13 +104,13 @@ public class ForNode extends ANode implements IParamLexer {
 			
 			isBreak = (Boolean)ctx.getCfg().get(Const.V_BREAK);
 			if(isBreak!=null&&isBreak){
-				O.debug(ctx.getRunCode()+"break");
+				log.debug(ctx.getRunCode()+"break");
 				break;
 			}
 
 			Object vreturn = (Boolean)ctx.getCfg().get(Const.V_RETURN);
 			if(vreturn!=null){
-				O.debug(ctx.getRunCode()+"return");
+				log.debug(ctx.getRunCode()+"return");
 				break;
 			}
 			

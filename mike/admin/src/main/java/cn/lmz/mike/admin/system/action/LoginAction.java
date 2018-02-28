@@ -1,14 +1,9 @@
 package cn.lmz.mike.admin.system.action;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import cn.lmz.mike.common.V;
 import cn.lmz.mike.common.base.DateU;
 import cn.lmz.mike.common.base.StrU;
 import cn.lmz.mike.common.exception.LMZException;
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.common.sec.MD5U;
 import cn.lmz.mike.web.base.bean.BaseBean;
 import cn.lmz.mike.web.base.bean.Lmzadmin;
@@ -17,12 +12,19 @@ import cn.lmz.mike.web.base.util.CookieUtil;
 import cn.lmz.mike.web.base.util.LoginMsg;
 import cn.lmz.mike.web.base.util.WebSV;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @Controller()
 @Scope("prototype")
 public class LoginAction extends SysAction{
+
+	private static final Logger log = LoggerFactory.getLogger(LoginAction.class);
 
 	private static final long serialVersionUID = 1L;	
 	private String new_pass;
@@ -111,11 +113,11 @@ public class LoginAction extends SysAction{
 			}else{
 				info.setLastip(ServletActionContext.getRequest().getRemoteAddr());
 				info.setLastlogin(DateU.getTimeString());
-				O.info(info.getUsername()+":"+info.getUsername());
+				log.info(info.getUsername()+":"+info.getUsername());
 				info.setUserpwd(MD5U.calc(info.getUserpwd()));
 				info.setType(0);
 				info= loginService.create(info);
-				O.info("reg:user:"+info.getId()+"-"+info.getUsername()+",ip:"+info.getLastip());
+				log.info("reg:user:"+info.getId()+"-"+info.getUsername()+",ip:"+info.getLastip());
 				setAdmin(info);
 				msg=WebSV.SUCCESS;
 				return WebSV.SUCCESS;

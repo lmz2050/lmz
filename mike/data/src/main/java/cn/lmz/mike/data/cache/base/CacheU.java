@@ -1,7 +1,5 @@
 package cn.lmz.mike.data.cache.base;
 
-import java.util.List;
-
 import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.data.annotation.Ehcache;
 import cn.lmz.mike.data.bean.DataBean;
@@ -11,9 +9,15 @@ import cn.lmz.mike.data.util.define.DataSV;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class CacheU{
-	
+
+	private static final Logger log = LoggerFactory.getLogger(CacheU.class);
+
 	private static CacheManager cacheManager=null;
 	private static String cacheLocation = null;
 	public static final String ID="id";
@@ -44,7 +48,7 @@ public class CacheU{
 	
 	
 	public static void clear(String name) throws Exception{
-		O.info("clear cache "+ name+"...");
+		log.info("clear cache "+ name+"...");
 		Cache cache = getCache(name);
 		cache.removeAll();
 	}
@@ -52,7 +56,7 @@ public class CacheU{
 		clear(c.getName());
 	}	
 	public static void clearAll() throws Exception{
-		O.info("clearALl..");
+		log.info("clearALl..");
 		String [] cnames = getCacheManager().getCacheNames();
 		for(int i=0;i<cnames.length;i++){
 			clear(cnames[i]);
@@ -60,12 +64,12 @@ public class CacheU{
 	}
 
 	public static void flush(String name) throws Exception{
-		O.info("flush cache "+ name+"...");
+		log.info("flush cache "+ name+"...");
 		Cache cache = getCache(name);
 		cache.flush();
 	}
 	public static void flush() throws Exception{
-		O.info("flushAll..");
+		log.info("flushAll..");
 		String [] cnames = getCacheManager().getCacheNames();
 		for(int i=0;i<cnames.length;i++){
 			flush(cnames[i]);
@@ -136,9 +140,9 @@ public class CacheU{
 	public static void showCache(String name) throws Exception{
 		Cache cache = getCache(name);
 		if(cache!=null){
-			O.info(cache.toString());
+			log.info(cache.toString());
 		}else{
-			O.info("null");
+			log.info("null");
 		}
 		
 	}

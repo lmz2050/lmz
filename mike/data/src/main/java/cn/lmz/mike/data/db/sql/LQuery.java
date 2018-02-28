@@ -1,11 +1,12 @@
 package cn.lmz.mike.data.db.sql;
 
-import cn.lmz.mike.common.log.O;
-import cn.lmz.mike.common.str.StrU;
+import cn.lmz.mike.common.MC;
 import cn.lmz.mike.data.bean.InParams;
 import cn.lmz.mike.data.bean.NotParams;
 import cn.lmz.mike.data.bean.OrParams;
 import cn.lmz.mike.data.util.LanU;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +14,9 @@ import java.util.Map;
 
 
 public abstract class LQuery {
-	
+
+	private static final Logger log = LoggerFactory.getLogger(LQuery.class);
+
 	protected String sql;
 	protected List<Object> vals = new LinkedList<Object>();
 
@@ -40,12 +43,12 @@ public abstract class LQuery {
 	}	
 	
 	public Object[] getParam() {
-		O.info(StrU.getString(vals.toArray()));
+		log.info(MC.string.toStr(vals.toArray()));
 		return vals.toArray();
 	}
 
 	public String getSql() {
-		O.info(sql);
+		log.info(sql);
 		return sql;
 	}
 

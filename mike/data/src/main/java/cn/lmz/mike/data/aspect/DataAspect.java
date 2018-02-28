@@ -1,6 +1,5 @@
 package cn.lmz.mike.data.aspect;
 
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.data.bean.DataBean;
 import cn.lmz.mike.data.support.IEntity;
 import cn.lmz.mike.data.util.define.DataSV;
@@ -33,7 +32,7 @@ public class DataAspect {
 	}
 	
 	public void doDL(ProceedingJoinPoint jp,Integer op,IEntity en) throws Throwable{
-		O.info("data aspect......");
+		System.out.println("data aspect......");
 		jp.proceed();
 		Object arg = jp.getArgs()[0];
 		 if(arg instanceof DataBean){

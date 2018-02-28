@@ -6,7 +6,7 @@ import cn.lmz.mike.lmz.sys.lexer.INode;
 public class ErrCodeException extends LException {
 	
 	private static final long serialVersionUID = 1L;
-	public static final String TYPE_SYNTAX="语法错误";
+	public static final String TYPE_SYNTAX="Syntax error";
 	
 	public static final String ERR_CODE_100="next code should be '(' ";
 	public static final String ERR_CODE_200="missing ')'";

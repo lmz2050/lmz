@@ -1,10 +1,11 @@
 package cn.lmz.mike.common.db.util;
 
-import cn.lmz.mike.common.log.O;
+import cn.lmz.mike.common.io.FileU;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import cn.lmz.mike.common.io.FileU;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,11 +17,10 @@ import java.util.Map;
 
 public class JdbcSqlUtil {
 
-	public static Map<String,String> sqlMap = new HashMap<String, String>();
+	private static final Logger log = LoggerFactory.getLogger(JdbcSqlUtil.class);
 
-	static  {
-		init("sql");
-	}
+	public static Map<String,String> sqlMap = new HashMap<String, String>();
+	private static boolean inited = false;
 
 	public static void init(String xmlPath){
 		File path = new File(FileU.getPath(xmlPath));
@@ -32,6 +32,10 @@ public class JdbcSqlUtil {
 	}
 
 	public static String getSql(String sqlkey){
+		if(!inited){
+			init("sql");
+			inited = true;
+		}
 		return sqlMap.get(sqlkey);
 	}
 
@@ -65,7 +69,7 @@ public class JdbcSqlUtil {
 				try {
 					fi.close();
 				} catch (IOException e) {
-					O.error(e.getMessage(),e);
+					log.error(e.getMessage(),e);
 				}
 			}
 		}

@@ -1,6 +1,5 @@
 package cn.lmz.mike.lmz.sys.node;
 
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.lmz.sys.context.Const;
 import cn.lmz.mike.lmz.sys.context.Context;
 import cn.lmz.mike.lmz.sys.exception.ErrCodeException;
@@ -13,9 +12,13 @@ import cn.lmz.mike.lmz.sys.lexer.Row;
 import cn.lmz.mike.lmz.sys.util.TypeUtil;
 import cn.lmz.mike.lmz.sys.util.param.ParamBean;
 import cn.lmz.mike.lmz.sys.util.param.ParamUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WhileNode extends ANode {
-	
+
+	private static final Logger log = LoggerFactory.getLogger(WhileNode.class);
+
 	private ANode blNode;
 	private BlockNode bkNode;
 
@@ -70,13 +73,13 @@ public class WhileNode extends ANode {
 			bkNode.runNode(bkNode.getCtx().init());
 			isBreak = (Boolean)ctx.getCfg().get(Const.V_BREAK);
 			if(isBreak!=null&&isBreak){
-				O.debug(ctx.getRunCode()+"break");
+				log.debug(ctx.getRunCode()+"break");
 				break;
 			}
 			
 			Object vreturn = (Boolean)ctx.getCfg().get(Const.V_RETURN);
 			if(vreturn!=null){
-				O.debug(ctx.getRunCode()+"return");
+				log.debug(ctx.getRunCode()+"return");
 				break;
 			}
 			

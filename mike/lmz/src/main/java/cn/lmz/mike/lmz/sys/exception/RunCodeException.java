@@ -6,7 +6,7 @@ import cn.lmz.mike.lmz.sys.lexer.INode;
 public class RunCodeException extends LException {
 
 	private static final long serialVersionUID = 1L;
-	public static final String ERR_RUN="运行异常";
+	public static final String ERR_RUN="Run Exception";
 	
 	public static final String ERR_RUN_100="not boolean val ";
 	

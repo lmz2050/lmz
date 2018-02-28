@@ -1,10 +1,11 @@
 package cn.lmz.mike.data;
 
-import cn.lmz.mike.common.log.O;
-import cn.lmz.mike.common.str.StrU;
+import cn.lmz.mike.common.base.StrU;
 import cn.lmz.mike.data.annotation.LField;
 import cn.lmz.mike.data.annotation.Lbean;
 import cn.lmz.mike.data.util.CUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
@@ -13,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Data {
+
+	private static final Logger log = LoggerFactory.getLogger(Data.class);
 
 	private static final Map<Class<?>,Map<String,PropertyDescriptor>> map = new HashMap<Class<?>,Map<String,PropertyDescriptor>>();	
 	private static final Map<Class<?>,Map<String,PropertyDescriptor>> mapAll = new HashMap<Class<?>,Map<String,PropertyDescriptor>>();
@@ -36,7 +39,7 @@ public class Data {
 	public static void reg(String pakg){
 		if(!regmap.containsKey(pakg)){
 			List<Class<?>> clist = CUtil.getClassesByAnnotation(pakg, Lbean.class);
-			O.pn("init class:");
+			log.info("init class:");
 			if(clist!=null&&clist.size()>0){
 				for(int i=0;i<clist.size();i++){
 					Class<?> c = clist.get(i);
@@ -45,7 +48,7 @@ public class Data {
 					if(lb!=null&&!StrU.isBlank(lb.sname())){
 						name=lb.sname();
 					}
-					O.pn(name+":"+c.getName());
+					log.info(name+":"+c.getName());
 					namemap.put(name, c);
 					initC(c);
 				}
@@ -114,7 +117,7 @@ public class Data {
 		
 	public static void initC(Class<?> c){
 		try {
-			O.pn("initC "+c.getSimpleName()+ " start ");
+			log.info("initC "+c.getSimpleName()+ " start ");
 			java.beans.BeanInfo info = java.beans.Introspector.getBeanInfo(c);
 			Field[] fs = c.getDeclaredFields();
 			Map<String,PropertyDescriptor> m = new HashMap<String,PropertyDescriptor>();
@@ -169,9 +172,9 @@ public class Data {
 			}
 			map.put(c, m);
 			mapAll.put(c, mall);
-			O.pn(select);
+			log.info(select);
 			selectMap.put(c, select);
-			O.pb("end p size =  "+m.size());
+			log.trace("end p size =  "+m.size());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	

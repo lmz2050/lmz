@@ -1,18 +1,21 @@
 package cn.lmz.mike.lmz.sys.node;
 
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.lmz.sys.context.Context;
 import cn.lmz.mike.lmz.sys.exception.RunCodeException;
 import cn.lmz.mike.lmz.sys.lexer.Code;
 import cn.lmz.mike.lmz.sys.lexer.Row;
 import cn.lmz.mike.lmz.sys.util.CastUtil;
 import cn.lmz.mike.lmz.sys.util.TypeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OperNode extends ANode {
+
+	private static final Logger log = LoggerFactory.getLogger(OperNode.class);
 
 	private Code left;
 	private Code right;
@@ -43,7 +46,7 @@ public class OperNode extends ANode {
 		if("!".equalsIgnoreCase(code.getVal())){
 			v = right.getV(ctx);
 			Boolean bl = !CastUtil.getBoolean(v);
-			O.debug(ctx.getRunCode()+code.getVal()+right.getVal()+"("+v+")==>"+bl);
+			log.debug(ctx.getRunCode()+code.getVal()+right.getVal()+"("+v+")==>"+bl);
 			return bl;
 		}else if("+A".equalsIgnoreCase(code.getVal())){
 			v = right.getV(ctx);
@@ -66,7 +69,7 @@ public class OperNode extends ANode {
 			o = o.add(BigDecimal.ONE);
 			ctx.put(c.getVal(),o,true);
 			
-			O.debug(ctx.getRunCode()+c.getVal()+"("+v+")"+code.getVal()+"==>"+o);
+			log.debug(ctx.getRunCode()+c.getVal()+"("+v+")"+code.getVal()+"==>"+o);
 			
 			return o;
 		}else if("--".equalsIgnoreCase(code.getVal())){
@@ -82,7 +85,7 @@ public class OperNode extends ANode {
 			o =  o.subtract(BigDecimal.ONE);
 			ctx.put(c.getVal(),o,true);
 			
-			O.debug(ctx.getRunCode()+c.getVal()+"("+v+")"+code.getVal()+"==>"+o);
+			log.debug(ctx.getRunCode()+c.getVal()+"("+v+")"+code.getVal()+"==>"+o);
 			
 			return o;
 		}else if("*".equalsIgnoreCase(code.getVal())){
@@ -117,7 +120,7 @@ public class OperNode extends ANode {
 			Comparable ol = CastUtil.getComparable(left.getV(ctx));
 			Comparable or = CastUtil.getComparable(right.getV(ctx));
 			Boolean bl = ol.compareTo(or)<0;
-			O.debug(ctx.getRunCode()+left.getVal()+code.getVal()+right.getVal()+"("+ol+code.getVal()+or+")==>"+bl);
+			log.debug(ctx.getRunCode()+left.getVal()+code.getVal()+right.getVal()+"("+ol+code.getVal()+or+")==>"+bl);
 			return bl;
 		}else if("<=".equalsIgnoreCase(code.getVal())){
 			Comparable ol = CastUtil.getComparable(left.getV(ctx));
@@ -136,7 +139,7 @@ public class OperNode extends ANode {
 			Comparable or = CastUtil.getComparable(right.getV(ctx));
 			Boolean bl = ol.compareTo(or)==0;
 			
-			O.debug(ctx.getRunCode()+left.getVal()+code.getVal()+right.getVal()+"("+ol+code.getVal()+or+")==>"+bl);
+			log.debug(ctx.getRunCode()+left.getVal()+code.getVal()+right.getVal()+"("+ol+code.getVal()+or+")==>"+bl);
 			return bl;
 		}else if("!=".equalsIgnoreCase(code.getVal())){
 			Comparable ol = CastUtil.getComparable(left.getV(ctx));
@@ -169,7 +172,7 @@ public class OperNode extends ANode {
 			}
 				
 
-			O.debug(ctx.getRunCode()+left.getVal()+code.getVal()+right.getVal()+"("+left.getVal()+code.getVal()+v+")");
+			log.debug(ctx.getRunCode()+left.getVal()+code.getVal()+right.getVal()+"("+left.getVal()+code.getVal()+v+")");
 			
 			return null;
 		}else if(">>".equalsIgnoreCase(code.getVal())){
@@ -190,7 +193,7 @@ public class OperNode extends ANode {
 			
 			ctx.put(right.getVal(),v,true);
 
-			O.debug(ctx.getRunCode()+left.getVal()+code.getVal()+right.getVal()+"("+left.getVal()+code.getVal()+v+")");
+			log.debug(ctx.getRunCode()+left.getVal()+code.getVal()+right.getVal()+"("+left.getVal()+code.getVal()+v+")");
 			
 			return null;
 		}else{

@@ -1,10 +1,5 @@
 package cn.lmz.mike.data.cache;
 
-import java.beans.PropertyDescriptor;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import cn.lmz.mike.common.exception.LMZException;
 import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.common.page.Page;
@@ -17,12 +12,20 @@ import cn.lmz.mike.data.bean.DataBean;
 import cn.lmz.mike.data.cache.base.CacheU;
 import cn.lmz.mike.data.support.LDao;
 import net.sf.ehcache.Cache;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+
+import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CacheDao extends Dao implements LDao {
-	
+
+	private static final Logger log = LoggerFactory.getLogger(CacheDao.class);
+
 	public DataBean create(DataBean b) throws LMZException {
 		try{
 			O.pNull(b,"CacheDao.create(DataBean b) params is null");
@@ -100,7 +103,7 @@ public class CacheDao extends Dao implements LDao {
 	@SuppressWarnings("unchecked")
 	public List search(Class<?> c, Map params) throws LMZException {
 		try{
-			O.info("Object search(Calss c,map params): ");
+			log.info("Object search(Calss c,map params): ");
 			List rlist = new ArrayList();
 			Cache cache = CacheU.getCache(c);
 			if(params==null||params.size()==0){

@@ -7,9 +7,12 @@ import cn.lmz.mike.common.base.StrU;
 
 
 import com.xiaoleilu.hutool.io.resource.ResourceUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SecurityU {
 
+	private static final Logger log = LoggerFactory.getLogger(SecurityU.class);
 	//public static String MK="2564338";//new SimpleDateFormat("yyyy").format(new Date());
 	//public static String MK=new SimpleDateFormat("yyyy").format(new Date());
 	public static String MK = "20170918";
@@ -56,9 +59,11 @@ public class SecurityU {
 		return Encrypt.Symmetric.encrypt(Encrypt.Symmetric.TYPE.DES.toString(),key, v);
 	}
 	public static String getDeValue(String v){
+		log.trace("getDeValue==s======"+v);
 		if(v!=null&&v.startsWith("{D}")){
 			v = de(v.substring(3));
 		}
+		log.trace("getDeValue==e======"+v);
 		return v;
 	}
 	

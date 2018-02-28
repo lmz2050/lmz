@@ -1,7 +1,5 @@
 package cn.lmz.mike.lmz.sys.node;
 
-import cn.lmz.mike.common.MC;
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.lmz.sys.context.Const;
 import cn.lmz.mike.lmz.sys.context.Context;
 import cn.lmz.mike.lmz.sys.exception.ErrCodeException;
@@ -12,14 +10,17 @@ import cn.lmz.mike.lmz.sys.lexer.ICode;
 import cn.lmz.mike.lmz.sys.lexer.Row;
 import cn.lmz.mike.lmz.sys.util.SysU;
 import cn.lmz.mike.lmz.sys.util.TypeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
-import java.util.List;
 import java.util.Map;
 
 
 public class NewNode extends ANode {
-	
+
+	private static final Logger log = LoggerFactory.getLogger(NewNode.class);
+
 	private Class<?> clz = null;
 	private ParamNode paramNode;
 
@@ -35,7 +36,7 @@ public class NewNode extends ANode {
 		try{
 			
 			if(paramNode==null){
-				O.info("new "+clz);
+				log.info("new "+clz);
 				o = clz.newInstance();
 			}else{
 				Object[] paramsv =null;
@@ -55,8 +56,8 @@ public class NewNode extends ANode {
 				if(cc==null){
 					throw new RunCodeException(this, clz+" Constructor is null "+getCodeStr());
 				}
-				
-				O.info("new "+clz+" - "+paramsv);
+
+				log.info("new "+clz+" - "+paramsv);
 				o = cc.newInstance(paramsv);
 				
 			}
@@ -70,29 +71,18 @@ public class NewNode extends ANode {
 	}
 	
 	private Class<?> getClass(String name,Context ctx){
-		Class<?> clz = null;
-		Map<String,String> pkgMap = (Map<String,String>)ctx.getCfg().get(Const.PKG_MAP);
-		List<String> pkgList = (List<String>)ctx.getCfg().get(Const.PKG_LIST);
-		String clzname = pkgMap.get(name);
-		SysU.showPkgs();
-		O.dev("map class:"+name+":"+clzname);
-		if(MC.string.isBlank(clzname)){
-			for(String pkgname:pkgList){
-				String clznamepath = pkgname+"."+name;
-				clz = getClass(clznamepath);
-				if(clz!=null) break;
-			}
-		}else{
-			clz = getClass(clzname);
-		}
+		Map<String,Class<?>> pkgMap = (Map<String,Class<?>>)ctx.getCfg().get(Const.PKG_MAP);
+		Class<?> clz = pkgMap.get(name);
+		//SysU.showPkgs();
+		log.trace("map class:"+name+":"+SysU.getClsStr(clz));
 		return clz;
 	}
 	private Class<?> getClass(String clzname){
 		Class<?> clz = null;
-		O.dev(clzname);
+		log.trace(clzname);
 		try{
 			clz = Class.forName(clzname);
-			O.debug(" getClass clz:"+clz.getName());
+			log.debug(" getClass clz:"+clz.getName());
 		}catch(Exception e){}
 		return clz;
 	}
@@ -149,7 +139,8 @@ public class NewNode extends ANode {
 		}
 		
 		if(clz==null){
-			throw new ErrCodeException(c.getR(), "clz is null ");
+			SysU.showPkgs();
+			throw new ErrCodeException(c.getR(), "can not find class with name:"+className);
 		}
 
 		Code newCode = new Code(TypeUtil.TYPE_NEW,ctx.getCfg().put(this));

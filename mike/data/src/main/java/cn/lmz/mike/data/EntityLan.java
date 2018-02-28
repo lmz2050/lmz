@@ -1,16 +1,19 @@
 package cn.lmz.mike.data;
 
 import cn.lmz.mike.common.exception.LMZException;
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.common.page.Page;
 import cn.lmz.mike.common.page.PageUtil;
 import cn.lmz.mike.data.bean.DataBean;
 import cn.lmz.mike.data.util.LanU;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
 
 public class EntityLan extends Entity {
+
+	private static final Logger log = LoggerFactory.getLogger(EntityLan.class);
 
 	@SuppressWarnings("unchecked")
 	public void delete(DataBean b) throws LMZException {
@@ -57,7 +60,7 @@ public class EntityLan extends Entity {
 					}
 					create(bean);
 				}catch(Exception e){
-					O.pn(e.getMessage());
+					log.error(e.getMessage(),e);
 				}
 			}
 		}

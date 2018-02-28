@@ -36,7 +36,7 @@ public class LMZException extends Exception {
 			msg += MC.string.toStr(o)+"\r\n";
 		}
 		msg += ">\r\n";
-		O.error(msg);
+		System.err.println(msg);
 		return msg;
 	}
 	

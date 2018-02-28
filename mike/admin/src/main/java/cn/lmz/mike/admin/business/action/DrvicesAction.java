@@ -3,12 +3,13 @@ package cn.lmz.mike.admin.business.action;
 import cn.lmz.mike.admin.business.bean.Adm_drvices;
 import cn.lmz.mike.admin.business.service.IdrvicesService;
 import cn.lmz.mike.common.excel.Excel;
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.common.page.Page;
 import cn.lmz.mike.common.page.PageUtil;
 import cn.lmz.mike.web.base.bean.BaseBean;
 import cn.lmz.mike.web.base.bean.Return;
 import cn.lmz.mike.web.base.util.WebSV;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -22,6 +23,8 @@ import java.util.Map;
 @Controller()
 @Scope("prototype")
 public class DrvicesAction extends BusBasAction{
+
+	private static final Logger log = LoggerFactory.getLogger(DrvicesAction.class);
 
 	private static final long serialVersionUID = 1L;
 	protected Adm_drvices info = new Adm_drvices();
@@ -62,7 +65,7 @@ public class DrvicesAction extends BusBasAction{
 	public String importxls(){
 		String filename=id;
 		String fullName=UPLOADDIR+File.separator+filename;
-		O.pn(fullName);
+		log.info(fullName);
 		try{
 			r.setSuccess(true);
 			List<Object[]> list = new Excel().read(fullName);
@@ -77,7 +80,7 @@ public class DrvicesAction extends BusBasAction{
 			try{
 				new File(fullName).delete();
 			}catch(Exception e){
-				O.error(e.getMessage(),e);
+				log.error(e.getMessage(),e);
 			}
 		}
 		return jsonStr();
@@ -105,7 +108,7 @@ public class DrvicesAction extends BusBasAction{
 				if(re.isSuccess()){
 					returm = true;
 				}else{
-					O.error(re.getMsg());
+					log.error(re.getMsg());
 					returm = false;
 				}
 			//}else{
@@ -121,7 +124,7 @@ public class DrvicesAction extends BusBasAction{
 			handException(e);
 			returm = false;
 		}
-		O.pn("activate:"+wired_mac_name+","+wireless_mac_name+","+oem_type+","+function_type+"==>"+returm);
+		log.info("activate:"+wired_mac_name+","+wireless_mac_name+","+oem_type+","+function_type+"==>"+returm);
 		return null;
 	}
 

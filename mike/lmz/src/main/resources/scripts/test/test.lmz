@@ -1,0 +1,108 @@
+#!/home/apphome/lmz/lmz.sh
+
+var r=1;
+
+var as="sdf";
+
+<<
+select count(0) 
+from system_setup where rownum=${r} 
+>>sqllist
+
+var c="sdf s sfd dfgdf sfs  '${as}' "
+$.alert($.toStr(sqllist))
+var i=2.3453;
+$.alert(c);
+while(i<10){
+$.alert(i);
+i++;
+if(i==5){
+break;
+}
+}
+
+for(var i=0;i<10;i++){
+$.alert(i);
+if(i==5){
+break;
+}
+}
+
+
+
+var kk=aa("1",2,3);
+$.alert(kk);
+
+
+function aa(a,b,c){
+var x = a+b;
+var d = c+x;
+
+return d;
+}
+
+var tt = new Date().getTime();
+$.alert(tt);
+
+var ss = new java.sql.Date(new Date().getTime());
+$.alert(ss);
+
+var bb = new String("adsf");
+$.alert(bb);
+
+
+
+var dbo = new DB();
+dbo.setDb(db_test1);
+
+//O.setLev("O");
+
+//var n = dbo.queryObj(" SELECT COUNT(0) FROM lmzuser",null);
+//$.alert(n);
+
+function aarr(rs){
+
+while(rs.next()){
+var kk = rs.getObject("id");
+$.alert(kk);
+}
+
+rs.close();
+}
+
+var rs = dbo.query(" SELECT * FROM lmzuser ",null);
+
+aarr(rs);
+
+dbo.close();
+
+var dbo = new DB();
+dbo.setDb(db_test1);
+
+var rsexcel = dbo.query(" SELECT * FROM lmzadmin ",null);
+var out="${ROOT}output/test.xlsx";
+new Excel().writeXlsWithRs(out,rsexcel);
+rsexcel.close();
+
+var lll = new Excel().read(out);
+$.alert(lll.size());
+
+var zipf1 =new ZipU().compress(out);
+
+var ftpu = new FtpU();
+//ftpu.open(ftp_test);
+//ftpu.upload(zipf1,"test.zip");
+
+var tt = new Time();
+tt.waitSql(dbo,"SELECT 1 FROM lmzadmin ");
+
+
+var m = new MailU();
+m.setFrom(mail_from);
+m.send("ttt","content","zhijun.li@bqjr.cn");
+
+
+var s = new MsgU(sms_host);
+s.send("test","18927427285");
+
+

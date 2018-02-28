@@ -1,23 +1,22 @@
 package cn.lmz.mike.data.service;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import cn.lmz.mike.common.MC;
 import cn.lmz.mike.common.exception.LMZException;
 import cn.lmz.mike.common.page.Page;
 import cn.lmz.mike.common.page.PageUtil;
-import cn.lmz.mike.common.str.StrU;
 import cn.lmz.mike.data.DataU;
 import cn.lmz.mike.data.bean.DataBean;
 import cn.lmz.mike.data.bean.IdBean;
 import cn.lmz.mike.data.support.IEntity;
 import cn.lmz.mike.data.support.IService;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Service("lService")
 public class LService implements IService {
@@ -80,7 +79,7 @@ public class LService implements IService {
 	
 	public DataBean create(DataBean b) throws LMZException{
 		try{
-			if(StrU.isBlank(b.getId())){
+			if(MC.string.isBlank(b.getId())){
 				DataBean b1 = new DataBean(b.getClz());
 				int mid = searchMaxID(b1);
 				//String mid =getID(b.getClass().getSimpleName());

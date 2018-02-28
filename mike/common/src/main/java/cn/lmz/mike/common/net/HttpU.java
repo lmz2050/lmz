@@ -2,7 +2,8 @@ package cn.lmz.mike.common.net;
 
 
 import cn.lmz.mike.common.base.XmlU;
-import cn.lmz.mike.common.log.O;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -10,6 +11,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class HttpU {
+
+	private static final Logger log = LoggerFactory.getLogger(HttpU.class);
 
     private static final String XHR_OBJECT_NAME = "XMLHttpRequest";  
     private static final String HEADER_REQUEST_WITH = "x-requested-with";
@@ -55,7 +58,7 @@ public class HttpU {
 				valueStr = (i == values.length - 1) ? valueStr + values[i]
 						: valueStr + values[i] + ",";
 			}
-			O.debug(name+":"+valueStr);
+			log.debug(name+":"+valueStr);
 			//valueStr = new String(valueStr.getBytes("ISO-8859-1"),"UTF-8");
 			params.put(name, valueStr);
 		}

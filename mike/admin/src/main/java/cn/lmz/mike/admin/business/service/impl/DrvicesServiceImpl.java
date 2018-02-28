@@ -6,11 +6,12 @@ import cn.lmz.mike.admin.business.util.AdmMsg;
 import cn.lmz.mike.common.V;
 import cn.lmz.mike.common.base.DateU;
 import cn.lmz.mike.common.base.StrU;
-import cn.lmz.mike.common.log.O;
 import cn.lmz.mike.data.bean.DataBean;
 import cn.lmz.mike.data.bean.OrParams;
 import cn.lmz.mike.web.base.bean.Return;
 import cn.lmz.mike.web.base.service.impl.WService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import java.util.Map;
 
 @Service
 public class DrvicesServiceImpl extends WService implements IdrvicesService {
+
+	private static final Logger log = LoggerFactory.getLogger(DrvicesServiceImpl.class);
 
 	@Override
 	public Return update(Adm_drvices info, String uname) throws Exception{
@@ -110,7 +113,7 @@ public class DrvicesServiceImpl extends WService implements IdrvicesService {
 		}catch(Exception e){
 			r.setMsg(e.getMessage());
 			r.setSuccess(false);
-			O.error(e.getMessage(),e);
+			log.error(e.getMessage(),e);
 			throw e;
 		}
 		return r;

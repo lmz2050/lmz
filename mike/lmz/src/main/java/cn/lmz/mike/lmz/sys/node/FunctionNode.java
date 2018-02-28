@@ -122,5 +122,12 @@ public class FunctionNode extends ANode implements IParamLexer {
 			args.add(nc.getVal());
 		}
 	}
-	
+
+	public List<String> getArgs() {
+		return args;
+	}
+
+	public void setArgs(List<String> args) {
+		this.args = args;
+	}
 }
