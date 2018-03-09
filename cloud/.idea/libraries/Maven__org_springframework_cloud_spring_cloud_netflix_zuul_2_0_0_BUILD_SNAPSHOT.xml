@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.springframework.cloud:spring-cloud-netflix-zuul:2.0.0.BUILD-SNAPSHOT">
     <CLASSES>
-      <root url="jar://D:/data/maven/org/springframework/cloud/spring-cloud-netflix-zuul/2.0.0.BUILD-SNAPSHOT/spring-cloud-netflix-zuul-2.0.0.BUILD-20180302.080804-1009.jar!/" />
+      <root url="jar://D:/data/maven/org/springframework/cloud/spring-cloud-netflix-zuul/2.0.0.BUILD-SNAPSHOT/spring-cloud-netflix-zuul-2.0.0.BUILD-20180309.050901-1065.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://D:/data/maven/org/springframework/cloud/spring-cloud-netflix-zuul/2.0.0.BUILD-SNAPSHOT/spring-cloud-netflix-zuul-2.0.0.BUILD-20180302.080804-1009-javadoc.jar!/" />
+      <root url="jar://D:/data/maven/org/springframework/cloud/spring-cloud-netflix-zuul/2.0.0.BUILD-SNAPSHOT/spring-cloud-netflix-zuul-2.0.0.BUILD-20180309.050901-1065-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://D:/data/maven/org/springframework/cloud/spring-cloud-netflix-zuul/2.0.0.BUILD-SNAPSHOT/spring-cloud-netflix-zuul-2.0.0.BUILD-20180302.080804-1009-sources.jar!/" />
+      <root url="jar://D:/data/maven/org/springframework/cloud/spring-cloud-netflix-zuul/2.0.0.BUILD-SNAPSHOT/spring-cloud-netflix-zuul-2.0.0.BUILD-20180309.050901-1065-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
