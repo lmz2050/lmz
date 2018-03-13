@@ -26,24 +26,12 @@
         </dependency>
         <!-- log4j -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-        <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
         </dependency>
 
         <!-- 导入struts2 jar 包 -->
@@ -118,12 +106,6 @@
 
         <!-- 导入java ee jar 包 -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.tuckey</groupId>
             <artifactId>urlrewrite</artifactId>
         </dependency>
@@ -154,20 +136,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-pool</groupId>
             <artifactId>commons-pool</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-net</groupId>
-            <artifactId>commons-net</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-daemon</groupId>
@@ -315,13 +288,6 @@
             <groupId>org.jdom</groupId>
             <artifactId>jdom2</artifactId>
         </dependency>
-
-
-        <dependency>
-            <groupId>net.sourceforge.jchardet</groupId>
-            <artifactId>jchardet</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

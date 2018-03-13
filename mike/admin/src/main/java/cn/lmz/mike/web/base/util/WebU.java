@@ -17,6 +17,16 @@ import java.util.Map;
 
 public class WebU implements IData {
 
+	public static int dcount=0;
+
+	public static int getDCount(){
+		return dcount;
+	}
+
+	public static synchronized void upDCount(int u){
+		dcount = dcount+u;
+	}
+
 	private static final Logger log = LoggerFactory.getLogger(WebU.class);
 	private static String THEME=null;
 
