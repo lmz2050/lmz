@@ -5,16 +5,12 @@ import cn.lmz.mike.common.exception.LMZException;
 import cn.lmz.mike.common.page.PageUtil;
 import cn.lmz.mike.data.Data;
 import cn.lmz.mike.data.bean.DataBean;
+import cn.lmz.mike.data.util.LanU;
 import cn.lmz.mike.web.base.service.IWService;
 import cn.lmz.mike.web.base.util.WebSV;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 
 public class LTreeU {
@@ -123,19 +119,19 @@ public class LTreeU {
 
 	
 	
-	public static List getEasyList(IWService service,String clz,Integer pid) throws LMZException{
+	public static List getEasyList(IWService service,String clz,Integer pid,Map session) throws LMZException{
 		if(pid==null) pid=0;
 		Integer ii=0;
 		
 		Class<?> c = Data.getClass(clz);
 		PageUtil pu = service.searchMap(new DataBean(c),null,null);
-		List<Map> tlist = LTreeU.convertTreeNodeList(pu.getList());
+		List<Map> tlist = LTreeU.convertTreeNodeList(pu.getList(),null, LanU.getLocale(session));
 		tlist = buildTree(tlist, pid);
 		
 		List infoL = new ArrayList<Map>();
 		Map n = new HashMap();
 		n.put(WebSV.ID, "0");
-		n.put("text", "根目录");
+		n.put("text", "ROOT");
 		Map<String,Object> attr = new HashMap<String,Object>();
 		attr.put("lev", -1);
 		n.put("attributes", attr);
@@ -153,9 +149,14 @@ public class LTreeU {
 		
 	}	
 	//EasyUi
-	public static List<Map> convertTreeNodeList(List<Map> mlist) {
+	public static List<Map> convertTreeNodeList(List<Map> mlist,List<Map> btnlist,Locale locale) {
 		List<Map> nodes = null;
-		
+
+		String nameKey=WebSV.NAME;
+		if(Locale.US.getLanguage().equalsIgnoreCase(locale.getLanguage())){
+			nameKey = WebSV.ENAME;
+		}
+
 		if(mlist != null){
 			int idx=0;
 			nodes = new ArrayList<Map>();
@@ -164,8 +165,15 @@ public class LTreeU {
 				Map node = new HashMap();
 				node.put(WebSV.ID, m.get(WebSV.ID));
 				node.put(WebSV.PID, m.get(WebSV.PID));
-				node.put("text", m.get(WebSV.NAME));
+				node.put("text", m.get(nameKey));
 				node.put("checked", false);
+
+				String type = m.get("type")+"";
+				if(btnlist!=null) {
+					if ("1".equalsIgnoreCase(type)) {
+						btnlist.add(m);
+					}
+				}
 
 				Map<String,Object> atrs = new LinkedHashMap<String,Object>();
 				atrs.put("url",m.get("url"));

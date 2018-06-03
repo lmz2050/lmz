@@ -81,7 +81,9 @@ public class FileU {
 		w.flush();
 		w.close();
 	}
-	
+	public static void write(File file,String str) throws IOException{
+		FileUtils.writeStringToFile(file,str,charset);
+	}
 	public List<String> read(String cfgFile) throws IOException{
         File fileF=new File(cfgFile);
         String fileEncode = FileU.getFileEncode(cfgFile);     

@@ -1,15 +1,21 @@
 package cn.lmz.mike.admin.business.action;
 
 import cn.lmz.mike.admin.business.bean.Adm_dev_patch;
+import cn.lmz.mike.admin.business.util.AdmMsg;
 import cn.lmz.mike.admin.system.util.SysU;
+import cn.lmz.mike.common.MC;
 import cn.lmz.mike.common.base.MapU;
+import cn.lmz.mike.common.exception.LMZException;
 import cn.lmz.mike.common.page.Page;
 import cn.lmz.mike.common.page.PageUtil;
+import cn.lmz.mike.data.BeanUtil;
 import cn.lmz.mike.data.bean.DataBean;
 import cn.lmz.mike.data.bean.OrParams;
+import cn.lmz.mike.data.util.LmzU;
 import cn.lmz.mike.web.base.action.BaseAction;
 import cn.lmz.mike.web.base.bean.BaseBean;
 import cn.lmz.mike.web.base.bean.Lmzadmin;
+import cn.lmz.mike.web.base.util.WebMsg;
 import cn.lmz.mike.web.base.util.WebSV;
 import cn.lmz.mike.web.base.util.WebU;
 import org.slf4j.Logger;
@@ -42,12 +48,49 @@ public class PatchAction extends BaseAction {
     private String fileName;//下载文件命名
     private String name;
 
+    public String update(){
+        try {
+            if(getInfo()!=null){
+                Adm_dev_patch adp = null;
+                List list = getwService().search(getInfo().getClass(),LmzU.getParams("vname", getInfo().getVname()));
+                if(list!=null&&list.size()>0){
+                    adp = (Adm_dev_patch)list.get(0);
+                }
+                BeanUtil.setBean(getInfo(), LmzU.getParams("uby",this.getAdmin().getUsername(),"utm", MC.date.getTimeString()));
+                if(MC.string.isBlank(getInfo().getId())){
+                    if(adp!=null&&getInfo().getVname().equalsIgnoreCase(adp.getVname())){
+                        msg = WebMsg.getI18nMsg("admin.msg.admin_patch_vname_exists");
+                        r.setSuccess(false);
+                    }else {
+                        BeanUtil.setBean(getInfo(), LmzU.getParams("cby", this.getAdmin().getUsername(), "ctm", MC.date.getTimeString()));
+                        setInfo(getwService().create(getInfo()));
+                        msg = "add";
+                        r.setSuccess(true);
+                    }
+                }else{
+                    if(adp!=null&&getInfo().getVname().equalsIgnoreCase(adp.getVname())&&!getInfo().getId().equalsIgnoreCase(adp.getId())){
+                        msg = WebMsg.getI18nMsg("admin.msg.admin_patch_vname_exists");
+                        r.setSuccess(false);
+                    }else{
+                        getwService().update(getInfo());
+                        msg = "update";
+                        r.setSuccess(true);
+                    }
+                }
+                r.setMsg(msg);
+            }
+        } catch (LMZException e) {
+            handException(e);
+        }
+        return WebSV.SUCCESS;
+    }
 
     public String apage() {
         try {
-            if (page == null || page < 1) page = 1;
-            if (rows == null) rows = 0;
+            if(page==null||page<1)page=1;
+            if(rows==null)rows=10;
             Page pg = new Page();
+            pg.setIntPageSize(rows);
             pg.setIntCurrentPage(page);
 
             Lmzadmin adm = this.getAdmin();
@@ -57,8 +100,10 @@ public class PatchAction extends BaseAction {
             } else {
                 params = new HashMap();
             }
+            Map pageParams = getApageParams();
+            pageParams.putAll(params);
 
-            PageUtil pu = getwService().search(getInfo().getClass(), params, pg, getDefOrd());
+            PageUtil pu = getwService().search(getInfo().getClass(), pageParams, pg, getDefOrd());
 
             Map<String, Object> jsonMap = new HashMap<String, Object>();
             jsonMap.put("total", pu.getPage().getIntRowCount());

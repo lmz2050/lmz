@@ -36,11 +36,16 @@ function sf(row){
 	<body style="overflow-y: hidden;width:500px;" scroll="no">
 	    <form id="ff" class="easyui-form" method="post" action="${pageContext.request.contextPath}/menu/update.action">
 	    	<input type="hidden" name="info.id" value="<s:property value="info.id"/>" />
+			<input type="hidden" name="info.isdev" value="<s:property value="info.isdev"/>" />
 	    	<table cellpadding="5">
 	    		<tr>
 	    			<td>菜单名称:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.name" data-options="required:true" value="<s:property value="info.name"/>" /></td>
 	    		</tr>
+				<tr>
+					<td>菜单英文名称:</td>
+					<td><input class="easyui-textbox" type="text" name="info.ename" data-options="required:true" value="<s:property value="info.ename"/>" /></td>
+				</tr>
 	    		<tr>
 	    			<td>上级菜单:</td>
 	    			<td>
@@ -76,6 +81,13 @@ function sf(row){
 	    				</select>
 	    			</td>
 	    		</tr>
+				<tr>
+					<td>是否按钮:</td>
+					<td>
+						<input type="radio" name="info.type" value="1" <s:if test="info.type==1">checked</s:if> /><label>是</label>
+						<input type="radio" name="info.type" value="0" <s:if test="info.type==0||info.type==null">checked</s:if> /><label>否</label>
+					</td>
+				</tr>
 	    	</table>
 	    </form>
 	    <div style="text-align:center;padding:5px">

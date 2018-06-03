@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
 <html>
 	<head>
-		<title>详细信息</title>
+		<title><s:text name="admin.detail.title" /></title>
   	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/jquery/jquery-1.8.3.js"></script>
 	<link id="easyuiTheme" rel="stylesheet" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/default/easyui.css" type="text/css"></link>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icon.css" ></link>
@@ -36,11 +36,11 @@ function upload(ii){
 	    	<input type="hidden" name="info.id" value="<s:property value="info.id"/>" />
 	    	<table cellpadding="5" >
 	    		<tr>
-	    			<td>客户名称:</td>
+	    			<td><s:text name="admin.drvices.cus_name" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.cus_name" data-options="required:true" value="<s:property value="info.cus_name"/>" /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>设备名称:</td>
+	    			<td><s:text name="admin.drvices.dev_name" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.dev_name" data-options="required:true" value="<s:property value="info.dev_name"/>" /></td>
 	    		</tr>
 	    		<tr>
@@ -52,14 +52,14 @@ function upload(ii){
 	    			<td><input class="easyui-textbox" type="text" name="info.mac2" data-options="required:true" value="<s:property value="info.mac2"/>" /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>首次激活:</td>
+	    			<td><s:text name="admin.drvices.first" /><s:text name="admin.drvices.active" />:</td>
 	    			<td>
 	    				<input type="radio" name="info.active" value="Y" <s:if test="info.active==\"Y\"">checked</s:if> /><label>Y</label>
 		    			<input type="radio" name="info.active" value="N" <s:if test="info.active==\"N\"||info.active==null">checked</s:if> /><label>N</label>
 		    		</td>
 	    		</tr>	    		
 	    		<tr>
-	    			<td>首次激活时间:</td>
+	    			<td><s:text name="admin.drvices.first" /><s:text name="admin.drvices.active_time" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.active_time" value="<s:property value="info.active_time"/>" /></td>
 	    		</tr>	    		
 	    		<tr>
@@ -70,7 +70,7 @@ function upload(ii){
 		    		</td>
 	    		</tr>	    		
 	    		<tr>
-	    			<td>GN1激活时间:</td>
+	    			<td>GN1<s:text name="admin.drvices.active_time" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.gn1_time" value="<s:property value="info.gn1_time"/>" /></td>
 	    		</tr>		
 	    		<tr>
@@ -81,7 +81,7 @@ function upload(ii){
 		    		</td>
 	    		</tr>	    		
 	    		<tr>
-	    			<td>GN2激活时间:</td>
+	    			<td>GN2<s:text name="admin.drvices.active_time" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.gn2_time" value="<s:property value="info.gn2_time"/>" /></td>
 	    		</tr>
 	    		<tr>
@@ -92,7 +92,7 @@ function upload(ii){
 		    		</td>
 	    		</tr>	    		
 	    		<tr>
-	    			<td>GN3激活时间:</td>
+	    			<td>GN3<s:text name="admin.drvices.active_time" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.gn3_time" value="<s:property value="info.gn3_time"/>" /></td>
 	    		</tr>
 	    		<tr>
@@ -103,7 +103,7 @@ function upload(ii){
 		    		</td>
 	    		</tr>	    		
 	    		<tr>
-	    			<td>GN4激活时间:</td>
+	    			<td>GN4<s:text name="admin.drvices.active_time" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.gn4_time" value="<s:property value="info.gn4_time"/>" /></td>
 	    		</tr>
 	    		<tr>
@@ -114,7 +114,7 @@ function upload(ii){
 		    		</td>
 	    		</tr>	    		
 	    		<tr>
-	    			<td>GN5激活时间:</td>
+	    			<td>GN5<s:text name="admin.drvices.active_time" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.gn5_time" value="<s:property value="info.gn5_time"/>" /></td>
 	    		</tr>
 	    		<tr>
@@ -125,7 +125,7 @@ function upload(ii){
 		    		</td>
 	    		</tr>	    		
 	    		<tr>
-	    			<td>GN6激活时间:</td>
+	    			<td>GN6<s:text name="admin.drvices.active_time" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.gn6_time" value="<s:property value="info.gn6_time"/>" /></td>
 	    		</tr>
 	    		<tr>
@@ -136,7 +136,7 @@ function upload(ii){
 		    		</td>
 	    		</tr>	    		
 	    		<tr>
-	    			<td>GN7激活时间:</td>
+	    			<td>GN7<s:text name="admin.drvices.active_time" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.gn7_time" value="<s:property value="info.gn7_time"/>" /></td>
 	    		</tr>
 	    		<tr>
@@ -147,7 +147,7 @@ function upload(ii){
 		    		</td>
 	    		</tr>	    		
 	    		<tr>
-	    			<td>GN8激活时间:</td>
+	    			<td>GN8<s:text name="admin.drvices.active_time" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.gn8_time" value="<s:property value="info.gn8_time"/>" /></td>
 	    		</tr>	    			    			    			    		
 	    	</table>

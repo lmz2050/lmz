@@ -10,6 +10,7 @@ import cn.lmz.mike.data.bean.DataBean;
 import cn.lmz.mike.data.bean.OrParams;
 import cn.lmz.mike.web.base.bean.Return;
 import cn.lmz.mike.web.base.service.impl.WService;
+import cn.lmz.mike.web.base.util.WebMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class DrvicesServiceImpl extends WService implements IdrvicesService {
 		Return r = new Return();
 		String msg="";
 		if(!"admin".equalsIgnoreCase(uname)&&!uname.equalsIgnoreCase(info.getCus_name())){
-			msg = AdmMsg.DIF_CUS_NAME+"{"+uname+"}"+"{"+info.getCus_name()+"}";
+			msg =  WebMsg.getI18nMsg("admin.msg.DIF_CUS_NAME")+"{"+uname+"}"+"{"+info.getCus_name()+"}";
 			r.setSuccess(false);
 			r.setMsg(msg);
 			return r;
@@ -79,14 +80,14 @@ public class DrvicesServiceImpl extends WService implements IdrvicesService {
 					if(dlist!=null&&dlist.size()>0){
 						//更新时候只能查询到>1个说明重复
 						if(dlist.size()>1){
-							msg = AdmMsg.DEV_MAC_EXISTS+":"+info.getMac1()+","+info.getMac2()+",len:"+dlist.size();
+							msg = WebMsg.getI18nMsg("admin.msg.DEV_MAC_EXISTS")+":"+info.getMac1()+","+info.getMac2()+",len:"+dlist.size();
 							r.setSuccess(false);
 							r.setMsg(msg);
 						}else{
 							Adm_drvices dev = (Adm_drvices)dlist.get(0);
 							//查询到1个，且id不同，说明重复
 							if(!info.getId().equalsIgnoreCase(dev.getId())){
-								msg = AdmMsg.DEV_MAC_EXISTS+":"+info.getMac1()+","+info.getMac2()+",id:"+dev.getId();
+								msg = WebMsg.getI18nMsg("admin.msg.DEV_MAC_EXISTS")+":"+info.getMac1()+","+info.getMac2()+",id:"+dev.getId();
 								r.setSuccess(false);
 								r.setMsg(msg);
 							}
@@ -101,7 +102,7 @@ public class DrvicesServiceImpl extends WService implements IdrvicesService {
 				}else{
 					//创建时只要存在说明重复
 					if(dlist!=null&&dlist.size()>0){
-						msg = AdmMsg.DEV_MAC_EXISTS+":"+info.getMac1()+","+info.getMac2()+",when add:"+dlist.size();
+						msg = WebMsg.getI18nMsg("admin.msg.DEV_MAC_EXISTS")+":"+info.getMac1()+","+info.getMac2()+",when add:"+dlist.size();
 						r.setSuccess(false);
 						r.setMsg(msg);
 					}else{					
@@ -156,24 +157,24 @@ public class DrvicesServiceImpl extends WService implements IdrvicesService {
 
 				
 				if(StrU.isBlank(ad.getCus_name())){
-					msg+= AdmMsg.EMPTY_CUS_NAME+";";
+					msg+= WebMsg.getI18nMsg("admin.msg.EMPTY_CUS_NAME")+";";
 				}
 				if(StrU.isBlank(ad.getDev_name())){
-					msg+=AdmMsg.EMPTY_DEV_NAME+";";
+					msg+=WebMsg.getI18nMsg("admin.msg.EMPTY_DEV_NAME")+";";
 				}
 				if(StrU.isBlank(ad.getMac1())){
-					msg+=AdmMsg.EMPTY_MAC1+";";
+					msg+=WebMsg.getI18nMsg("admin.msg.EMPTY_MAC1")+";";
 				}
 				if(StrU.isBlank(ad.getMac2())){
-					msg+=AdmMsg.EMPTY_MAC2+";";
+					msg+=WebMsg.getI18nMsg("admin.msg.EMPTY_MAC2")+";";
 				}
 				if(macMap.containsKey(ad.getMac1())){
-					msg+=AdmMsg.DEV_MAC_EXISTS_MAC1+" line["+macMap.get(ad.getMac1())+"]"+";";
+					msg+=WebMsg.getI18nMsg("admin.msg.DEV_MAC_EXISTS_MAC1")+" line["+macMap.get(ad.getMac1())+"]"+";";
 				}else{
 					macMap.put(ad.getMac1(), i);
 				}
 				if(macMap.containsKey(ad.getMac2())){
-					msg+=AdmMsg.DEV_MAC_EXISTS_MAC2+" line["+macMap.get(ad.getMac2())+"]"+";";
+					msg+=WebMsg.getI18nMsg("admin.msg.DEV_MAC_EXISTS_MAC2")+" line["+macMap.get(ad.getMac2())+"]"+";";
 				}else{
 					macMap.put(ad.getMac2(), i);
 				}

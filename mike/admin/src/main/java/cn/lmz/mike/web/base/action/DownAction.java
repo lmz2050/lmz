@@ -1,5 +1,6 @@
 package cn.lmz.mike.web.base.action;
 
+import cn.lmz.mike.common.MC;
 import cn.lmz.mike.web.base.util.WebSV;
 import cn.lmz.mike.web.base.util.WebU;
 import com.opensymphony.xwork2.ActionSupport;
@@ -150,6 +151,9 @@ public class DownAction extends ActionSupport implements ServletRequestAware, Se
         }
 
         //String fileName = getDownloadChineseFileName(name);
+        if(MC.string.isEmpty(fileName)){
+            fileName =downloadFile.getName();
+        }
         response.setHeader("Content-Disposition",
                 "attachment;filename=" + fileName + "");
 
@@ -198,7 +202,7 @@ public class DownAction extends ActionSupport implements ServletRequestAware, Se
         {
             if(outPut != null)
             {
-                outPut.close();
+                //outPut.close();
             }
             if(raf != null)
             {

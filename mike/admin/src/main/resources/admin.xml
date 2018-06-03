@@ -13,8 +13,12 @@
        <action name="importxls" class="drvicesAction" method="importxls">
        		<result name="success">/admin/drviceslist.jsp</result>
        		<result name="input">/error.jsp</result> 
-       </action> 
-        <action name="toAdd" class="drvicesAction" method="toAdd">
+       </action>
+		<action name="toList" class="drvicesAction" method="toList">
+			<result name="success">/admin/drviceslist.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+		<action name="toAdd" class="drvicesAction" method="toAdd">
        		<result name="success">/admin/drvices.jsp</result>
        		<result name="input">/error.jsp</result> 
        </action>               
@@ -29,8 +33,12 @@
         <action name="del" class="drvicesAction" method="del">
        		<result name="success">/admin/drviceslist.jsp</result>
        		<result name="input">/error.jsp</result> 
-       </action>   
-    </package>
+       </action>
+		<action name="delItems" class="drvicesAction" method="delItems">
+			<result name="success">/admin/drviceslist.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+	</package>
 
 	<package name="patch" namespace="/patch" extends="default">    
 	   <default-interceptor-ref name="adminStack" /> 
@@ -42,7 +50,11 @@
        <action name="importxls" class="patchAction" method="importxls">
        		<result name="success">/admin/patchlist.jsp</result>
        		<result name="input">/error.jsp</result> 
-       </action> 
+       </action>
+		<action name="toList" class="patchAction" method="toList">
+			<result name="success">/admin/patchlist.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
         <action name="toAdd" class="patchAction" method="toAdd">
        		<result name="success">/admin/patch.jsp</result>
        		<result name="input">/error.jsp</result> 
@@ -58,14 +70,22 @@
         <action name="del" class="patchAction" method="del">
        		<result name="success">/admin/patchlist.jsp</result>
        		<result name="input">/error.jsp</result> 
-       </action>   
-    </package>
+       </action>
+		<action name="delItems" class="patchAction" method="delItems">
+			<result name="success">/admin/patchlist.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+	</package>
 
 	<package name="recv" namespace="/recv" extends="default">       
        <action name="apage" class="recvAction" method="apage">
        		<result name="success">/admin/recvlist.jsp</result>
        		<result name="input">/error.jsp</result> 
-       </action> 
+       </action>
+		<action name="toList" class="recvAction" method="toList">
+			<result name="success">/admin/recvlist.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
         <action name="toAdd" class="recvAction" method="toAdd">
        		<result name="success">/admin/recv.jsp</result>
        		<result name="input">/error.jsp</result> 
@@ -81,14 +101,22 @@
         <action name="del" class="recvAction" method="del">
        		<result name="success">/admin/recvlist.jsp</result>
        		<result name="input">/error.jsp</result> 
-       </action>   
-    </package>
+       </action>
+		<action name="delItems" class="recvAction" method="delItems">
+			<result name="success">/admin/recvlist.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+	</package>
 
 	<package name="send" namespace="/send" extends="default">       
        <action name="apage" class="sendAction" method="apage">
        		<result name="success">/admin/sendlist.jsp</result>
        		<result name="input">/error.jsp</result> 
-       </action> 
+       </action>
+		<action name="toList" class="sendAction" method="toList">
+			<result name="success">/admin/sendlist.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
         <action name="toAdd" class="sendAction" method="toAdd">
        		<result name="success">/admin/send.jsp</result>
        		<result name="input">/error.jsp</result> 
@@ -104,14 +132,22 @@
         <action name="del" class="sendAction" method="del">
        		<result name="success">/admin/sendlist.jsp</result>
        		<result name="input">/error.jsp</result> 
-       </action>   
-    </package>    
+       </action>
+		<action name="delItems" class="sendAction" method="delItems">
+			<result name="success">/admin/sendlist.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+	</package>
 
 	<package name="log" namespace="/log" extends="default">       
        <action name="apage" class="logAction" method="apage">
        		<result name="success">/admin/loglist.jsp</result>
        		<result name="input">/error.jsp</result> 
-       </action> 
+       </action>
+		<action name="toList" class="logAction" method="toList">
+			<result name="success">/admin/loglist.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
         <action name="toAdd" class="logAction" method="toAdd">
        		<result name="success">/admin/log.jsp</result>
        		<result name="input">/error.jsp</result> 
@@ -127,12 +163,20 @@
         <action name="del" class="logAction" method="del">
        		<result name="success">/admin/loglist.jsp</result>
        		<result name="input">/error.jsp</result> 
-       </action>   
-    </package>
+       </action>
+		<action name="delItems" class="logAction" method="delItems">
+			<result name="success">/admin/loglist.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+	</package>
 
 
 	<package name="cus" namespace="/cus" extends="default">
 		<action name="apage" class="cusAction" method="apage">
+			<result name="success">/admin/cuslist.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+		<action name="toList" class="cusAction" method="toList">
 			<result name="success">/admin/cuslist.jsp</result>
 			<result name="input">/error.jsp</result>
 		</action>
@@ -149,6 +193,10 @@
 			<result name="input">/error.jsp</result>
 		</action>
 		<action name="del" class="cusAction" method="del">
+			<result name="success">/admin/cuslist.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+		<action name="delItems" class="cusAction" method="delItems">
 			<result name="success">/admin/cuslist.jsp</result>
 			<result name="input">/error.jsp</result>
 		</action>

@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
 <html>
 	<head>
-		<title>菜单信息</title>
+		<title><s:text name="admin.detail.title" /></title>
   	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/jquery/jquery-1.8.3.js"></script>
 	<link id="easyuiTheme" rel="stylesheet" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/default/easyui.css" type="text/css"></link>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icon.css" ></link>
@@ -14,7 +14,7 @@
 <script type="text/javascript">
 $(function(){
  	 $.extend($.fn.validatebox.defaults.rules, {
-       equalTo: { validator: function (value, param) {return $(param[0]).val() == value; }, message: '字段不匹配' }
+       equalTo: { validator: function (value, param) {return $(param[0]).val() == value; }, message: 'not match' }
      });
      
     <s:if test="r.success==true">
@@ -32,28 +32,28 @@ $(function(){
 	    	<input type="hidden" id="type" name="info.type" value="<s:property value="info.type"/>" />
 	    	<table cellpadding="5">
 	    		<tr>
-	    			<td>用户名:</td>
+	    			<td><s:text name="admin.user.username"/>:</td>
 	    			<td><input class="easyui-textbox" id="username" type="text" name="info.username" data-options="required:true" value="<s:property value="info.username"/>" <s:if test="info.id!=null">readonly</s:if>  /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>密码:</td>
+	    			<td><s:text name="admin.user.userpwd"/>:</td>
 	    			<td><input class="easyui-textbox" id="password"  type="password" name="info.userpwd" data-options="required:true,validType:'safepass'" value=""  /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>确认密码:</td>
+	    			<td><s:text name="admin.user.confirm_pwd"/>:</td>
 	    			<td><input class="easyui-textbox" id="password1"  type="password"  data-options="required:true" validType="equalTo['#password']"  value=""  /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>手机号码:</td>
+	    			<td><s:text name="admin.user.mobile"/>:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.mobile" data-options="validType:'mobile'" value="<s:property value="info.mobile"/>" /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>邮箱:</td>
+	    			<td><s:text name="admin.user.mail"/>:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.useremail" data-options="validType:'email'" value="<s:property value="info.useremail"/>" /></td>
 	    		</tr>
 	    		<!--  
 	    		<tr>
-	    			<td>用户类型:</td>
+	    			<td><s:text name="admin.user.user_type"/>:</td>
 	    			<td>
 		    			<input type="radio" name="info.type" value="2" checked /><label>管理员</label>
 		    			<input type="radio" name="info.type" value="1" /><label>超级管理员</label>

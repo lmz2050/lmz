@@ -9,9 +9,14 @@ import cn.lmz.mike.admin.system.bean.Lmzrole;
 import cn.lmz.mike.admin.system.bean.Lmzroleuser;
 import cn.lmz.mike.common.base.StrU;
 import cn.lmz.mike.common.exception.LMZException;
+import cn.lmz.mike.common.page.Page;
+import cn.lmz.mike.common.page.PageUtil;
 import cn.lmz.mike.data.bean.DataBean;
 import cn.lmz.mike.data.bean.NotParams;
+import cn.lmz.mike.data.bean.OrParams;
 import cn.lmz.mike.web.base.bean.BaseBean;
+import cn.lmz.mike.web.base.util.WebSV;
+import com.mysql.fabric.xmlrpc.base.Params;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -23,6 +28,32 @@ public class RoleAction extends SysAction{
 
 	private static final long serialVersionUID = 134L;	
 	private Lmzrole info = new Lmzrole();
+
+	public String apage()
+	{
+		try {
+			if(page==null||page<1)page=1;
+			if(rows==null)rows=10;
+			Page pg = new Page();
+			pg.setIntPageSize(rows);
+			pg.setIntCurrentPage(page);
+
+			String ord = getDefOrd();
+
+			Map paramss = getApageParams();
+			paramss.put("id", new NotParams(0));
+			PageUtil pu = getwService().search(getInfo().getClass(), paramss, pg, ord);
+
+			Map<String, Object> jsonMap = new HashMap<String, Object>();
+			jsonMap.put("total", pu.getPage().getIntRowCount());
+			jsonMap.put("rows", pu.getList());
+
+			return jsonStr(jsonMap);
+		} catch (Exception e) {
+			handException(e);
+		}
+		return WebSV.LOGIN;
+	}
 
 	public String del(){
 		try {
@@ -43,7 +74,7 @@ public class RoleAction extends SysAction{
 	
 	public String setRoleMenu(){
 		try {
-			if(id!=null&&!StrU.isBlank(msg)){
+			if(id!=null){
 				systemService.setRoleMenu(id, msg);
 				refreshMenu();
 				r.setSuccess(true);
@@ -97,7 +128,7 @@ public class RoleAction extends SysAction{
 	
 	public String setUserRole(){
 		try {
-			if(id!=null&&!StrU.isBlank(msg)){
+			if(id!=null){
 				systemService.setUserRole(id, msg);
 				refreshMenu();
 				r.setSuccess(true);

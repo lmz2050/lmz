@@ -10,7 +10,7 @@
 					<ul>
 						<s:iterator value="#tree.children" var="ctree">
 							<li>
-								<div title="<s:property value="#ctree.text"/>" url="${pageContext.request.contextPath}/<s:property value="#ctree.attributes.url"/>" iconCls="<s:property value="#ctree.attributes.iconCls"/>"> 
+								<div title="<s:property value="#ctree.text"/>" tid="<s:property value="#ctree.id"/>" url="${pageContext.request.contextPath}/<s:property value="#ctree.attributes.url"/>" iconCls="<s:property value="#ctree.attributes.iconCls"/>">
 									<a class="<s:property value="#ctree.text"/>" href="#" > 
 										<span class="icon <s:property value="#ctree.attributes.iconCls"/>" >&nbsp;</span> 
 										<span class="nav" ><s:property value="#ctree.text"/></span>

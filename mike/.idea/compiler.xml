@@ -10,16 +10,14 @@
         <module name="common" />
         <module name="data" />
         <module name="lmz" />
-        <module name="web" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8">
       <module name="admin" target="1.8" />
       <module name="common" target="1.8" />
       <module name="data" target="1.8" />
       <module name="lmz" target="1.8" />
       <module name="mike" target="1.8" />
-      <module name="web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

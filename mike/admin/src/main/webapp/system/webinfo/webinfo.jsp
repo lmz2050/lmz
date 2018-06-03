@@ -8,14 +8,16 @@
 	top.api.alert('已保存');
 </s:if>
 
-function uploadw(ii){
+function uploadw(){
 	top.api.upload(function(name){
-		$("#webinfoimg").attr("src",'${pageContext.request.contextPath}'+name);
+		$("#webinfoimg").attr("src",'${pageContext.request.contextPath}/api/download.action?name='+name);
 		$("#webinfoipt").val(name);
-	});
+    },"patch","uploadPatch.action");
 }
 
 </script>
+
+
 
 <div class="easyui-layout" fit="true" >
 	<div region="center" style="padding:0px;">
@@ -23,54 +25,70 @@ function uploadw(ii){
 	    	<input type="hidden" name="info.id" value="<s:property value="info.id"/>" />
 	    	<table cellpadding="5" >
 	    		<tr>
-	    			<td>网站名称:</td>
+	    			<td><s:text name="admin.web.web_name" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.name" data-options="required:true" value="<s:property value="info.name"/>" /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>域名:</td>
+	    			<td><s:text name="admin.web.domain" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.domain" data-options="required:true" value="<s:property value="info.domain"/>" /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>移动域名:</td>
+	    			<td><s:text name="admin.web.app_domain" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.mdomain" data-options="required:true" value="<s:property value="info.mdomain"/>" /></td>
 	    		</tr>	    		
 	    		<tr>
-	    			<td>网站logo:</td>
+	    			<td><s:text name="admin.web.web" /> logo:</td>
 	    			<td>	
 	    					<input type="hidden" id="webinfoipt" name="info.logo" value="<s:property value="info.logo"/>" />
-	    					<img id="webinfoimg" src="${pageContext.request.contextPath}<s:property value="info.logo"/>" style="width:135px;height:100px;float:left;margin-left:10px;"/>
+	    					<img id="webinfoimg" src="${pageContext.request.contextPath}/api/download.action?name=<s:property value="info.logo"/>" style="width:135px;height:100px;float:left;margin-left:10px;"/>
 	    					<a id="sau" class="easyui-linkbutton" iconcls="icon-add" plain="true" href="javascript:void(0)" style="width:80px;float:left;margin-left:10px;height:35px;"  onclick="uploadw()" >上传</a>
 					</td>
 	    		</tr>
 	    		<tr>
-	    			<td>手机号码:</td>
+	    			<td><s:text name="admin.web.mobile" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.phone" value="<s:property value="info.phone"/>" /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>电话号码:</td>
+	    			<td><s:text name="admin.web.tel" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.tel" value="<s:property value="info.tel"/>" /></td>
 	    		</tr>	    			    		
 				<tr>
-	    			<td>地址:</td>
+	    			<td><s:text name="admin.web.addr" />:</td>
 	    			<td >
-						<textarea id="content" name="info.addr" style="width: 600px; height:50px;"><s:property value="info.addr"/></textarea>
+						<textarea id="addr" name="info.addr" style="width: 600px; height:50px;"><s:property value="info.addr"/></textarea>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td>网站标题:</td>
+	    			<td><s:text name="admin.web.web_title" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.titles" value="<s:property value="info.titles"/>" /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>网站关键字:</td>
+	    			<td><s:text name="admin.web.web_key" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.keywords" value="<s:property value="info.keywords"/>" /></td>
 	    		</tr>	    			    		
 				<tr>
-	    			<td>网站说明:</td>
+	    			<td><s:text name="admin.web.web_des" />:</td>
 	    			<td >
-						<textarea id="content" name="info.explains" style="width: 600px; height:50px;"><s:property value="info.explains"/></textarea>
+						<textarea id="explains" name="info.explains" style="width: 600px; height:50px;"><s:property value="info.explains"/></textarea>
 	    			</td>
 	    		</tr>
-	    		<tr>
+				<tr>
+					<td><s:text name="admin.web.mail_service" />:</td>
+					<td><input class="easyui-textbox" type="text" name="info.mailfromhost" value="<s:property value="info.mailfromhost"/>" /></td>
+				</tr>
+				<tr>
+					<td><s:text name="admin.web.mail_sender_user" />:</td>
+					<td><input class="easyui-textbox" type="text" name="info.mailfromuname" value="<s:property value="info.mailfromuname"/>" /></td>
+				</tr>
+				<tr>
+					<td><s:text name="admin.web.mail_sender_pwd" />:</td>
+					<td><input class="easyui-textbox" type="password" name="info.mailfrompwd" value="<s:property value="info.mailfrompwd"/>" /></td>
+				</tr>
+				<tr>
+					<td><s:text name="admin.web.mail_receive_user" />:</td>
+					<td><input class="easyui-textbox" type="text" name="info.mailtohost" value="<s:property value="info.mailtohost"/>" /></td>
+				</tr>
+				<tr>
 	    			<td colspan="2">
 		    			<div style="text-align:center;padding:5px;margin-bottom:0px;">
 					    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#ffw').form('submit')">Submit</a>

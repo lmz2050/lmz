@@ -43,13 +43,16 @@ public class DrvicesAction extends BusBasAction{
 	{
 		try {
 			if(page==null||page<1)page=1;
-			if(rows==null)rows=0;
+			if(rows==null)rows=10;
 			Page pg = new Page();
+			pg.setIntPageSize(rows);
 			pg.setIntCurrentPage(page);
 
 			Map params = getQyParams();
+			Map pageParams = getApageParams();
+			pageParams.putAll(params);
 
-			PageUtil pu = getwService().search(getInfo().getClass(), params, pg, getDefOrd());
+			PageUtil pu = getwService().search(getInfo().getClass(), pageParams, pg, getDefOrd());
 
 			Map<String, Object> jsonMap = new HashMap<String, Object>();
 			jsonMap.put("total", pu.getPage().getIntRowCount());

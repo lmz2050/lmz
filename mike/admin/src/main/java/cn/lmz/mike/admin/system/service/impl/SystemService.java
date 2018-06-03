@@ -8,16 +8,15 @@ import cn.lmz.mike.admin.system.util.ltree.LTreeU;
 import cn.lmz.mike.common.base.StrU;
 import cn.lmz.mike.common.exception.LMZException;
 import cn.lmz.mike.common.page.PageUtil;
+import cn.lmz.mike.data.util.LanU;
 import cn.lmz.mike.data.util.LmzU;
 import cn.lmz.mike.web.base.service.impl.WService;
+import cn.lmz.mike.web.base.util.WebSV;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
@@ -40,7 +39,7 @@ public class SystemService extends WService implements ISystemService {
 	
 	
 	public void setRoleMenu(String rid,String midss) throws LMZException{
-		if(rid!=null&&!StrU.isBlank(midss)){
+		if(rid!=null){
 			delete(Lmzrolemenu.class, LmzU.getParams("rid",rid));
 			String[] mids = midss.split(",");
 			for(int i=0;i<mids.length;i++){
@@ -69,7 +68,7 @@ public class SystemService extends WService implements ISystemService {
 		}
 	}
 	public void setUserRole(String uid,String midss) throws LMZException{
-		if(uid!=null&&!StrU.isBlank(midss)){
+		if(uid!=null){
 			delete(Lmzroleuser.class, LmzU.getParams("uid",uid));
 			String[] mids = midss.split(",");
 			for(int i=0;i<mids.length;i++){
@@ -81,14 +80,20 @@ public class SystemService extends WService implements ISystemService {
 		}
 	}
 	
-	public List<Map> getUserMenu(String id) throws LMZException{
+	public List<Map> getUserMenu(String id,Map<String,Object> session) throws LMZException{
 		String sql=" select m.* from lmzmenu m where m.id in(select mid from lmzrolemenu where rid in(select rid from lmzroleuser where uid=?)) order by m.ord ";
 		PageUtil pu = searchMap(sql, null, id);
-		List<Map> tlist = LTreeU.convertTreeNodeList(pu.getList());
+		List<Map> btnlist = new ArrayList<Map>();
+
+		Locale locale = LanU.getLocale(session);
+		List<Map> tlist = LTreeU.convertTreeNodeList(pu.getList(),btnlist,locale);
 		tlist =	LTreeU.buildTree(tlist, 0);
 		for(int i=0;i<tlist.size();i++){
 			log.info(tlist.get(i).get("text")+"");
 		}
+
+		session.put(WebSV.LTREE,tlist);
+		session.put(WebSV.BTNLIST,btnlist);
 		return tlist;
 	}
 }

@@ -12,15 +12,13 @@ import cn.lmz.mike.web.base.bean.Lmztheme;
 import cn.lmz.mike.web.base.service.IWService;
 import cn.lmz.mike.web.base.util.CookieUtil;
 import cn.lmz.mike.web.base.util.WebSV;
+import org.apache.commons.collections.MapIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public abstract class BaseAction extends BasicAction{
@@ -99,7 +97,11 @@ public abstract class BaseAction extends BasicAction{
 	protected String getDefOrd(){
 		return " id+0 asc ";
 	}
-	
+
+	public String toList(){
+		return WebSV.SUCCESS;
+	}
+
 	public String toAdd(){
 		return WebSV.SUCCESS;
 	}
@@ -145,19 +147,35 @@ public abstract class BaseAction extends BasicAction{
 			handException(e);
 		}
 		return jsonStr();
-	}	
-	
+	}
+	public String delItems(){
+		try {
+			if(ids!=null&&ids.trim().length()>0){
+				String[] idd = ids.split(",");
+				for(int i=0;i<idd.length;i++){
+					id = idd[i];
+					getwService().delete(getInfo().getClass(), id);
+				}
+				r.setMsg(WebSV.SUCCESS);
+				r.setSuccess(true);
+			}
+		} catch (LMZException e) {
+			handException(e);
+		}
+		return jsonStr();
+	}
 	public String apage()
 	{
 		try {
 			if(page==null||page<1)page=1;
-			if(rows==null)rows=0;
+			if(rows==null)rows=10;
 			Page pg = new Page();
+			pg.setIntPageSize(rows);
 			pg.setIntCurrentPage(page);
 			
 			String ord = getDefOrd();
 			
-			PageUtil pu = getwService().search(getInfo().getClass(), null, pg, ord);
+			PageUtil pu = getwService().search(getInfo().getClass(), getApageParams(), pg, ord);
 
 			Map<String, Object> jsonMap = new HashMap<String, Object>();
 	        jsonMap.put("total", pu.getPage().getIntRowCount());
@@ -168,6 +186,30 @@ public abstract class BaseAction extends BasicAction{
 			handException(e);
 		}
 		return WebSV.LOGIN;
+	}
+
+	public Map getApageParams(){
+		if(ids!=null&&ids.trim().length()>0){
+			try {
+				Map<String, Object> m =  (Map<String, Object>)MC.json.json2map(ids);
+				Iterator<Map.Entry<String,Object>> it = m.entrySet().iterator();
+				while (it.hasNext()){
+					Map.Entry<String, Object> entry = it.next();
+					if(entry.getValue()==null){
+						it.remove();
+					}else if(entry.getValue() instanceof String){
+						String str = (String) entry.getValue();
+						if(str.trim().length()==0){
+							it.remove();
+						}
+					}
+				}
+				return m;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return new HashMap();
 	}
 	
 	public String findAll()
@@ -181,6 +223,7 @@ public abstract class BaseAction extends BasicAction{
 	}
 	
 	protected void setAdmin(Lmzadmin admin, String remember) throws LMZException{
+		admin.setSessionId(this.getRequest().getSession().getId());
 		getSession().put(WebSV.admin, admin);
 
 		if("1".equals(remember)){

@@ -34,7 +34,8 @@ function InitLeftMenu() {
 		var tabTitle = $(this).attr("title");
 		var url = $(this).attr("url");
 		var icon = $(this).attr("iconCls");
-		addTab(tabTitle, url, icon);
+        var tid = $(this).attr("tid");
+		addTab(tabTitle, url, icon,tid);
 		// end  for：解决左边菜单点击右边页面加载两次的bug
 		$('.easyui-accordion li div').removeClass("selected");
 		$(this).parent().addClass("selected");
@@ -60,12 +61,13 @@ function getIcon(menuid) {
 	return icon;
 }
 
-function addTab(subtitle, url, icon) {
+function addTab(subtitle, url, icon,tid) {
 	rowid="";
 	$.messager.progress({
-		text : '页面加载中....',
+		text : 'loadding....',
 		interval : 200
 	});
+	top.tmap[subtitle]=tid;
 	if (!$('#maintabs').tabs('exists', subtitle)) {
 		//判断是否进行iframe方式打开tab，默认为href方式
 		if(url.indexOf('isIframe') != -1){
@@ -137,7 +139,7 @@ function addLeftOneTab(subtitle, url, icon) {
 }
 function addmask() {
 	$.messager.progress({
-		text : '页面加载中....',
+		text : 'loadding....',
 		interval : 100
 	});
 }
@@ -201,7 +203,7 @@ function tabCloseEven() {
 		var nextall = $('.tabs-selected').nextAll();
 		if (nextall.length == 0) {
 			// msgShow('系统提示','后边没有啦~~','error');
-			alert('后边没有啦~~');
+			alert('end~~');
 			return false;
 		}
 		nextall.each(function(i, n) {
@@ -214,7 +216,7 @@ function tabCloseEven() {
 	$('#mm-tabcloseleft').click(function() {
 		var prevall = $('.tabs-selected').prevAll();
 		if (prevall.length == 0) {
-			alert('到头了，前边没有啦~~');
+			alert('the last~~');
 			return false;
 		}
 		prevall.each(function(i, n) {

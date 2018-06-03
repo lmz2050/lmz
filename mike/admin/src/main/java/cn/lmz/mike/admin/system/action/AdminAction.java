@@ -89,7 +89,7 @@ public class AdminAction extends BaseAction {
 					handException(e);
 				}
 			}else{
-				r.setMsg(LoginMsg.INCORRECT_PWD);
+				r.setMsg(getText("login.msg.INCORRECT_PWD"));
 				r.setSuccess(false);
 		}
 		}catch(Exception e){
@@ -129,7 +129,7 @@ public class AdminAction extends BaseAction {
 				if(StrU.isBlank(info.getId())){
 					List ulist = getwService().searchCO(Lmzadmin.class, "username",info.getUsername());
 					if(ulist!=null&&ulist.size()>0){
-						msg = LoginMsg.EXIST;
+						msg = getText("login.msg.EXIST");
 						r.setSuccess(false);
 						r.setMsg(msg);
 					}else{
@@ -150,17 +150,16 @@ public class AdminAction extends BaseAction {
 		return WebSV.SUCCESS;
 	}
 
-	
 	public String del(){
 		try {
 			if(id!=null){
 				Lmzadmin admin = this.getAdmin();
 				if(id==admin.getId()){
-					msg="不能删除自己";
+					msg=getText("login.msg.delete_yourself");
 					r.setSuccess(false);
 				}else{
 					getwService().delete(Lmzadmin.class, id);
-					msg="已删除";
+					msg=getText("login.msg.deleted");
 					String sql=" delete from lmzroleuser where uid = ? ";
 					getwService().execute(sql,id);
 					r.setSuccess(true);

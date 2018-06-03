@@ -233,17 +233,17 @@ public class HttpC {
 
     public static void main(String[] args){
 
-        String url="http://120.25.63.8:9000/admin/api/activate.action";
-       Map params = MapU.getMap("oem_type","MTC","deverce_name","bbb2","wired_mac_name","23:21:6c:9b","wireless_mac_name","5d:2a:6c:9b","function_type","006");
-       post(url,params);
+       // String url="http://120.25.63.8:9000/admin/api/activate.action";
+       //Map params = MapU.getMap("oem_type","MTC","deverce_name","bbb2","wired_mac_name","23:21:6c:9b","wireless_mac_name","5d:2a:6c:9b","function_type","006");
+       //post(url,params);
 
         //String url="http://120.25.63.8:9000/admin/api/checkUpdate.action";
         //Map params = MapU.getMap("oem_type","aaa","deverce_name","bbb2","version","0.0.0.0");
         //post(url,params);
 
-        //String url="http://120.25.63.8:9000/admin/api/erorrLog.action";
-        //Map params = MapU.getMap("oem_type","aaa","deverce_name","bbb2","mac_name","cc2","version","0.0.0.0","log","asfdsdfsdfsdfsdf");
-        //post(url,params);
+        String url="http://120.25.63.8:9000/admin/api/erorrLog.action";
+        Map params = MapU.getMap("oem_type","aaa","deverce_name","bbb2","mac_name","cc2","version","0.0.0.0","log","asfdsdfsdfsdfsdf");
+        post(url,params);
 
         //String url="http://120.25.63.8:9000/admin/api/receiveOnlineInfo.action";
         //Map params = MapU.getMap("oem_type","aaa","deverce_name","bbb2","version","0.0.0.0","mac_name","cc2","login_time","2018/01/20 18:15","online_times","10","gn_1_times","5","gn_2_times","3");

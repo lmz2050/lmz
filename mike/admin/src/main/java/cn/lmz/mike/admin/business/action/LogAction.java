@@ -1,25 +1,33 @@
 package cn.lmz.mike.admin.business.action;
 
 import cn.lmz.mike.admin.business.bean.Adm_dev_log;
+import cn.lmz.mike.admin.business.util.AdmU;
+import cn.lmz.mike.common.MC;
 import cn.lmz.mike.common.base.DateU;
-import cn.lmz.mike.common.exception.LMZException;
+import cn.lmz.mike.common.mail.MailU;
 import cn.lmz.mike.web.base.action.BaseAction;
 import cn.lmz.mike.web.base.bean.BaseBean;
+import cn.lmz.mike.web.base.util.WebSV;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import java.io.File;
 
 
 @Controller()
 @Scope("prototype")
 public class LogAction extends BaseAction {
 
+	private static Logger logger = LoggerFactory.getLogger(LogAction.class);
+
 	private static final long serialVersionUID = 1L;
 	protected Adm_dev_log info = new Adm_dev_log();
 
 	private String oem_type;
 	private String deverce_name;
-	//private String mac_name;
+	private String mac_name;
 	private String version;
 	private String current_time;
 	private String log;
@@ -28,18 +36,35 @@ public class LogAction extends BaseAction {
 
 		info.setCus_name(oem_type);
 		info.setDev_name(deverce_name);
-		//info.setMac1(mac_name);
+		info.setMac1(mac_name);
 		info.setVersion(version);
 		info.setUby("api");
 		info.setUtm(DateU.getTimeString());
 		info.setContent(log);
 
+		String path="/log/"+MC.date.getDateString()+"/";
+
+		String logname = path+MC.date.getTimeString()+MC.getRandomIntString(6)+"_err.log";
+		String realpath = WebSV.getFileUploadPath()+logname;
+		logger.info("log:"+logname+"--"+realpath);
 		try {
+
+			MC.file.write(new File(realpath),log);
+			info.setPath(logname);
 			wService.create(info);
-		} catch (LMZException e) {
+		} catch (Exception e) {
 			r.setSuccess(false);
 			r.setMsg(e.getMessage());
 			handException(e);
+		}
+
+		logger.info("send mail");
+		try {
+			MailU mail = MailU.getInstance(AdmU.getMailFrom(getwService()));
+			String mailTo = AdmU.getMailTo(getwService());
+			mail.send("ERR LOG",log,mailTo);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		return null;
@@ -97,5 +122,13 @@ public class LogAction extends BaseAction {
 
 	public void setLog(String log) {
 		this.log = log;
+	}
+
+	public String getMac_name() {
+		return mac_name;
+	}
+
+	public void setMac_name(String mac_name) {
+		this.mac_name = mac_name;
 	}
 }

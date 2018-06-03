@@ -1,6 +1,7 @@
 
 
 var api={};
+api.tmap={};
 var jj = document.getElementById("sutil");
 api.path=jj.getAttribute("path");
 api.i=1;
@@ -20,14 +21,40 @@ api.post=function(uri,data,fn,fe){
 				}
 			}
 		},
-		error:function(){
-			alert("ajax error!");
+		error:function(e){
+			alert("ajax error!"+uri+","+data+",e:"+e);
 			if(fe){
-				fe({});
+				fe(e);
 			}
 		}
 	});
 };
+api.posts=function(uri,data,fn,fe){
+    $.ajax({
+        url:uri,
+        data:data,
+        type: 'POST',
+        async: false,
+        success:function(data){
+            var d = $.parseJSON(data);
+            if(d.success){
+                fn(d);
+            }else{
+                alert("msg:"+d.msg);
+                if(fe){
+                    fe(d);
+                }
+            }
+        },
+        error:function(){
+            alert("ajax error!"+uri+","+data);
+            if(fe){
+                fe({});
+            }
+        }
+    });
+};
+
 api.get=function(uri,data,fn,fe){
 	$.ajax({
 		url:uri,
@@ -67,21 +94,21 @@ api.toAdd=function(t,fn,jid,fun){
 	}
 	if(!jid){jid='';}
 	var url=api.path+'/'+t+'/toAdd.action?id='+jid;
-	api.openW("新增",url);
+	api.openW("Add",url);
 	if(fn){api.Wcallback=fn;}
 };
 
 api.toAddgd=function(t,fn,jid,type){
 	var url=api.path+'/'+t+'/toAddgd.action?id='+jid+'&type='+type;
-	api.openW("新增",url);
+	api.openW("Add",url);
 };
 api.toUpdategd=function(t,fn,jid,type){
 	if(jid){
 		var url=api.path+'/'+t+'/toUpdategd.action?id='+jid+"&type="+type;
-		api.openW("编辑",url);
+		api.openW("Edit",url);
 		if(fn){api.Wcallback=fn;}
 	}else{
-		alert('请选择要编辑的栏目');
+		alert('Please select the column you want to edit');
 	}	
 };
 
@@ -89,10 +116,10 @@ api.toUpdategd=function(t,fn,jid,type){
 api.toUpdate1=function(t,fn,jid,pid){
 	if(jid){
 		var url=api.path+'/'+t+'/toUpdate.action?id='+jid+"&pid="+pid;
-		api.openW("编辑",url);
+		api.openW("Edit",url);
 		if(fn){api.Wcallback=fn;}
 	}else{
-		alert('请选择要编辑的栏目');
+		alert('Please select the column you want to edit');
 	}	
 };
 api.toUpdate=function(t,fn,jid,fun){
@@ -101,10 +128,10 @@ api.toUpdate=function(t,fn,jid,fun){
 	}
 	if(jid){
 		var url=api.path+'/'+t+'/toUpdate.action?id='+jid;
-		api.openW("编辑",url);
+		api.openW("Edit",url);
 		if(fn){api.Wcallback=fn;}
 	}else{
-		alert('请选择要编辑的栏目');
+		alert('Please select the column you want to edit');
 	}	
 };
 api.toUpdateDis=function(t,fn,jid,type){
@@ -113,10 +140,10 @@ api.toUpdateDis=function(t,fn,jid,type){
 		if(type){
 			url=api.path+'/'+t+'/toUpdate.action?id='+jid+'&distype='+type;
 		}
-		api.openW("编辑",url);
+		api.openW("Edit",url);
 		if(fn){api.Wcallback=fn;}
 	}else{
-		alert('请选择要编辑的栏目');
+		alert('Please select the column you want to edit');
 	}	
 };
 
@@ -126,26 +153,13 @@ api.toSendGoods=function(t,fn,jid,fun){
 	}
 	if(jid){
 		var url=api.path+'/'+t+'/toSendGoods.action?id='+jid;
-		api.openW("编辑",url);
+		api.openW("Edit",url);
 		if(fn){api.Wcallback=fn;}
 	}else{
-		alert('请选择要编辑的栏目');
+		alert('Please select the column you want to edit');
 	}	
 };
-/*
-api.toAdd=function(t,fn,jid,fun){
-	if(jid&&fun){
-		jid=api.getSelect(jid,fun).id;
-	}
-	if(jid){
-		var url=api.path+'/'+t+'/toAdd.action?id='+jid;
-		api.openW("编辑",url);
-		if(fn){api.Wcallback=fn;}
-	}else{
-		alert('请选择要编辑的栏目');
-	}	
-}
-*/
+
 api.toUrl=function(url,fn,jid,fun){
 	if(jid&&fun){
 		jid=api.getSelect(jid,fun).id;
@@ -156,10 +170,10 @@ api.toUrl=function(url,fn,jid,fun){
 		}else{
 			url+="?id="+jid;
 		}
-		api.openW("编辑",url);
+		api.openW("Edit",url);
 		if(fn){api.Wcallback=fn;}
 	}else{
-		alert('请选择要编辑的栏目');
+		alert('Please select the column you want to edit');
 	}	
 };
 api.del=function(t,fn,jid,fun){
@@ -169,26 +183,26 @@ api.del=function(t,fn,jid,fun){
 	if(jid){
 		var url=api.path+'/'+t+'/del.action';
 		//alert(url+"--"+jid);
-		$.dialog.confirm("确认删除?", function(){
+		$.dialog.confirm("Confirm the deletion?", function(){
 			api.post(url,{id:jid},function(d){
 				if(fn){fn()}
 			});
 		}, function(){});
 	}else{
-		alert('请选择要删除的栏目');
+		alert('Please select the column you want to delete');
 	}
 };
 
 api.upStatus=function(t,fn,jid,status,name){
 	if(jid){
 		var url=api.path+'/'+t+'/upStatus.action';
-		$.dialog.confirm("确认"+name+"?", function(){
+		$.dialog.confirm("Confirm "+name+"?", function(){
 			api.post(url,{id:jid,status:status},function(d){
 				if(fn){fn();}
 			});
 		}, function(){});
 	}else{
-		alert('请选择要"+name+"的栏目');
+		alert('Please select the column you want to '+name);
 	}
 };
 
@@ -249,7 +263,7 @@ api.upload=function(fn,ipath,action){
 		url=url+'&action='+action;
 	}
 	url+'&t='+new Date();
-	api.openU('上传',api.path+url);
+	api.openU('upload',api.path+url);
 	api.Ucallback=fn;
 };
 
@@ -288,3 +302,159 @@ api.onPay=function(id,bank){
 		}
 	});
 };
+
+
+var l={};
+l.setLan=function(lan){
+	//alert(lan);
+    var url=api.path+'/lan.action';
+	api.posts(url,{"lan":lan},function(){
+		window.location.reload();
+	},function(e){
+		alert("err:"+url+'--'+lan);
+	})
+}
+l.toAdd=function(t){
+	var tb = $(t).parents('div[name="tb"]').attr("id");
+    var url=api.path+'/'+tb+'/toAdd.action';
+    api.openW("Add",url);
+    api.Wcallback=function(){$("#"+tb).find(".dg_list").datagrid('reload');}
+}
+
+l.del=function(t){
+    var tb = $(t).parents('div[name="tb"]').attr("id");
+    var dg = $("#"+tb).find(".dg_list");
+    var url=api.path+'/'+tb+'/del.action';
+
+    var jid = dg.datagrid("getSelected").id;
+    if(jid){
+		$.dialog.confirm("Confirm the deletion?", function(){
+			api.post(url,{id:jid},function(d){
+				dg.datagrid("reload");
+			});
+		}, function(){});
+    }else{
+        alert('Please select the column you want to delete');
+    }
+}
+
+l.delItems=function(t){
+    var tb = $(t).parents('div[name="tb"]').attr("id");
+    var dg = $("#"+tb).find(".dg_list");
+
+    var selectRows = dg.datagrid("getSelections");
+    //如果没有选中行的话，提示信息
+    if (selectRows.length < 1) {
+        alert("Please select the column you want to delete");
+        return;
+    }
+    //如果选中行了，则要进行判断
+    $.dialog.confirm("Confirm the deletion?", function () {
+        //如果为真的话
+		//定义变量值
+		var strIds = "";
+		//拼接字符串，这里也可以使用数组，作用一样
+		for (var i = 0; i < selectRows.length; i++) {
+			strIds += selectRows[i].id + ",";
+		}
+		//循环切割
+		strIds = strIds.substr(0, strIds.length - 1);
+		var url=api.path+'/'+tb+'/delItems.action';
+		api.post(url,{ids:strIds},function(d){
+			dg.datagrid('reload');
+		},function(){});
+
+    });
+}
+
+l.toUpdate=function(t,jid){
+    var tb = $(t).parents('div[name="tb"]').attr("id");
+    var dg = $("#"+tb).find(".dg_list");
+
+    if(jid){
+        var url=api.path+'/'+tb+'/toUpdate.action?id='+jid;
+        api.openW("Edit",url);
+        api.Wcallback=function(){dg.datagrid('reload');}
+    }else{
+        alert('Please select the column you want to delete');
+    }
+}
+
+l.search=function(t){
+	var tbo = $(t).parents('div[name="tb"]');
+    var dg = tbo.find(".dg_list");
+	var p = l.dg_search_params(tbo);
+    dg.datagrid('load',{
+    	ids:p
+	});
+}
+
+
+l.dg_params= {
+    width: '100%',
+    height: 300,
+    striped: true,
+    singleSelect: false,
+    pageSize: 10,
+    fit: true,
+    pageList: [5, 10, 15],
+    pagination: true,
+    rownumbers: true
+}
+
+l.dg_search_params=function(dgo){
+    var jsonStr = "{";
+    dgo.find(".dg_search input.textbox-value").each(function(){
+        var name = $(this).attr('name');
+        var val = $(this).val();
+        jsonStr +='"' + name + '":"' + val + '",';
+    });
+    if(jsonStr.length>1) {
+        jsonStr = jsonStr.substring(0, (jsonStr.length - 1));
+    }
+    jsonStr += '}';
+	return jsonStr;
+}
+
+l.dg=function(id,op) {
+    var tb = $("#" + id);
+    op = $.extend(l.dg_params, op || {});
+    op.queryParams=function(){
+        return l.dg_search_params(tb);
+    };
+    op.url=api.path+'/'+id+'/apage.action';
+    tb.find(".dg_list").datagrid(op);
+}
+l.btn=function(id,tid){
+    var url=api.path+'/menu/getBtn.action';
+    var ath='';
+	api.posts(url,{id:tid},function(d){
+		//alert(d.obj);
+        ath = d.obj;
+	},function(){});
+
+    var f= {field:'action',title:api.code.edit,width:'4%',align:'center'}
+
+    if(ath.indexOf('edit')!=-1){
+        f={field:'action',title:api.code.edit,width:'4%',align:'center',
+            formatter:function(value,row,index){
+                var u = "<a href=\"#\" onclick=\"l.toUpdate(this,'"+row.id+"')\" ><img src=\""+api.path+"/plug-in/easyui1.5/themes/icons/pencil.png\" /></a> ";
+                return u;
+            }
+        }
+    }
+
+    var btnhtml='';
+    if(ath.indexOf('add')!=-1){
+        btnhtml+="<a href=\"javascript:void(0)\" onclick=\"l.toAdd(this);\" name=\"add\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\">"+api.code.add+"</a>";
+    }
+    if(ath.indexOf('remove')!=-1){
+        btnhtml+="<a href=\"javascript:void(0)\" onclick=\"l.delItems(this);\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\">"+api.code.remove+"</a>";
+    }
+    if(ath.indexOf('import')!=-1){
+        btnhtml+="<a href=\"javascript:void(0)\" onclick=\"importDrvices(this);\" id=\"batchimport\" class=\"easyui-linkbutton\" iconCls=\"icon-undo\" plain=\"true\">"+api.code.import+"</a>";
+    }
+    $("#"+id+" .dg_btn").html(btnhtml);
+
+    return f;
+}

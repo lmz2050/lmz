@@ -24,7 +24,7 @@ public class Data {
 	private static final Map<String,Object> regmap = new HashMap<String,Object>();
 	
 	static{
-		reg("org.lmz");	
+		reg("cn.lmz");
 	}
 	
 	public static String getLName(Class<?> c){

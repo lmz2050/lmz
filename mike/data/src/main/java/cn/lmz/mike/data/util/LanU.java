@@ -1,5 +1,8 @@
 package cn.lmz.mike.data.util;
 
+import java.util.Locale;
+import java.util.Map;
+
 public class LanU {
 
 	public static final String LAN_SESSION_KEY = "WW_TRANS_I18N_LOCALE";
@@ -19,6 +22,14 @@ public class LanU {
 	public static void setLan(String lan){
 		lanValue.set(lan);
 	}
-	
-	
+
+	public static Locale getLocale(Map session){
+		Locale locale = (Locale)session.get(LanU.LAN_SESSION_KEY);
+		if(locale == null){
+			locale = Locale.SIMPLIFIED_CHINESE;
+		}
+		return locale;
+	}
+
+
 }

@@ -1,24 +1,27 @@
 package cn.lmz.mike.admin.system.util.interceptor;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import cn.lmz.mike.admin.system.util.SysU;
+import cn.lmz.mike.common.MC;
 import cn.lmz.mike.common.exception.LMZException;
 import cn.lmz.mike.common.net.HttpU;
+import cn.lmz.mike.data.util.LanU;
 import cn.lmz.mike.web.base.bean.Lmzadmin;
 import cn.lmz.mike.web.base.service.IWService;
 import cn.lmz.mike.web.base.util.Context;
-import cn.lmz.mike.web.base.util.LoginMsg;
+import cn.lmz.mike.web.base.util.OnlineUserMap;
+import cn.lmz.mike.web.base.util.WebMsg;
 import cn.lmz.mike.web.base.util.WebSV;
-import org.apache.struts2.ServletActionContext;
-
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
 import com.opensymphony.xwork2.util.ValueStack;
+import org.apache.struts2.ServletActionContext;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 public class AdminInterceptor implements Interceptor {
 
@@ -33,18 +36,25 @@ public class AdminInterceptor implements Interceptor {
 		
 	}
 
-	
 	@SuppressWarnings("unchecked")
 	public String intercept(ActionInvocation actionInvocation) throws Exception {
 		try{
 			Map session = actionInvocation.getInvocationContext().getSession();
 			Lmzadmin admin = (Lmzadmin)session.get(WebSV.admin);
+			String msg="";
 	        if (admin!=null){
-	        	return actionInvocation.invoke();
+
+				Lmzadmin loginuserinfo = OnlineUserMap.onlineuser.get(admin.getId());
+				if(loginuserinfo!=null&&admin.getSessionId().equalsIgnoreCase(loginuserinfo.getSessionId())){
+					return actionInvocation.invoke();
+				}else {
+					msg = WebMsg.getI18nMsg("login.msg.LOGIN_OTHER");
+				}
+
 	        } else {
-	        	actionInvocation.getInvocationContext().put("msg", LoginMsg.LOGIN_FIRST);
+	        	msg = WebMsg.getI18nMsg("login.msg.LOGIN_FIRST");
 	        }
-	        
+			actionInvocation.getInvocationContext().put("msg", msg);
 	        
 	        ActionContext ac = actionInvocation.getInvocationContext();
             ValueStack stack = ac.getValueStack();
@@ -54,8 +64,8 @@ public class AdminInterceptor implements Interceptor {
 	        if(HttpU.isAjax(request)){
 	        	HttpServletResponse responce = (HttpServletResponse)actionInvocation.getInvocationContext().get(ServletActionContext.HTTP_RESPONSE);
 	        	responce.setContentType("text/html;charset=UTF-8");
-	        	String url= SysU.getDomain((IWService) Context.getBean("wService"),m)+"user/login.jsp";
-	        	String str="<script>alert('"+LoginMsg.LOGIN_FIRST+"');top.location.href='"+url+"'</script>";
+	        	String url= SysU.getDomain((IWService) Context.getBean("wService"),m)+"user/loginPage.action";
+	        	String str="<script>alert('"+msg+"');top.location.href='"+url+"'</script>";
 	        	responce.getWriter().write(str);
 	        	responce.getWriter().flush();
 	        	responce.getWriter().close();

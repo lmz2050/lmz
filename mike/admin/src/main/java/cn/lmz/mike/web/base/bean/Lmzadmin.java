@@ -1,6 +1,7 @@
 package cn.lmz.mike.web.base.bean;
 
 
+import cn.lmz.mike.data.annotation.LField;
 import cn.lmz.mike.data.annotation.Lbean;
 import cn.lmz.mike.data.cache.ISyncBean;
 
@@ -16,6 +17,9 @@ public class Lmzadmin extends BaseBean implements ISyncBean {
 	protected String lastip;
 	protected String lastlogin;
 	protected Integer type;
+
+	@LField(useForDb=false)
+	protected String sessionId;
 	
 	public String getUsername() {
 		return username;
@@ -59,5 +63,12 @@ public class Lmzadmin extends BaseBean implements ISyncBean {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-	
+
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
 }

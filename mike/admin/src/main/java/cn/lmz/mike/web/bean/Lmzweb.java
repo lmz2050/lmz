@@ -17,6 +17,13 @@ public class Lmzweb extends BaseBean {
 	private String phone;
 	private String tel;
 	private String addr;
+
+	private String mailfromhost;
+	private String mailfromuname;
+	private String mailfrompwd;
+	private String mailtohost;
+
+
 	private Integer disabled;
 	
 	public String getDomain() {
@@ -85,5 +92,36 @@ public class Lmzweb extends BaseBean {
 	public void setMdomain(String mdomain) {
 		this.mdomain = mdomain;
 	}
-	
+
+	public String getMailfromhost() {
+		return mailfromhost;
+	}
+
+	public void setMailfromhost(String mailfromhost) {
+		this.mailfromhost = mailfromhost;
+	}
+
+	public String getMailfromuname() {
+		return mailfromuname;
+	}
+
+	public void setMailfromuname(String mailfromuname) {
+		this.mailfromuname = mailfromuname;
+	}
+
+	public String getMailfrompwd() {
+		return mailfrompwd;
+	}
+
+	public void setMailfrompwd(String mailfrompwd) {
+		this.mailfrompwd = mailfrompwd;
+	}
+
+	public String getMailtohost() {
+		return mailtohost;
+	}
+
+	public void setMailtohost(String mailtohost) {
+		this.mailtohost = mailtohost;
+	}
 }

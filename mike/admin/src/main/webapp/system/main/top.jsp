@@ -12,23 +12,29 @@
       	<table>
        		<tr>
         		<td valign="top" height="50">
-         			<span style="color: #CC33FF">当前用户:</span><span style="color: #666633">(<s:property value="#session.admin.username"/>)</span>
+         			<span style="color: #CC33FF"><s:text name="main.cur_user" />:</span><span style="color: #666633">(<s:property value="#session.admin.username"/>)</span>
         		</td>
        		</tr>
        		<tr>
      			<td>
         			<div style="position: absolute; right: 0px; bottom: 0px;">
-         				<a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_kzmbMenu" iconCls="icon-help">控制面板</a>
-         				<a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_zxMenu" iconCls="icon-back">注销</a>
+						<a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_lanMenu" iconCls="icon-back"><s:text name="main.language" /></a>
+         				<a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_kzmbMenu" iconCls="icon-help"><s:text name="main.control_panel" /></a>
+         				<a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_zxMenu" iconCls="icon-back"><s:text name="main.logout" /></a>
         			</div>
+					<div id="layout_north_lanMenu" style="width: 100px; display: none;">
+						<div onclick="l.setLan('zh_CN')">中文</div>
+						<div class="menu-sep"></div>
+						<div onclick="l.setLan('en_US')">English</div>
+					</div>
         			<div id="layout_north_kzmbMenu" style="width: 100px; display: none;">
-         				<div onclick="api.toUpdate('admin',function(){},'<s:property value="#session.admin.id"/>')">个人信息</div>
+         				<div onclick="api.toUpdate('admin',function(){},'<s:property value="#session.admin.id"/>')"><s:text name="main.personal_information" /></div>
          				<div class="menu-sep"></div>
-         				<div onclick="api.toUrl('${pageContext.request.contextPath}/admin/toUppwd.action',function(){},'<s:property value="#session.admin.id"/>')">修改密码</div>
+         				<div onclick="api.toUrl('${pageContext.request.contextPath}/admin/toUppwd.action',function(){},'<s:property value="#session.admin.id"/>')"><s:text name="main.change_password" /></div>
         			</div>
         			<div id="layout_north_zxMenu" style="width: 100px; display: none;">
          				<div class="menu-sep"></div>
-         				<div onclick="api.confirm('确认退出?','${pageContext.request.contextPath}/user/loginout.action',1);">退出系统</div>
+         				<div onclick="api.confirm('<s:text name="main.confirm_quit" />','${pageContext.request.contextPath}/user/loginout.action',1);"><s:text name="main.logout_system" /></div>
         			</div>
        			</td>
        		</tr>  

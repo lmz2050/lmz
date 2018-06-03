@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
 <html>
 	<head>
-		<title>菜单信息</title>
+		<title><s:text name="admin.detail.title" /></title>
   	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/jquery/jquery-1.8.3.js"></script>
 	<link id="easyuiTheme" rel="stylesheet" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/default/easyui.css" type="text/css"></link>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icon.css" ></link>
@@ -27,7 +27,7 @@ $(function(){
 	    	<input type="hidden" name="info.id" value="<s:property value="info.id"/>" />
 	    	<table cellpadding="5">
 	    		<tr>
-	    			<td>角色名称:</td>
+	    			<td><s:text name="admin.role.name" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.name" data-options="required:true" value="<s:property value="info.name"/>" /></td>
 	    		</tr>
 	    	</table>

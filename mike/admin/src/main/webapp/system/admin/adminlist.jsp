@@ -16,26 +16,23 @@ $('#adminlist').datagrid({
     pageList: [5,10,15], 
     url:'${pageContext.request.contextPath}/admin/apage.action',  
     //queryParams:{path:'test'},  
-    loadMsg:'数据加载中请稍后……',  
+    loadMsg:'loadding……',
     pagination: true,
     rownumbers: true,
     columns:[[ 
-    	{field:'id',title:'序号',width:'10%',align: 'center'},
-    	{field:'username',title:'用户名',width:'15%',align: 'center'},
-    	{field:'mobile',title:'手机号码',width:'15%',align: 'center'},
-    	{field:'useremail',title:'用户邮箱',width:'15%',align: 'center'},
-    	/*
-    	{field:'lastip',title:'最近登录IP',width:'15%',align: 'center'},
-    	*/
-    	{field:'lastlogin',title:'最近登录时间',width:'10%',align: 'center'},
-    	{field:'type',title:'用户类型',width:'10%',align: 'center'},
-    	{field:'action1',title:'角色管理',width:'15%',align:'center',
+    	{field:'id',title:'<s:text name="admin.user.serialno"/>',width:'10%',align: 'center'},
+    	{field:'username',title:'<s:text name="admin.user.username"/>',width:'15%',align: 'center'},
+    	{field:'mobile',title:'<s:text name="admin.user.mobile"/>',width:'15%',align: 'center'},
+    	{field:'useremail',title:'<s:text name="admin.user.mail"/>',width:'15%',align: 'center'},
+    	{field:'lastlogin',title:'<s:text name="admin.user.last_login_time"/>',width:'10%',align: 'center'},
+    	{field:'type',title:'<s:text name="admin.user.user_type"/>',width:'10%',align: 'center'},
+    	{field:'action1',title:'<s:text name="admin.user.user_role"/>',width:'15%',align:'center',
             formatter:function(value,row,index){
             		var r = "<a href=\"#\" onclick=\"setUserrole('"+row.id+"','"+row.username+"')\"  ><img src=\"${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icons/edit_add1.png\" /></a> ";
                     return r;
             }
         },
-    	{field:'action',title:'修改',width:'15%',align:'center',
+    	{field:'action',title:'<s:text name="system.btn.edit"/>',width:'15%',align:'center',
             formatter:function(value,row,index){
                     var u = "<a href=\"#\" onclick=\"api.toUpdate('admin',function(){$('#adminlist').datagrid('reload');},'"+row.id+"')\" ><img src=\"${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icons/edit_add1.png\" /></a> ";
                     return u;
@@ -48,7 +45,7 @@ var uid;
 function setUserrole(id,name) {
 	$("#role-panel").panel(
 		{
-			title :id+"-"+name+":当前用户角色",
+			title :id+"-"+name+":<s:text name="admin.user.curr_user_role"/>",
 			tools:[{iconCls:'icon-save',handler:function(){
 				var ids = getCheckedu();
 				api.post('${pageContext.request.contextPath}/role/setUserRole.action',{id:uid,msg:ids},function(){
@@ -97,17 +94,17 @@ function resetu() {
 </script>
 <div class="easyui-layout" fit="true" >
 <div region="north" border="false" style="BACKGROUND:#eee;height:30px; padding: 1px; overflow: hidden;">
-     <a href="#" onclick="api.toAdd('admin',function(){$('#adminlist').datagrid('reload');},'adminlist','datagrid')" class="easyui-linkbutton" iconcls="icon-add" plain="true">新增</a>
-     <a href="#" onclick="api.del('admin',function(){$('#adminlist').datagrid('reload');},'adminlist','datagrid')" class="easyui-linkbutton" iconcls="icon-remove" plain="true">删除</a>
+     <a href="#" onclick="api.toAdd('admin',function(){$('#adminlist').datagrid('reload');},'adminlist','datagrid')" class="easyui-linkbutton" iconcls="icon-add" plain="true"><s:text name="system.btn.add"/></a>
+     <a href="#" onclick="api.del('admin',function(){$('#adminlist').datagrid('reload');},'adminlist','datagrid')" class="easyui-linkbutton" iconcls="icon-remove" plain="true"><s:text name="system.btn.remove"/></a>
 </div>
  <div region="center" style="padding:0px;">
   	<table id="adminlist"></table>
  </div>
  <div region="east"  id="rr" style="width:15%;" split="true">
-  	<div tools="#t1" class="easyui-panel" title="角色设置" style="padding: 10px;" fit="true" border="false" id="role-panel">	
+  	<div tools="#t1" class="easyui-panel" title="<s:text name="admin.user.role_setting" />" style="padding: 10px;" fit="true" border="false" id="role-panel">
   		<div style="text-align: center;display:none;padding-bottom:10px;" id="lbtn1">
-  			<a style="width:50px;" class="easyui-linkbutton" onclick="selecrAllu();">全选</a>&nbsp;&nbsp;
-  			<a style="width:50px;" class="easyui-linkbutton"  onclick="resetu();">重置</a>
+  			<a style="width:50px;" class="easyui-linkbutton" onclick="selecrAllu();"><s:text name="system.btn.selectAll"/></a>&nbsp;&nbsp;
+  			<a style="width:50px;" class="easyui-linkbutton"  onclick="resetu();"><s:text name="system.btn.reset"/></a>
   		</div>
   		<ul id="ltreeuser" class="easyui-tree" 
 				 data-options=" 

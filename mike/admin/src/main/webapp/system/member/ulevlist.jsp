@@ -16,7 +16,7 @@ $('#ulevlist').datagrid({
     pageList: [5,10,15], 
     url:'${pageContext.request.contextPath}/ulev/apage.action',  
     //queryParams:{path:'test'},  
-    loadMsg:'数据加载中请稍后……',  
+    loadMsg:'loadding......',
     pagination: true,
     rownumbers: true,
     columns:[[ 

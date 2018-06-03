@@ -1,9 +1,5 @@
 package cn.lmz.mike.admin.system.action;
 
-import java.util.List;
-import java.util.Map;
-
-
 import cn.lmz.mike.admin.system.bean.Lmzmenu;
 import cn.lmz.mike.admin.system.bean.Lmzrolemenu;
 import cn.lmz.mike.admin.system.util.SysU;
@@ -12,10 +8,15 @@ import cn.lmz.mike.common.base.StrU;
 import cn.lmz.mike.common.exception.LMZException;
 import cn.lmz.mike.common.page.PageUtil;
 import cn.lmz.mike.data.bean.DataBean;
+import cn.lmz.mike.data.util.LanU;
 import cn.lmz.mike.web.base.bean.BaseBean;
 import cn.lmz.mike.web.base.util.WebSV;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 @Controller()
@@ -35,18 +36,42 @@ public class MenuAction extends SysAction{
 	
 	public String getUserMenu()
 	{
-		infoL=(List)this.getSession().get(WebSV.LTREE);	
+		infoL=(List)this.getSession().get(WebSV.LTREE);
 		if(StrU.isBlank(url)){url = WebSV.SUCCESS;}
 		if(WebSV.JSON.equalsIgnoreCase(url)){
 			return jsonStr(infoL);
 		}
 		return  url;
 	}
+
+
+
+	public String getBtn(){
+		List btnlist=(List)this.getSession().get(WebSV.BTNLIST);
+		String msg="";
+		if(btnlist!=null&&btnlist.size()>0) {
+			for (int i=0;i<btnlist.size();i++) {
+				Map m = (Map) btnlist.get(i);
+				String pid = (String)m.get("pid");
+				String type = m.get("type")+"";
+				if(id!=null&&id.equalsIgnoreCase(pid)&&"1".equalsIgnoreCase(type)){
+					msg+=m.get("url")+"@";
+				}
+			}
+		}
+		r.setSuccess(true);
+		r.setObj(msg);
+		return jsonStr();
+	}
 	public String getRoleMenu()
 	{
 		try{
-			PageUtil pu=getwService().searchMap(new DataBean(getInfo().getClass()),null,null);
-			List<Map> tlist = LTreeU.convertTreeNodeList(pu.getList());
+			DataBean db = new DataBean(getInfo().getClass());
+			if(!"0".equalsIgnoreCase(this.getAdmin().getId())){
+				db.setParams("isdev",0);
+			}
+			PageUtil pu=getwService().searchMap(db,null,null);
+			List<Map> tlist = LTreeU.convertTreeNodeList(pu.getList(),null, LanU.getLocale(getSession()));
 			tlist =	LTreeU.buildTree(tlist, 0);
 			if(id!=null){
 				String sql=" select m.* from lmzmenu m where m.id in(select mid from lmzrolemenu where rid =?) order by m.ord ";
@@ -76,6 +101,12 @@ public class MenuAction extends SysAction{
 				}
 				if(StrU.isBlank(info.getUrl())){
 					info.setUrl("#");
+				}
+				if(info.getType()==null){
+					info.setType(0);
+				}
+				if(info.getIsdev()==null){
+					info.setIsdev(0);
 				}
 				Lmzmenu pm = getwService().search(getInfo().getClass(),info.getPid());
 				if(pm!=null){
@@ -126,8 +157,8 @@ public class MenuAction extends SysAction{
 	{
 		try{
 			
-			infoL = LTreeU.getEasyList(getwService(), info.getClass().getSimpleName(), null);
-			
+			infoL = LTreeU.getEasyList(getwService(), info.getClass().getSimpleName(), null,getSession());
+
 			jsonStr(infoL);
 		}catch(Exception e){
 			handException(e);

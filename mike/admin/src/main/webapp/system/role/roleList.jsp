@@ -16,19 +16,19 @@ $('#rolelist').datagrid({
     pageList: [5,10,15], 
     url:'${pageContext.request.contextPath}/role/apage.action',  
     //queryParams:{path:'test'},  
-    loadMsg:'数据加载中请稍后……',  
+    loadMsg:'loadding......',
     pagination: true,
     rownumbers: true,
     columns:[[ 
-    	{field:'id',title:'序号',width:'10%',align: 'center'},
-    	{field:'name',title:'名称',width:'65%',align: 'center'},
-    	{field:'action1',title:'权限管理',width:'10%',align:'center',
+    	{field:'id',title:'<s:text name="admin.role.serialno" />',width:'10%',align: 'center'},
+    	{field:'name',title:'<s:text name="admin.role.name" />',width:'65%',align: 'center'},
+    	{field:'action1',title:'<s:text name="admin.role.role_setting" />',width:'10%',align:'center',
             formatter:function(value,row,index){
             		var r = "<a href=\"#\" onclick=\"setMenubyrole('"+row.id+"','"+row.name+"')\" ><img src=\"${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icons/edit_add1.png\" /></a> ";
                     return r;
             }
         },
-    	{field:'action',title:'修改',width:'15%',align:'center',
+    	{field:'action',title:'<s:text name="system.btn.edit" />',width:'15%',align:'center',
             formatter:function(value,row,index){
                     var u = "<a href=\"#\" onclick=\"api.toUpdate('role',function(){$('#rolelist').datagrid('reload');},'"+row.id+"')\" ><img src=\"${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icons/edit_add1.png\" /></a> ";
                     return u;
@@ -41,12 +41,13 @@ var rid;
 function setMenubyrole(id,roleName) {
 	$("#function-panel").panel(
 		{
-			title :id+"-"+roleName+":当前权限",
+			title :id+"-"+roleName+":<s:text name="admin.role.curr_permissions" />",
 			tools:[{iconCls:'icon-save',handler:function(){
 					var ids = getChecked();
 					api.post('${pageContext.request.contextPath}/role/setRoleMenu.action',{id:rid,msg:ids},function(){
 						api.get('${pageContext.request.contextPath}/menu/getRoleMenu.action',{id:rid},function(d){
 							showTree(d);
+							alert("<s:text name="system.msg.saved" />");
 						});
 					});
 			}}]
@@ -119,17 +120,17 @@ function reset() {
 </script>
 <div class="easyui-layout" fit="true" >
 <div region="north" border="false" style="BACKGROUND:#eee;height:30px; padding: 1px; overflow: hidden;">
-     <a href="#" onclick="api.toAdd('role',function(){$('#rolelist').datagrid('reload');},'rolelist','datagrid')" class="easyui-linkbutton" iconcls="icon-add" plain="true">新增</a>
-     <a href="#" onclick="api.del('role',function(){$('#rolelist').datagrid('reload');},'rolelist','datagrid')" class="easyui-linkbutton" iconcls="icon-remove" plain="true">删除</a>
+     <a href="#" onclick="api.toAdd('role',function(){$('#rolelist').datagrid('reload');},'rolelist','datagrid')" class="easyui-linkbutton" iconcls="icon-add" plain="true"><s:text name="system.btn.add" /></a>
+     <a href="#" onclick="api.del('role',function(){$('#rolelist').datagrid('reload');},'rolelist','datagrid')" class="easyui-linkbutton" iconcls="icon-remove" plain="true"><s:text name="system.btn.remove" /></a>
 </div>
  <div region="center" style="padding:0px;">
   	<table id="rolelist"></table>
  </div>
  <div region="east"  id="rr" style="width:20%;" split="true">
-  	<div tools="#tt" class="easyui-panel" title="权限设置" style="padding: 10px;" fit="true" border="false" id="function-panel">	
+  	<div tools="#tt" class="easyui-panel" title="<s:text name="admin.user.role_setting" />" style="padding: 10px;" fit="true" border="false" id="function-panel">
   		<div style="text-align: center;display:none;padding-bottom:10px;" id="lbtn">
-  			<a style="width:50px;" class="easyui-linkbutton" onclick="selecrAll();">全选</a>&nbsp;&nbsp;
-  			<a style="width:50px;" class="easyui-linkbutton"  onclick="reset();">重置</a>
+  			<a style="width:50px;" class="easyui-linkbutton" onclick="selecrAll();"><s:text name="system.btn.selectAll"/></a>&nbsp;&nbsp;
+  			<a style="width:50px;" class="easyui-linkbutton"  onclick="reset();"><s:text name="system.btn.reset"/></a>
   		</div>
   		<ul id="ltree" class="easyui-tree" > </ul>
   	</div>

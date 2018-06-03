@@ -7,7 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/data/data.iml" filepath="$PROJECT_DIR$/data/data.iml" />
       <module fileurl="file://$PROJECT_DIR$/lmz/lmz.iml" filepath="$PROJECT_DIR$/lmz/lmz.iml" />
       <module fileurl="file://$PROJECT_DIR$/mike.iml" filepath="$PROJECT_DIR$/mike.iml" />
-      <module fileurl="file://$PROJECT_DIR$/web/web.iml" filepath="$PROJECT_DIR$/web/web.iml" />
     </modules>
   </component>
 </project>

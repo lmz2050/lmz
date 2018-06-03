@@ -20,13 +20,17 @@
 	   <default-interceptor-ref name="adminStack" /> 	   
 	   <action name="home" class="adminAction" method="home">      
             <result name="success">/system/main/home.jsp</result>
-            <result name="login">/user/login.jsp</result>                       
+            <result name="login">/user/loginPage.action</result>
        </action>
        <action name="apage" class="adminAction" method="apage">
        		<result name="success">/system/admin/adminlist.jsp</result>
        		<result name="input">/error.jsp</result> 
-       </action> 
-        <action name="toAdd" class="adminAction" method="toAdd">
+       </action>
+         <action name="toList" class="adminAction" method="toList">
+             <result name="success">/system/admin/adminlist.jsp</result>
+             <result name="input">/error.jsp</result>
+         </action>
+         <action name="toAdd" class="adminAction" method="toAdd">
        		<result name="success">/system/admin/admin.jsp</result>
        		<result name="input">/error.jsp</result> 
        </action>               
@@ -56,7 +60,7 @@
 	   <default-interceptor-ref name="adminStack" />      	   
 	   <action name="home" class="loginAction" method="home">      
             <result name="success">/system/main/home.jsp</result>
-            <result name="login">/user/login.jsp</result>                       
+            <result name="login">/user/loginPage.action</result>
        </action>
        <action name="getUserMenu" class="menuAction" method="getUserMenu">
        		<result name="success">/system/menu/menuList.jsp</result>
@@ -64,6 +68,10 @@
        		<result name="left">/system/main/left.jsp</result>
        		<result name="input">/error.jsp</result> 
        </action>
+        <action name="getBtn" class="menuAction" method="getBtn">
+            <result name="success">/system/menu/menuList.jsp</result>
+            <result name="input">/error.jsp</result>
+        </action>
        <action name="getRoleMenu" class="menuAction" method="getRoleMenu">
       		<result name="success">/system/menu/menuList.jsp</result>
       		<result name="input">/error.jsp</result> 
@@ -99,7 +107,11 @@
         <action name="apage" class="roleAction" method="apage">
        		<result name="success">/system/role/roleList.jsp</result>
        		<result name="input">/error.jsp</result> 
-       </action>      
+       </action>
+        <action name="toList" class="roleAction" method="toList">
+            <result name="success">/system/role/roleList.jsp</result>
+            <result name="input">/error.jsp</result>
+        </action>
         <action name="toAdd" class="roleAction" method="toAdd">
        		<result name="success">/system/role/role.jsp</result>
        		<result name="input">/error.jsp</result> 

@@ -16,7 +16,7 @@
   <body>
     <form id="upload" name="upload" action="upload.action" method="post" enctype="multipart/form-data">
        <input type="file" id="file" name="file" value=""/>&nbsp;&nbsp;
-       <input type="submit" id="upload_submit" name="submit" value="提交"/>
+       <input type="submit" id="upload_submit" name="submit" value="upload"/>
     </form>
     <script type="text/javascript"> 
     	<s:if test="r.success==true">

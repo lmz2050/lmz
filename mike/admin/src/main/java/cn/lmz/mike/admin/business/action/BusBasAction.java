@@ -13,6 +13,8 @@ import java.util.Map;
 
 public abstract class BusBasAction extends BaseAction {
 
+
+
     protected Map getQyParams(){
         Lmzadmin adm = this.getAdmin();
         Map params = null;

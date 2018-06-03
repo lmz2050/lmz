@@ -10,24 +10,24 @@
   -->
  
   <!-- 配置为开发模式 --> 
-    <constant name="struts.devMode" value="true" /> 
+    <constant name="struts.devMode" value="false" />
     <!-- 把主题配置为simple --> 
     <constant name="struts.ui.theme" value="simple" /> 
     
     <constant name="struts.objectFactory" value="spring" />
+    <!--
+      <constant name="struts.multipart.saveDir" value="/"/>
+       -->
 
-    <constant name="struts.multipart.saveDir" value="/"/>
-    
-  <!--  
-  <constant name="struts.multipart.saveDir" value="/temp"/>
- --> 
+    <constant name="struts.multipart.saveDir" value="/temp"/>
+
   <constant name="struts.action.excludePattern" value="/ckfinder.*"/>
   <constant name="struts.custom.i18n.resources" value="web" />
   <constant name="struts.action.extension" value="action" />
   <constant name="struts.i18n.encoding" value="UTF-8" />
   <constant name="struts.multipart.maxSize" value="1024000000" />
    
-  <package name="default" extends="struts-default">  
+  <package name="default" namespace="/" extends="struts-default">
    <interceptors>
     	<!--  
     	<interceptor name="user"  class="org.lmz.web.util.interceptor.UserInterceptor"></interceptor> 
@@ -58,7 +58,8 @@
 	
     <global-results>
      <result name="url">${TPATH}${t.url}?${t.param}</result> 
-     <result name="action" type="redirect">${t.url}?${t.param}</result> 
+     <result name="action" type="redirect">${t.url}?${t.param}</result>
+        <result name ="success" type="redirect">/user/loginPage.action</result>
      <!-- 
   	 <result name="success" type="redirect">
         	<param name="location">/web/index.action</param>
@@ -90,7 +91,7 @@
                 <param name="encode">true</param>
          </result>
          <result name="adminlogin" type="redirect">
-            	<param name="location">/user/login.jsp</param>
+            	<param name="location">/user/loginPage.action</param>
                 <param name="msg">${msg}</param>
                 <param name="encode">true</param>
          </result>
@@ -114,37 +115,27 @@
      <action name="region" class="areaAction" method="region">
      </action>  
      -->   
-	 <action name="lan" class="lanAction" method="lan"></action> 
+	 <action name="lan" class="lanAction" method="lan">
+         <result name ="success" type="redirect">/user/loginPage.action</result>
+     </action>
      <action name="uploadjpg" class="uploadAction">      
             <result name="success">/system/upload/upload.jsp</result>
-            <result name="input">/system/upload/upload.jsp</result>  
-            <interceptor-ref name="fileUpload">   
-		       <param name ="allowedTypes">image/bmp,image/png,image/gif,image/jpeg,image/jpg,image/x-png, image/pjpeg</param>   
-	        </interceptor-ref> 	          
+            <result name="input">/system/upload/upload.jsp</result>
 	        <interceptor-ref name="defaultStack"></interceptor-ref>                 
       </action> 	 
      <action name="upload" class="uploadAction">      
             <result name="success">/system/upload/upload.jsp</result>
-            <result name="input">/system/upload/upload.jsp</result> 
-            <interceptor-ref name="fileUpload">   
-		       <param name ="allowedTypes">image/bmp,image/png,image/gif,image/jpeg,image/jpg,image/x-png, image/pjpeg</param>   
-	        </interceptor-ref>            
+            <result name="input">/system/upload/upload.jsp</result>
 	        <interceptor-ref name="defaultStack"></interceptor-ref>                 
       </action> 
      <action name="uploadPatch" class="uploadAction">      
             <result name="success">/system/upload/upload.jsp</result>
-            <result name="input">/system/upload/upload.jsp</result> 
-            <interceptor-ref name="fileUpload">   
-		       <param name ="allowedTypes">application/excel,application/vnd.ms-excel,application/zip,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
-	        </interceptor-ref>            
+            <result name="input">/system/upload/upload.jsp</result>
 	        <interceptor-ref name="defaultStack"></interceptor-ref>                 
      </action>
      <action name="uploadFile" class="uploadAction">      
             <result name="success">/system/upload/upload.jsp</result>
-            <result name="input">/system/upload/upload.jsp</result> 
-            <interceptor-ref name="fileUpload">   
-		       <param name ="allowedTypes">application/excel,application/vnd.ms-excel,application/zip,text/plain</param>   
-	        </interceptor-ref>            
+            <result name="input">/system/upload/upload.jsp</result>
 	        <interceptor-ref name="defaultStack"></interceptor-ref>                 
       </action>
       <action name="download" class="downLoadAction">       

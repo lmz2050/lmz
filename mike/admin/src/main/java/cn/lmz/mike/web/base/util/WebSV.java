@@ -20,6 +20,7 @@ public class WebSV {
 	public static final String MAX_NUM = "maxnum";
 	
 	public static final String NAME = "name";
+	public static final String ENAME = "ename";
 	public static final String TYPE = "type";
 	
 	public static final String SP = "\\|";
@@ -56,12 +57,12 @@ public class WebSV {
 	
 	
 	public static final String LTREE="LTREE";
+	public static final String BTNLIST="BTNLIST";
 
 	public static final String PROPERTIES_WEB="web.properties";
 	
 	
 	public static final String FILE_UPLOAD_PATH = "FILE_UPLOAD_PATH";
-	
 
 	public static final String getFileUploadPath(){
 		Map<String,String> map = PropU.getMap(FileU.getPath(WebSV.PROPERTIES_WEB));

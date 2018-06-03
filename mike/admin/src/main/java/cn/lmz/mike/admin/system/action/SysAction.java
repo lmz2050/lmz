@@ -22,8 +22,8 @@ public abstract class SysAction extends BaseAction {
 		try{
 			Lmzadmin admin = this.getAdmin();
 			if(admin!=null){
-				List<Map> mlist = systemService.getUserMenu(admin.getId()+"");
-				this.getSession().put(WebSV.LTREE, mlist);
+				List<Map> mlist = systemService.getUserMenu(admin.getId()+"",this.getSession());
+				//this.getSession().put(WebSV.LTREE, mlist);
 				for(int i=0;i<mlist.size();i++){
 					log.info(mlist.get(i).get("text")+"");
 				}

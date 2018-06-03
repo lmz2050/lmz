@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
 <html>
 	<head>
-		<title>详细信息</title>
+		<title><s:text name="admin.detail.title" /></title>
   	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/jquery/jquery-1.8.3.js"></script>
 	<link id="easyuiTheme" rel="stylesheet" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/default/easyui.css" type="text/css"></link>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icon.css" ></link>
@@ -38,11 +38,11 @@ function upload(ii){
 	    	<input type="hidden" name="info.id" value="<s:property value="info.id"/>" />
 	    	<table cellpadding="5" >
 	    		<tr>
-	    			<td>Vname:</td>
+	    			<td><s:text name="admin.patch.vname" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.vname" data-options="required:true" value="<s:property value="info.vname"/>" /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>OkUpdata:</td>
+	    			<td><s:text name="admin.patch.okupdate" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.okupdata" data-options="required:true" value="<s:property value="info.okupdata"/>" /></td>
 	    		</tr>
 	    		<tr>
@@ -53,15 +53,15 @@ function upload(ii){
 	    			</td>
 	    		</tr>    		
 	    		<tr>
-	    			<td>Explain:</td>
+	    			<td><s:text name="admin.patch.remark" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.remark" value="<s:property value="info.remark"/>" /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>created by:</td>
+	    			<td><s:text name="admin.patch.cby" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.cby" data-options="readonly:true" value="<s:property value="info.cby"/>" /></td>
 	    		</tr>	    		
 	    		<tr>
-	    			<td>created time:</td>
+	    			<td><s:text name="admin.patch.ctm" />:</td>
 	    			<td><input class="easyui-textbox" type="text" name="info.utm" data-options="readonly:true" value="<s:property value="info.utm"/>" /></td>
 	    		</tr>	    			    			    			    		
 	    	</table>

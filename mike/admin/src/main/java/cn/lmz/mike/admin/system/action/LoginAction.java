@@ -10,6 +10,7 @@ import cn.lmz.mike.web.base.bean.Lmzadmin;
 import cn.lmz.mike.web.base.service.ILoginService;
 import cn.lmz.mike.web.base.util.CookieUtil;
 import cn.lmz.mike.web.base.util.LoginMsg;
+import cn.lmz.mike.web.base.util.OnlineUserMap;
 import cn.lmz.mike.web.base.util.WebSV;
 import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
@@ -34,14 +35,22 @@ public class LoginAction extends SysAction{
 	private Lmzadmin info = new Lmzadmin();
 	
 
+	public String loginPage(){
+		return WebSV.SUCCESS;
+	}
+
+	public String home(){
+		return WebSV.SUCCESS;
+	}
+
 	//管理员
 	public String login()
 	{
 		try {
 			info = this.getAdmin();
 			if(info!=null){
-				infoL = systemService.getUserMenu(info.getId()+"");
-				this.getSession().put(WebSV.LTREE, infoL);
+				infoL = systemService.getUserMenu(info.getId()+"",this.getSession());
+				//this.getSession().put(WebSV.LTREE, infoL);
 				return WebSV.ADMIN;
 			}
 		} catch (Exception e) {	
@@ -56,7 +65,7 @@ public class LoginAction extends SysAction{
 			String codeSession = (String)this.getSession().get(V.CODE_SESSION_KEY);
 			if(!StrU.isBlank(codeSession)&&!codeSession.equalsIgnoreCase(code)){
 				r.setSuccess(false);
-				r.setMsg(LoginMsg.INCORRECT_CODE);
+				r.setMsg(getText("login.msg.INCORRECT_CODE"));
 			}
 			
 			if(StrU.isBlank(r.getMsg())){
@@ -74,7 +83,7 @@ public class LoginAction extends SysAction{
 				}else
 				{
 					r.setSuccess(false);
-					r.setMsg(LoginMsg.INCORRECT_USER_OR_PWD);
+					r.setMsg(getText("login.msg.INCORRECT_USER_OR_PWD"));
 				}				
 				
 			}
@@ -96,7 +105,7 @@ public class LoginAction extends SysAction{
 					handException(e);
 				}
 			}else{
-				error = LoginMsg.INCORRECT_PWD;
+				error = getText("login.msg.INCORRECT_PWD");
 		}
 		}catch(Exception e){
 			handException(e);
@@ -108,7 +117,7 @@ public class LoginAction extends SysAction{
 	public String reg(){
 		try {
 			if(loginService.findByUserName(info.getUsername())){
-				msg=LoginMsg.EXIST;
+				msg= getText("login.msg.EXIST");
 				return WebSV.SUCCESS;
 			}else{
 				info.setLastip(ServletActionContext.getRequest().getRemoteAddr());

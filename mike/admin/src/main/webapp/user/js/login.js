@@ -39,10 +39,9 @@ $('.userload').click(function(e) {
 	});
 });
 // 重置
-$('#forgetpass').click(function(e) {
-	$(":input").each(function() {
-	$('#'+this.name).val("");
-	});
+$('#forgetpass').click(function() {
+	$("#userName").val("");
+	$("#password").val("");
 });
 // 点击登录
 $('#but_login').click(function(e) {
@@ -69,7 +68,7 @@ function submit()
 	});
 	if (submit) {
 		hideTop();
-		loading('核实中..', 1);
+		loading('loading...', 1);
 		setTimeout("unloading()", 1000);
 		setTimeout("Login()", 1000);
 	}

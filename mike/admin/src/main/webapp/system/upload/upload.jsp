@@ -27,7 +27,7 @@ $(function(){
 	    	<table cellpadding="5">
 	    		<tr>
 	    			<td><input class="easyui-filebox" id="file" name="file" data-options="required:true" value="" style="width:200px;"/></td>
-	    			<td><a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#ff').form('submit')">上传</a></td>
+	    			<td><a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#ff').form('submit')">upload</a></td>
 	    		</tr>
 	    	</table>
 	    </form>

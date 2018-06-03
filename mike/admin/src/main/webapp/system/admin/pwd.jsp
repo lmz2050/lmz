@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
 <html>
 	<head>
-		<title>菜单信息</title>
+		<title><s:text name="admin.detail.title" /></title>
   	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/jquery/jquery-1.8.3.js"></script>
 	<link id="easyuiTheme" rel="stylesheet" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/default/easyui.css" type="text/css"></link>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icon.css" ></link>
@@ -14,7 +14,7 @@
 <script type="text/javascript">
 $(function(){
  	 $.extend($.fn.validatebox.defaults.rules, {
-       equalTo: { validator: function (value, param) {return $(param[0]).val() == value; }, message: '字段不匹配' }
+       equalTo: { validator: function (value, param) {return $(param[0]).val() == value; }, message: 'not match' }
      });
     
     <s:if test="r.success==true">
@@ -31,15 +31,15 @@ $(function(){
 	    	<input type="hidden" id="id" name="info.id" value="<s:property value="info.id"/>" />
 	    	<table cellpadding="5">
 	    		<tr>
-	    			<td>原始密码:</td>
+	    			<td><s:text name="admin.user.old_userpwd"/>:</td>
 	    			<td><input class="easyui-textbox" id="password2"  type="password" name="info.username" data-options="required:true,validType:'safepass'" value=""  /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>新密码:</td>
+	    			<td><s:text name="admin.user.new_userpwd"/>:</td>
 	    			<td><input class="easyui-textbox" id="password"  type="password" name="info.userpwd" data-options="required:true,validType:'safepass'" value=""  /></td>
 	    		</tr>
 	    		<tr>
-	    			<td>确认密码:</td>
+	    			<td><s:text name="admin.user.confirm_pwd"/>:</td>
 	    			<td><input class="easyui-textbox" id="password1"  type="password"  data-options="required:true" validType="equalTo['#password']"  value=""  /></td>
 	    		</tr>    			    			    			    		
 	    	</table>

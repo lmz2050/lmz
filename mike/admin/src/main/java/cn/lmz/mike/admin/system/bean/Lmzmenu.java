@@ -8,10 +8,13 @@ import cn.lmz.mike.web.base.bean.BaseBean;
 public class Lmzmenu  extends BaseBean {
 
 	private String name;
+	private String ename;
 	private String img;
 	private String pid;
 	private Integer lev;
 	private String url;
+	private Integer type;
+	private Integer isdev;
 	private Integer ord;
 	
 	public String getName() {
@@ -49,5 +52,29 @@ public class Lmzmenu  extends BaseBean {
 	}
 	public void setOrd(Integer ord) {
 		this.ord = ord;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public Integer getIsdev() {
+		return isdev;
+	}
+
+	public void setIsdev(Integer isdev) {
+		this.isdev = isdev;
+	}
+
+	public String getEname() {
+		return ename;
+	}
+
+	public void setEname(String ename) {
+		this.ename = ename;
 	}
 }

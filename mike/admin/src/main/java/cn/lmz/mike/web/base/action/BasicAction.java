@@ -10,6 +10,7 @@ import cn.lmz.mike.web.base.util.CookieUtil;
 import cn.lmz.mike.web.base.util.WebSV;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.interceptor.I18nInterceptor;
 import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +55,7 @@ public class BasicAction  extends ActionSupport {
     	return responce;
     }
     public void write(String str) throws IOException{
+		I18nInterceptor a =null;
     	HttpServletResponse responce = getResponse();
     	responce.setContentType("text/html;charset=UTF-8");
     	responce.getWriter().write(str);

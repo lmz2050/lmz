@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 public class WebInfoAction extends BaseAction {
 
 	private Lmzweb info = new Lmzweb();
-		
+
 	public String webinfo(){
 		try{
 			List list =getwService().search(getInfo().getClass());

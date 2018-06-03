@@ -16,6 +16,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class StrU extends StringUtils {
 
@@ -71,8 +72,15 @@ public class StrU extends StringUtils {
         }
     }
 
-    public static String getRandomString(int count){
-        return RandomStringUtils.random(count);
+    public static String getRandomIntString(int count){
+        String sources = "0123456789"; // 加上一些字母，就可以生成pc站的验证码了
+        Random rand = new Random();
+        StringBuffer flag = new StringBuffer();
+        for (int j = 0; j < count; j++)
+        {
+            flag.append(sources.charAt(rand.nextInt(9)) + "");
+        }
+        return flag.toString();
     }
 
     public static String getRoot(){

@@ -2,31 +2,6 @@
 /**
  * 增删改工具栏
  */
-var api={};
-api.i=1;
-api.post=function(uri,data,fn,syn){
-	$.ajax({
-		url:uri,
-		data:data,
-		type: 'POST',
-		success:function(data){
-
-			var d = $.parseJSON(data);
-			if(d.success){
-				fn(d);
-			}else{
-				alert("msg:"+d.msg);
-			}
-		},
-		error:function(){
-			alert("ajax error!");
-		}
-	});
-};
-
-api.flushLeft=function(){
-	$("#nav").accordion('reload');
-};
 
 
 window.onerror = function() {
@@ -595,7 +570,7 @@ function addOneTab(subtitle, url, icon) {
 		icon = 'icon folder';
 	}
 	window.top.$.messager.progress({
-		text : '页面加载中....',
+		text : 'loadding....',
 		interval : 300
 	});
 	window.top.$('#maintabs').tabs({
