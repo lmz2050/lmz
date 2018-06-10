@@ -47,6 +47,7 @@ public class LogAction extends BaseAction {
 		String logname = path+MC.date.getTimeString()+MC.getRandomIntString(6)+"_err.log";
 		String realpath = WebSV.getFileUploadPath()+logname;
 		logger.info("log:"+logname+"--"+realpath);
+
 		try {
 
 			MC.file.write(new File(realpath),log);

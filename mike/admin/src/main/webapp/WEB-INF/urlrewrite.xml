@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 2.6//EN"
-        "http://tuckey.org/res/dtds/urlrewrite2.6.dtd">
-        
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.2//EN"
+		"http://tuckey.org/res/dtds/urlrewrite3.2.dtd">
+
 <urlrewrite>
 
 	<!-- COMMONS==S **********-->
-		
+	<!--
 	<rule enabled="true">
 		<from>^/mobile/([a-zA-Z]+).html$</from>
 		<to>/l.action?m=1&amp;t.name=$1</to>
@@ -183,5 +183,21 @@
 		<from>^/$</from>
 		<to>/l.action?t.name=index</to>
 	</rule>
-
+	-->
+	<rule enabled="true">
+		<from>^/index.html$</from>
+		<to>/user/loginPage.action</to>
+	</rule>
+	<rule enabled="true">
+		<from>^/login.html$</from>
+		<to>/user/loginPage.action</to>
+	</rule>
+	<rule enabled="true">
+		<from>^/main.html$</from>
+		<to>/user/home.action</to>
+	</rule>
+	<rule enabled="true">
+		<from>^/loginout.html$</from>
+		<to>/user/loginout.action</to>
+	</rule>
 </urlrewrite>

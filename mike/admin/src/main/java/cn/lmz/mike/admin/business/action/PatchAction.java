@@ -56,9 +56,14 @@ public class PatchAction extends BaseAction {
                 if(list!=null&&list.size()>0){
                     adp = (Adm_dev_patch)list.get(0);
                 }
+                if(getInfo().getVname().equalsIgnoreCase(getInfo().getOkupdata())){
+                    msg = WebMsg.getI18nMsg("admin.msg.admin_patch_vname_eq_okupdate");
+                    r.setSuccess(false);
+                }
+
                 BeanUtil.setBean(getInfo(), LmzU.getParams("uby",this.getAdmin().getUsername(),"utm", MC.date.getTimeString()));
                 if(MC.string.isBlank(getInfo().getId())){
-                    if(adp!=null&&getInfo().getVname().equalsIgnoreCase(adp.getVname())){
+                    if(adp!=null&&getInfo().getVname().equalsIgnoreCase(adp.getVname())) {
                         msg = WebMsg.getI18nMsg("admin.msg.admin_patch_vname_exists");
                         r.setSuccess(false);
                     }else {

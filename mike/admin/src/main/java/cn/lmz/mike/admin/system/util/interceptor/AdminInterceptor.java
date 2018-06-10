@@ -64,7 +64,7 @@ public class AdminInterceptor implements Interceptor {
 	        if(HttpU.isAjax(request)){
 	        	HttpServletResponse responce = (HttpServletResponse)actionInvocation.getInvocationContext().get(ServletActionContext.HTTP_RESPONSE);
 	        	responce.setContentType("text/html;charset=UTF-8");
-	        	String url= SysU.getDomain((IWService) Context.getBean("wService"),m)+"user/loginPage.action";
+	        	String url= SysU.getDomain((IWService) Context.getBean("wService"),m)+"login.html";
 	        	String str="<script>alert('"+msg+"');top.location.href='"+url+"'</script>";
 	        	responce.getWriter().write(str);
 	        	responce.getWriter().flush();

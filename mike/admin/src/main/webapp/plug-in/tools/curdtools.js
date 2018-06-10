@@ -11,7 +11,8 @@ var iframe;// iframe操作对象
 var win;//窗口对象
 var gridname="";//操作datagrid对象名称
 //update-begin--Author:chenxu  Date:20130402 for：父窗口将子窗口遮盖
-var windowapi = frameElement.api, W = windowapi.opener;//内容页中调用窗口实例对象接口
+var windowapi =top.api;
+W = windowapi.opener;//内容页中调用窗口实例对象接口
 //update-end--Author:chenxu  Date:20130402 for：父窗口将子窗口遮盖
 function upload(curform) {
 	upload();

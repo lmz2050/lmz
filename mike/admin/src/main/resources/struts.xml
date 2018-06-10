@@ -59,7 +59,7 @@
     <global-results>
      <result name="url">${TPATH}${t.url}?${t.param}</result> 
      <result name="action" type="redirect">${t.url}?${t.param}</result>
-        <result name ="success" type="redirect">/user/loginPage.action</result>
+        <result name ="success" type="redirect">/login.html</result>
      <!-- 
   	 <result name="success" type="redirect">
         	<param name="location">/web/index.action</param>
@@ -91,7 +91,7 @@
                 <param name="encode">true</param>
          </result>
          <result name="adminlogin" type="redirect">
-            	<param name="location">/user/loginPage.action</param>
+            	<param name="location">/login.html</param>
                 <param name="msg">${msg}</param>
                 <param name="encode">true</param>
          </result>
@@ -116,7 +116,7 @@
      </action>  
      -->   
 	 <action name="lan" class="lanAction" method="lan">
-         <result name ="success" type="redirect">/user/loginPage.action</result>
+         <result name ="success" type="redirect">/login.html</result>
      </action>
      <action name="uploadjpg" class="uploadAction">      
             <result name="success">/system/upload/upload.jsp</result>

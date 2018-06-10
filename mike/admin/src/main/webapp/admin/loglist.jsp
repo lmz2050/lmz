@@ -6,19 +6,19 @@
     $(function() {
 
         var title = $('#maintabs .tabs-selected').text();
-        var f = l.btn("log",top.tmap[title]);
+        var f = top.l.btn("log",top.tmap[title]);
 
-        l.dg("log",{
+        top.l.dg("log",{
             columns:[[
                 {field:'ck',checkbox:'true'},
-                {field:'id',title:'<s:text name="admin.bean.id" />',width:'10%',align: 'center'},
-                {field:'mac1',title:'MAC',width:'10%',align: 'center'},
-                {field:'cus_name',title:'<s:text name="admin.drvices.cus_name" />',width:'15%',align: 'center'},
-                {field:'dev_name',title:'<s:text name="admin.drvices.dev_name" />',width:'15%',align: 'center'},
-                {field:'version',title:'<s:text name="admin.recv.version" />',width:'10%',align: 'center'},
-                {field:'utm',title:'TIME',width:'10%',align: 'center'},
-                {field:'path',title:'PATH',width:'20%',align: 'center'},
-                {field:'action',title:'download',width:'10%',align:'center',
+                {field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
+                {field:'mac1',title:'MAC',align: 'center'},
+                {field:'cus_name',title:'<s:text name="admin.drvices.cus_name" />',align: 'center'},
+                {field:'dev_name',title:'<s:text name="admin.drvices.dev_name" />',align: 'center'},
+                {field:'version',title:'<s:text name="admin.recv.version" />',align: 'center'},
+                {field:'utm',title:'TIME',align: 'center'},
+                {field:'path',title:'PATH',align: 'center'},
+                {field:'action',title:'download',align:'center',
                     formatter:function(value,row,index){
                         var u = "<a href=\"#\" onclick=\"downlog('"+row.path+"')\" ><img src=\"${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icons/filter.png\" /></a> ";
                         return u;

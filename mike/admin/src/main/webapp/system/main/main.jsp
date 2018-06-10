@@ -1,49 +1,42 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
  <head>
   <title><s:text name="admin.title" /></title>
-  	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/jquery/jquery-1.8.3.js"></script>
+     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+     <script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/jquery/jquery-1.8.3.min.js"></script>
  	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/tools/dataformat.js"></script>
-	<link id="easyuiTheme" rel="stylesheet" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/default/easyui.css" type="text/css"></link>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icon.css" ></link>
+
+	<link id="easyuiTheme" rel="stylesheet" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/default/easyui.css" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icon.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/plug-in/accordion/css/accordion.css" />
+
 	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/easyui1.5/jquery.easyui.min.js"></script>
 
 	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/easyui1.5/locale/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/tools/syUtil.js"></script>
+     <script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/lhgDialog/lhgdialog.min.js"></script>
      <!--
-	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/My97DatePicker/WdatePicker.js"></script>
--->
-	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/lhgDialog/lhgdialog.min.js"></script>
+     <script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/My97DatePicker/WdatePicker.js"></script>
+     -->
+	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/tools/syUtil.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/tools/easyuiextend.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/tools/curdtools.js"></script> 
+	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/tools/curdtools.js"></script>
+
 	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/lmzt/lmzt.js"></script>
 
      <script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/tools/sutil.js?dd=11" id="sutil" path="${pageContext.request.contextPath}"></script>
 
   <script type="text/javascript">
-      var tmap={};
-      api.code= {
-          edit:'<s:text name="system.btn.edit" />',
-          add:'<s:text name="system.btn.add" />',
-          remove:'<s:text name="system.btn.remove" />',
-          import:'<s:text name="system.btn.import" />'
-      };
-      /*
-	$(function() {
-		$('#layout_east_calendar').calendar({
-			fit : true,
-			current : new Date(),
-			border : false,
-			onSelect : function(date) {
-				$(this).calendar('moveTo', new Date());
-			}
-		});
-	});
-	*/
+      $(function(){
+          top.api.code= {
+              edit:'<s:text name="system.btn.edit" />',
+              add:'<s:text name="system.btn.add" />',
+              remove:'<s:text name="system.btn.remove" />',
+              import:'<s:text name="system.btn.import" />'
+          };
+      })
 </script>
  </head>
  <body class="easyui-layout" style="overflow-y: hidden" scroll="no">

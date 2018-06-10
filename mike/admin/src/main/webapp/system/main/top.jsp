@@ -23,18 +23,18 @@
          				<a href="javascript:void(0);" class="easyui-menubutton" menu="#layout_north_zxMenu" iconCls="icon-back"><s:text name="main.logout" /></a>
         			</div>
 					<div id="layout_north_lanMenu" style="width: 100px; display: none;">
-						<div onclick="l.setLan('zh_CN')">中文</div>
+						<div onclick="top.l.setLan('zh_CN')">中文</div>
 						<div class="menu-sep"></div>
-						<div onclick="l.setLan('en_US')">English</div>
+						<div onclick="top.l.setLan('en_US')">English</div>
 					</div>
         			<div id="layout_north_kzmbMenu" style="width: 100px; display: none;">
-         				<div onclick="api.toUpdate('admin',function(){},'<s:property value="#session.admin.id"/>')"><s:text name="main.personal_information" /></div>
+         				<div onclick="top.api.toUpdate('admin',function(){},'<s:property value="#session.admin.id"/>')"><s:text name="main.personal_information" /></div>
          				<div class="menu-sep"></div>
-         				<div onclick="api.toUrl('${pageContext.request.contextPath}/admin/toUppwd.action',function(){},'<s:property value="#session.admin.id"/>')"><s:text name="main.change_password" /></div>
+         				<div onclick="top.api.toUrl('${pageContext.request.contextPath}/admin/toUppwd.action',function(){},'<s:property value="#session.admin.id"/>')"><s:text name="main.change_password" /></div>
         			</div>
         			<div id="layout_north_zxMenu" style="width: 100px; display: none;">
          				<div class="menu-sep"></div>
-         				<div onclick="api.confirm('<s:text name="main.confirm_quit" />','${pageContext.request.contextPath}/user/loginout.action',1);"><s:text name="main.logout_system" /></div>
+         				<div onclick="top.api.confirm('<s:text name="main.confirm_quit" />','${pageContext.request.contextPath}/loginout.html',1);"><s:text name="main.logout_system" /></div>
         			</div>
        			</td>
        		</tr>  

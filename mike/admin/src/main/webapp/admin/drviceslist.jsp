@@ -8,18 +8,21 @@
     $(function() {
 
         var title = $('#maintabs .tabs-selected').text();
-        var f = l.btn("drvices",top.tmap[title]);
+        var f = top.l.btn("drvices",top.tmap[title]);
+        //alert('<s:property value="#session.admin.username" />');
 
-        l.dg("drvices",{
+        top.l.dg("drvices",{
             columns:[[
                 {field:'ck',checkbox:'true'},
-                {field:'id',title:'<s:text name="admin.bean.id" />',width:'4%',align: 'center'},
-                {field:'cus_name',title:'<s:text name="admin.drvices.cus_name" />',width:'4%',align: 'center'},
-                {field:'dev_name',title:'<s:text name="admin.drvices.dev_name" />',width:'4%',align: 'center'},
-                {field:'mac1',title:'MAC1',width:'4%',align: 'center'},
-                {field:'mac2',title:'MAC2',width:'4%',align: 'center'},
-                {field:'active',title:'<s:text name="admin.drvices.first" /><s:text name="admin.drvices.active" />',width:'6%',align: 'center'},
-                {field:'active_time',title:'<s:text name="admin.drvices.first" /><s:text name="admin.drvices.active_time" />',width:'6%',align: 'center'},
+                {field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
+                {field:'cus_name',title:'<s:text name="admin.drvices.cus_name" />',align: 'center'},
+                {field:'dev_name',title:'<s:text name="admin.drvices.dev_name" />',align: 'center'},
+                {field:'mac1',title:'MAC1',align: 'center'},
+                {field:'mac2',title:'MAC2',align: 'center'},
+                f
+                /*
+                {field:'active',title:'<s:text name="admin.drvices.first" /> <s:text name="admin.drvices.active" />',width:'6%',align: 'center'},
+                {field:'active_time',title:'<s:text name="admin.drvices.first" /> <s:text name="admin.drvices.active_time" />',width:'6%',align: 'center'},
                 {field:'gn1',title:'gn1',width:'4%',align: 'center'},
                 {field:'gn1_time',title:'gn1 <s:text name="admin.drvices.active_time" />',width:'4%',align: 'center'},
                 {field:'gn2',title:'gn2',width:'4%',align: 'center'},
@@ -35,8 +38,8 @@
                 {field:'gn7',title:'gn7',width:'4%',align: 'center'},
                 {field:'gn7_time',title:'gn7 <s:text name="admin.drvices.active_time" />',width:'4%',align: 'center'},
                 {field:'gn8',title:'gn8',width:'4%',align: 'center'},
-                {field:'gn8_time',title:'gn8 <s:text name="admin.drvices.active_time" />',width:'4%',align: 'center'},
-                f
+                {field:'gn8_time',title:'gn8 <s:text name="admin.drvices.active_time" />',width:'4%',align: 'center'}
+                */
             ]]
         });
     });

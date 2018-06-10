@@ -1,4 +1,6 @@
-﻿$(function() {
+﻿top.tmap={};
+
+$(function() {
 	InitLeftMenu();
 	tabClose();
 	tabCloseEven();

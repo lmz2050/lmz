@@ -8,18 +8,18 @@
     $(function() {
 
         var title = $('#maintabs .tabs-selected').text();
-        var f = l.btn("patch",top.tmap[title]);
+        var f = top.l.btn("patch",top.tmap[title]);
 
-        l.dg("patch",{
+        top.l.dg("patch",{
             columns:[[
                 {field:'ck',checkbox:'true'},
-                {field:'<s:text name="admin.patch.id" />',title:'ID',width:'8%',align: 'center'},
-                {field:'vname',title:'<s:text name="admin.patch.vname" />',width:'8%',align: 'center'},
-                {field:'okupdata',title:'<s:text name="admin.patch.okupdata" />',width:'10%',align: 'center'},
+                {field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
+                {field:'vname',title:'<s:text name="admin.patch.vname" />',align: 'center'},
+                {field:'okupdata',title:'<s:text name="admin.patch.okupdate" />',align: 'center'},
                 {field:'url',title:'Url',width:'20%',align: 'center'},
-                {field:'<s:text name="admin.patch.remark" />',title:'Explain',width:'30%',align: 'center'},
-                {field:'cby',title:'<s:text name="admin.patch.cby" />',width:'10%',align: 'center'},
-                {field:'ctm',title:'<s:text name="admin.patch.ctm" />',width:'10%',align: 'center'},
+                {field:'<s:text name="admin.patch.remark" />',title:'Explain',align: 'center'},
+                {field:'cby',title:'<s:text name="admin.patch.cby" />',align: 'center'},
+                {field:'ctm',title:'<s:text name="admin.patch.ctm" />',align: 'center'},
                 f
             ]]
         });

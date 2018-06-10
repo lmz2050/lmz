@@ -20,19 +20,19 @@ $('#adminlist').datagrid({
     pagination: true,
     rownumbers: true,
     columns:[[ 
-    	{field:'id',title:'<s:text name="admin.user.serialno"/>',width:'10%',align: 'center'},
-    	{field:'username',title:'<s:text name="admin.user.username"/>',width:'15%',align: 'center'},
-    	{field:'mobile',title:'<s:text name="admin.user.mobile"/>',width:'15%',align: 'center'},
-    	{field:'useremail',title:'<s:text name="admin.user.mail"/>',width:'15%',align: 'center'},
-    	{field:'lastlogin',title:'<s:text name="admin.user.last_login_time"/>',width:'10%',align: 'center'},
-    	{field:'type',title:'<s:text name="admin.user.user_type"/>',width:'10%',align: 'center'},
-    	{field:'action1',title:'<s:text name="admin.user.user_role"/>',width:'15%',align:'center',
+    	{field:'id',title:'<s:text name="admin.user.serialno"/>',align: 'center'},
+    	{field:'username',title:'<s:text name="admin.user.username"/>',align: 'center'},
+    	{field:'mobile',title:'<s:text name="admin.user.mobile"/>',align: 'center'},
+    	{field:'useremail',title:'<s:text name="admin.user.mail"/>',align: 'center'},
+    	{field:'lastlogin',title:'<s:text name="admin.user.last_login_time"/>',align: 'center'},
+    	{field:'type',title:'<s:text name="admin.user.user_type"/>',align: 'center'},
+    	{field:'action1',title:'<s:text name="admin.user.user_role"/>',align:'center',
             formatter:function(value,row,index){
             		var r = "<a href=\"#\" onclick=\"setUserrole('"+row.id+"','"+row.username+"')\"  ><img src=\"${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icons/edit_add1.png\" /></a> ";
                     return r;
             }
         },
-    	{field:'action',title:'<s:text name="system.btn.edit"/>',width:'15%',align:'center',
+    	{field:'action',title:'<s:text name="system.btn.edit"/>',align:'center',
             formatter:function(value,row,index){
                     var u = "<a href=\"#\" onclick=\"api.toUpdate('admin',function(){$('#adminlist').datagrid('reload');},'"+row.id+"')\" ><img src=\"${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icons/edit_add1.png\" /></a> ";
                     return u;
@@ -48,7 +48,7 @@ function setUserrole(id,name) {
 			title :id+"-"+name+":<s:text name="admin.user.curr_user_role"/>",
 			tools:[{iconCls:'icon-save',handler:function(){
 				var ids = getCheckedu();
-				api.post('${pageContext.request.contextPath}/role/setUserRole.action',{id:uid,msg:ids},function(){
+                top.api.post('${pageContext.request.contextPath}/role/setUserRole.action',{id:uid,msg:ids},function(){
 					api.get('${pageContext.request.contextPath}/role/findUserRole.action',{id:id},function(d){
 						$("#ltreeuser").tree("loadData",d);
 						$("#ltreeuser").tree("expandAll");
@@ -58,7 +58,7 @@ function setUserrole(id,name) {
 		}
 	);
 	uid=id;
-	api.get('${pageContext.request.contextPath}/role/findUserRole.action',{id:id},function(d){
+    top.api.get('${pageContext.request.contextPath}/role/findUserRole.action',{id:id},function(d){
 		$("#ltreeuser").tree("loadData",d);
 		$("#ltreeuser").tree("expandAll");
 	});
@@ -85,7 +85,7 @@ function selecrAllu() {
     }
 }
 function resetu() {
-	api.get('${pageContext.request.contextPath}/role/findUserRole.action',{id:rid},function(d){
+    top.api.get('${pageContext.request.contextPath}/role/findUserRole.action',{id:rid},function(d){
 		$("#ltreeuser").tree("loadData",d);
 		$("#ltreeuser").tree("expandAll");
 	});

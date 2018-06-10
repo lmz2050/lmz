@@ -7,8 +7,7 @@
 $(function() {
 
 $('#rolelist').datagrid({
-    width:'100%',  
-    height:300,               
+    width:'100%',
     striped: true,  
     singleSelect :true,
     pageSize: 10,
@@ -20,15 +19,15 @@ $('#rolelist').datagrid({
     pagination: true,
     rownumbers: true,
     columns:[[ 
-    	{field:'id',title:'<s:text name="admin.role.serialno" />',width:'10%',align: 'center'},
-    	{field:'name',title:'<s:text name="admin.role.name" />',width:'65%',align: 'center'},
-    	{field:'action1',title:'<s:text name="admin.role.role_setting" />',width:'10%',align:'center',
+    	{field:'id',title:'<s:text name="admin.role.serialno" />',align: 'center'},
+    	{field:'name',title:'<s:text name="admin.role.name" />',align: 'center'},
+    	{field:'action1',title:'<s:text name="admin.role.role_setting" />',align:'center',
             formatter:function(value,row,index){
             		var r = "<a href=\"#\" onclick=\"setMenubyrole('"+row.id+"','"+row.name+"')\" ><img src=\"${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icons/edit_add1.png\" /></a> ";
                     return r;
             }
         },
-    	{field:'action',title:'<s:text name="system.btn.edit" />',width:'15%',align:'center',
+    	{field:'action',title:'<s:text name="system.btn.edit" />',align:'center',
             formatter:function(value,row,index){
                     var u = "<a href=\"#\" onclick=\"api.toUpdate('role',function(){$('#rolelist').datagrid('reload');},'"+row.id+"')\" ><img src=\"${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icons/edit_add1.png\" /></a> ";
                     return u;
@@ -44,8 +43,8 @@ function setMenubyrole(id,roleName) {
 			title :id+"-"+roleName+":<s:text name="admin.role.curr_permissions" />",
 			tools:[{iconCls:'icon-save',handler:function(){
 					var ids = getChecked();
-					api.post('${pageContext.request.contextPath}/role/setRoleMenu.action',{id:rid,msg:ids},function(){
-						api.get('${pageContext.request.contextPath}/menu/getRoleMenu.action',{id:rid},function(d){
+                top.api.post('${pageContext.request.contextPath}/role/setRoleMenu.action',{id:rid,msg:ids},function(){
+                    top.api.get('${pageContext.request.contextPath}/menu/getRoleMenu.action',{id:rid},function(d){
 							showTree(d);
 							alert("<s:text name="system.msg.saved" />");
 						});
@@ -54,7 +53,7 @@ function setMenubyrole(id,roleName) {
 		}
 	);
 	rid=id;
-	api.get('${pageContext.request.contextPath}/menu/getRoleMenu.action',{id:id},function(d){
+    top.api.get('${pageContext.request.contextPath}/menu/getRoleMenu.action',{id:id},function(d){
 		showTree(d);
 		//$("#ltree").tree("expandAll");
 	});
@@ -111,7 +110,7 @@ function selecrAll() {
     }
 }
 function reset() {
-	api.get('${pageContext.request.contextPath}/menu/getRoleMenu.action',{id:rid},function(d){
+    top.api.get('${pageContext.request.contextPath}/menu/getRoleMenu.action',{id:rid},function(d){
 		showTree(d);
 		//$("#ltree").tree("expandAll");
 	});

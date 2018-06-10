@@ -1,5 +1,4 @@
 
-
 var api={};
 api.tmap={};
 var jj = document.getElementById("sutil");
@@ -94,18 +93,18 @@ api.toAdd=function(t,fn,jid,fun){
 	}
 	if(!jid){jid='';}
 	var url=api.path+'/'+t+'/toAdd.action?id='+jid;
-	api.openW("Add",url);
+	api.openW(api.code.add,url);
 	if(fn){api.Wcallback=fn;}
 };
 
 api.toAddgd=function(t,fn,jid,type){
 	var url=api.path+'/'+t+'/toAddgd.action?id='+jid+'&type='+type;
-	api.openW("Add",url);
+	api.openW(api.code.add,url);
 };
 api.toUpdategd=function(t,fn,jid,type){
 	if(jid){
 		var url=api.path+'/'+t+'/toUpdategd.action?id='+jid+"&type="+type;
-		api.openW("Edit",url);
+		api.openW(api.code.edit,url);
 		if(fn){api.Wcallback=fn;}
 	}else{
 		alert('Please select the column you want to edit');
@@ -116,7 +115,7 @@ api.toUpdategd=function(t,fn,jid,type){
 api.toUpdate1=function(t,fn,jid,pid){
 	if(jid){
 		var url=api.path+'/'+t+'/toUpdate.action?id='+jid+"&pid="+pid;
-		api.openW("Edit",url);
+		api.openW(api.code.edit,url);
 		if(fn){api.Wcallback=fn;}
 	}else{
 		alert('Please select the column you want to edit');
@@ -128,7 +127,7 @@ api.toUpdate=function(t,fn,jid,fun){
 	}
 	if(jid){
 		var url=api.path+'/'+t+'/toUpdate.action?id='+jid;
-		api.openW("Edit",url);
+		api.openW(api.code.edit,url);
 		if(fn){api.Wcallback=fn;}
 	}else{
 		alert('Please select the column you want to edit');
@@ -140,7 +139,7 @@ api.toUpdateDis=function(t,fn,jid,type){
 		if(type){
 			url=api.path+'/'+t+'/toUpdate.action?id='+jid+'&distype='+type;
 		}
-		api.openW("Edit",url);
+		api.openW(api.code.edit,url);
 		if(fn){api.Wcallback=fn;}
 	}else{
 		alert('Please select the column you want to edit');
@@ -153,7 +152,7 @@ api.toSendGoods=function(t,fn,jid,fun){
 	}
 	if(jid){
 		var url=api.path+'/'+t+'/toSendGoods.action?id='+jid;
-		api.openW("Edit",url);
+		api.openW(api.code.edit,url);
 		if(fn){api.Wcallback=fn;}
 	}else{
 		alert('Please select the column you want to edit');
@@ -170,7 +169,7 @@ api.toUrl=function(url,fn,jid,fun){
 		}else{
 			url+="?id="+jid;
 		}
-		api.openW("Edit",url);
+		api.openW(api.code.edit,url);
 		if(fn){api.Wcallback=fn;}
 	}else{
 		alert('Please select the column you want to edit');
@@ -221,7 +220,8 @@ api.openW=function(title,url,width,height) {
 			//width: width,
 		    //height: height
 	});
-	api.W.max();
+
+	//api.W.max();
 	//api.W.min();
 	//api.W.size('auto','auto');
 };
@@ -247,6 +247,7 @@ api.openU=function(title,url,width,height){
 			width: width,
 		    height: height
 	});
+
 };
 api.closeU=function(name){
 	api.U.close();
@@ -317,7 +318,7 @@ l.setLan=function(lan){
 l.toAdd=function(t){
 	var tb = $(t).parents('div[name="tb"]').attr("id");
     var url=api.path+'/'+tb+'/toAdd.action';
-    api.openW("Add",url);
+    api.openW(api.code.add,url);
     api.Wcallback=function(){$("#"+tb).find(".dg_list").datagrid('reload');}
 }
 
@@ -373,7 +374,7 @@ l.toUpdate=function(t,jid){
 
     if(jid){
         var url=api.path+'/'+tb+'/toUpdate.action?id='+jid;
-        api.openW("Edit",url);
+        api.openW(api.code.edit,url);
         api.Wcallback=function(){dg.datagrid('reload');}
     }else{
         alert('Please select the column you want to delete');
@@ -391,14 +392,18 @@ l.search=function(t){
 
 
 l.dg_params= {
-    width: '100%',
-    height: 300,
+	width: function () { return document.body.clientWidth * 0.9 },
+    height: function () { return document.body.clientheight - $("#toolbar").height() * 0.9 },
+    nowrap: true,
+    autoRowHeight: false,
     striped: true,
+    collapsible: true,
+    pagination: true,
     singleSelect: false,
     pageSize: 10,
     fit: true,
+    fitColumns:true,
     pageList: [5, 10, 15],
-    pagination: true,
     rownumbers: true
 }
 
@@ -433,10 +438,10 @@ l.btn=function(id,tid){
         ath = d.obj;
 	},function(){});
 
-    var f= {field:'action',title:api.code.edit,width:'4%',align:'center'}
+    var f= {field:'action',title:api.code.edit,align:'center'}
 
     if(ath.indexOf('edit')!=-1){
-        f={field:'action',title:api.code.edit,width:'4%',align:'center',
+        f={field:'action',title:api.code.edit,align:'center',
             formatter:function(value,row,index){
                 var u = "<a href=\"#\" onclick=\"l.toUpdate(this,'"+row.id+"')\" ><img src=\""+api.path+"/plug-in/easyui1.5/themes/icons/pencil.png\" /></a> ";
                 return u;
@@ -446,13 +451,13 @@ l.btn=function(id,tid){
 
     var btnhtml='';
     if(ath.indexOf('add')!=-1){
-        btnhtml+="<a href=\"javascript:void(0)\" onclick=\"l.toAdd(this);\" name=\"add\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\">"+api.code.add+"</a>";
+        btnhtml+="<a href=\"javascript:void(0)\" onclick=\"l.toAdd(this);\" name=\"add\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\">"+top.api.code.add+"</a>";
     }
     if(ath.indexOf('remove')!=-1){
-        btnhtml+="<a href=\"javascript:void(0)\" onclick=\"l.delItems(this);\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\">"+api.code.remove+"</a>";
+        btnhtml+="<a href=\"javascript:void(0)\" onclick=\"l.delItems(this);\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\">"+top.api.code.remove+"</a>";
     }
     if(ath.indexOf('import')!=-1){
-        btnhtml+="<a href=\"javascript:void(0)\" onclick=\"importDrvices(this);\" id=\"batchimport\" class=\"easyui-linkbutton\" iconCls=\"icon-undo\" plain=\"true\">"+api.code.import+"</a>";
+        btnhtml+="<a href=\"javascript:void(0)\" onclick=\"importDrvices(this);\" id=\"batchimport\" class=\"easyui-linkbutton\" iconCls=\"icon-undo\" plain=\"true\">"+top.api.code.import+"</a>";
     }
     $("#"+id+" .dg_btn").html(btnhtml);
 

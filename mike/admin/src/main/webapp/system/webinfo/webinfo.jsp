@@ -21,7 +21,7 @@ function uploadw(){
 
 <div class="easyui-layout" fit="true" >
 	<div region="center" style="padding:0px;">
-	    <form id="ffw" class="easyui-form" method="post" action="${pageContext.request.contextPath}/webinfo/update.action">
+	    <form id="ff" class="easyui-form" method="post" action="${pageContext.request.contextPath}/webinfo/update.action">
 	    	<input type="hidden" name="info.id" value="<s:property value="info.id"/>" />
 	    	<table cellpadding="5" >
 	    		<tr>
@@ -91,8 +91,8 @@ function uploadw(){
 				<tr>
 	    			<td colspan="2">
 		    			<div style="text-align:center;padding:5px;margin-bottom:0px;">
-					    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#ffw').form('submit')">Submit</a>
-					    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#ffw').form('clear')">Clear</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#ff').form('submit')"><s:text name="system.btn.submit" /></a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#ff').form('clear')"><s:text name="system.btn.reset" /></a>
 					    </div>
 	    			</td>
 	    		</tr>

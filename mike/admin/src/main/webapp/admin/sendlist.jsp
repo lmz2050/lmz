@@ -6,19 +6,19 @@
     $(function() {
 
         var title = $('#maintabs .tabs-selected').text();
-        var f = l.btn("send",top.tmap[title]);
+        var f = top.l.btn("send",top.tmap[title]);
 
-        l.dg("send",{
+        top.l.dg("send",{
             columns:[[
                 {field:'ck',checkbox:'true'},
-                {field:'id',title:'<s:text name="admin.bean.id" />',width:'10%',align: 'center'},
-                {field:'cus_name',title:'<s:text name="admin.drvices.cus_name" />',width:'15%',align: 'center'},
-                {field:'dev_name',title:'<s:text name="admin.drvices.dev_name" />',width:'15%',align: 'center'},
-                {field:'sysname',title:'<s:text name="admin.send.sysname" />',width:'10%',align: 'center'},
-                {field:'sysversion',title:'<s:text name="admin.send.sysversion" />',width:'15%',align: 'center'},
-                {field:'appversion',title:'<s:text name="admin.send.appversion" />',width:'15%',align: 'center'},
-                {field:'ol_time',title:'<s:text name="admin.recv.ol_time" />',width:'10%',align: 'center'},
-                {field:'ol_total',title:'<s:text name="admin.recv.ol_total" />',width:'10%',align: 'center'}
+                {field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
+                {field:'cus_name',title:'<s:text name="admin.drvices.cus_name" />',align: 'center'},
+                {field:'dev_name',title:'<s:text name="admin.drvices.dev_name" />',align: 'center'},
+                {field:'sysname',title:'<s:text name="admin.send.sysname" />',align: 'center'},
+                {field:'sysversion',title:'<s:text name="admin.send.sysversion" />',align: 'center'},
+                {field:'appversion',title:'<s:text name="admin.send.appversion" />',align: 'center'},
+                {field:'ol_time',title:'<s:text name="admin.recv.ol_time" />',align: 'center'},
+                {field:'ol_total',title:'<s:text name="admin.recv.ol_total" />',align: 'center'}
             ]]
         });
     });

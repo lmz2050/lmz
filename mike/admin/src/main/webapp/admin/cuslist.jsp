@@ -6,18 +6,18 @@
     $(function() {
 
         var title = $('#maintabs .tabs-selected').text();
-        var f = l.btn("cus",top.tmap[title]);
+        var f = top.l.btn("cus",top.tmap[title]);
 
-        l.dg("cus",{
+        top.l.dg("cus",{
             columns:[[
                 {field:'ck',checkbox:'true'},
-                {field:'id',title:'<s:text name="admin.bean.id" />',width:'10%',align: 'center'},
-                {field:'phone',title:'phone',width:'10%',align: 'center'},
-                {field:'name',title:'name',width:'20%',align: 'center'},
-                {field:'sex',title:'sex',width:'10%',align: 'center'},
-                {field:'wechat',title:'wechat',width:'10%',align: 'center'},
-                {field:'mail',title:'mail',width:'20%',align: 'center'},
-                {field:'job',title:'job',width:'20%',align: 'center'}
+                {field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
+                {field:'phone',title:'phone',align: 'center'},
+                {field:'name',title:'name',align: 'center'},
+                {field:'sex',title:'sex',align: 'center'},
+                {field:'wechat',title:'wechat',align: 'center'},
+                {field:'mail',title:'mail',align: 'center'},
+                {field:'job',title:'job',align: 'center'}
             ]]
         });
     });

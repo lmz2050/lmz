@@ -16,16 +16,16 @@
         </action>
 
        <action name="login" class="loginAction" method="login">      
-            <result name="login" type="redirect">/user/loginPage.action</result>
-            <result name="admin" type="redirect">/user/home.action</result>
-            <result name="success" type="redirect">/user/home.action</result>
+            <result name="login" type="redirect">/login.html</result>
+            <result name="admin" type="redirect">/main.html</result>
+            <result name="success" type="redirect">/main.html</result>
        </action>
        <action name="check" class="loginAction" method="check" >
-       		<result name="login">/user/loginPage.action</result>
-       		<result name="success">/user/loginPage.action</result>
+       		<result name="login">/login.html</result>
+       		<result name="success">/login.html</result>
        </action>
        <action name="loginout" class="loginAction" method="loginout">
-       		<result name="success" type="redirect">/user/loginPage.action</result>
+       		<result name="success" type="redirect">/login.html</result>
        		<result name="input">/error.jsp</result> 
        </action>
     </package> 

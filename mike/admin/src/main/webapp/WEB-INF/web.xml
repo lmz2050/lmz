@@ -51,7 +51,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 		<listener-class>cn.lmz.mike.web.base.util.listener.UserSessionListener</listener-class>
 	</listener>
 
- <!-- 
+
  	<filter>
 		<filter-name>UrlRewriteFilter</filter-name>
 		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
@@ -62,6 +62,10 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 		<init-param>
 			<param-name>statusEnabled</param-name>
 			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>logLevel</param-name>
+			<param-value>sysout:DEBUG</param-value>
 		</init-param>
 		<init-param>
 			<param-name>statusPath</param-name>
@@ -76,8 +80,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
- 
- -->
+
  
  
   

@@ -1,15 +1,18 @@
 package cn.lmz.mike.web.base.util.interceptor;
 
 import cn.lmz.mike.common.exception.LMZException;
+import cn.lmz.mike.data.util.LanU;
 import cn.lmz.mike.web.base.util.WebU;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.config.entities.ActionConfig;
 import com.opensymphony.xwork2.interceptor.Interceptor;
 import com.opensymphony.xwork2.util.ValueStack;
+import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Locale;
 import java.util.Map;
 
 public class PageInterceptor implements Interceptor {
@@ -25,8 +28,19 @@ public class PageInterceptor implements Interceptor {
 		
 	}
 
+	public void setDefualLan(){
+		Locale local = (Locale)ServletActionContext.getRequest().getSession().getAttribute(LanU.LAN_SESSION_KEY);
+		if(local==null){
+			local = Locale.US;
+			ActionContext.getContext().setLocale(local);
+			ServletActionContext.getRequest().getSession().setAttribute(LanU.LAN_SESSION_KEY, local);
+			log.info("change to language:{}",local);
+		}
+	}
+
 	public String intercept(ActionInvocation invocation) throws Exception {
 		try{
+			setDefualLan();
 			Map session = invocation.getInvocationContext().getSession();
 			String theme = WebU.getTheme(session);
 			ActionConfig config = invocation.getProxy().getConfig();

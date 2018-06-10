@@ -6,27 +6,27 @@
     $(function() {
 
         var title = $('#maintabs .tabs-selected').text();
-        var f = l.btn("recv",top.tmap[title]);
+        var f = top.l.btn("recv",top.tmap[title]);
 
-        l.dg("recv",{
+        top.l.dg("recv",{
             columns:[[
                 {field:'ck',checkbox:'true'},
-                {field:'id',title:'<s:text name="admin.bean.id" />',width:'5%',align: 'center'},
-                {field:'cus_name',title:'<s:text name="admin.drvices.cus_name" />',width:'7%',align: 'center'},
-                {field:'dev_name',title:'<s:text name="admin.drvices.dev_name" />',width:'7%',align: 'center'},
-                {field:'mac1',title:'MAC1',width:'5%',align: 'center'},
-                {field:'mac2',title:'MAC2',width:'5%',align: 'center'},
-                {field:'version',title:'<s:text name="admin.recv.version" />',width:'5%',align: 'center'},
-                {field:'ol_time',title:'<s:text name="admin.recv.ol_time" />',width:'5%',align: 'center'},
-                {field:'ol_total',title:'<s:text name="admin.recv.ol_total" />',width:'5%',align: 'center'},
-                {field:'gn1_total',title:'gn1 <s:text name="admin.recv.use_time" />',width:'7%',align: 'center'},
-                {field:'gn2_total',title:'gn2 <s:text name="admin.recv.use_time" />',width:'7%',align: 'center'},
-                {field:'gn3_total',title:'gn3 <s:text name="admin.recv.use_time" />',width:'7%',align: 'center'},
-                {field:'gn4_total',title:'gn4 <s:text name="admin.recv.use_time" />',width:'7%',align: 'center'},
-                {field:'gn5_total',title:'gn5 <s:text name="admin.recv.use_time" />',width:'7%',align: 'center'},
-                {field:'gn6_total',title:'gn6 <s:text name="admin.recv.use_time" />',width:'7%',align: 'center'},
-                {field:'gn7_total',title:'gn7 <s:text name="admin.recv.use_time" />',width:'7%',align: 'center'},
-                {field:'gn8_total',title:'gn8 <s:text name="admin.recv.use_time" />',width:'7%',align: 'center'}
+                {field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
+                {field:'cus_name',title:'<s:text name="admin.drvices.cus_name" />',align: 'center'},
+                {field:'dev_name',title:'<s:text name="admin.drvices.dev_name" />',align: 'center'},
+                {field:'mac1',title:'MAC1',align: 'center'},
+                {field:'mac2',title:'MAC2',align: 'center'},
+                {field:'version',title:'<s:text name="admin.recv.version" />',align: 'center'},
+                {field:'ol_time',title:'<s:text name="admin.recv.ol_time" />',align: 'center'},
+                {field:'ol_total',title:'<s:text name="admin.recv.ol_total" />',align: 'center'},
+                {field:'gn1_total',title:'gn1 <s:text name="admin.recv.use_time" />',align: 'center'},
+                {field:'gn2_total',title:'gn2 <s:text name="admin.recv.use_time" />',align: 'center'},
+                {field:'gn3_total',title:'gn3 <s:text name="admin.recv.use_time" />',align: 'center'},
+                {field:'gn4_total',title:'gn4 <s:text name="admin.recv.use_time" />',align: 'center'},
+                {field:'gn5_total',title:'gn5 <s:text name="admin.recv.use_time" />',align: 'center'},
+                {field:'gn6_total',title:'gn6 <s:text name="admin.recv.use_time" />',align: 'center'},
+                {field:'gn7_total',title:'gn7 <s:text name="admin.recv.use_time" />',align: 'center'},
+                {field:'gn8_total',title:'gn8 <s:text name="admin.recv.use_time" />',align: 'center'}
             ]]
         });
     });
