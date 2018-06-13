@@ -32,8 +32,7 @@ public class PageInterceptor implements Interceptor {
 		Locale local = (Locale)ServletActionContext.getRequest().getSession().getAttribute(LanU.LAN_SESSION_KEY);
 		if(local==null){
 			local = Locale.US;
-			ActionContext.getContext().setLocale(local);
-			ServletActionContext.getRequest().getSession().setAttribute(LanU.LAN_SESSION_KEY, local);
+			WebU.setLocale(local);
 			log.info("change to language:{}",local);
 		}
 	}

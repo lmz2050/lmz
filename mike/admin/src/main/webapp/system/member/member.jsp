@@ -9,7 +9,12 @@
 	<link id="easyuiTheme" rel="stylesheet" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/default/easyui.css" type="text/css"></link>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/plug-in/easyui1.5/themes/icon.css" ></link>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/easyui1.5/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/easyui1.5/locale/easyui-lang-zh_CN.js"></script>
+		<s:if test="#session.lan=='en_US'">
+			<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/easyui1.5/locale/easyui-lang-en.js"></script>
+		</s:if>
+		<s:else>
+			<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/easyui1.5/locale/easyui-lang-zh_CN.js"></script>
+		</s:else>
 	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/My97DatePicker/WdatePicker.js"></script>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/plug-in/My97DatePicker/skin/WdatePicker.css" ></link>

@@ -88,7 +88,7 @@ label.iPhoneCheckLabelOn span {
      <form name="formLogin" id="formLogin" action="${pageContext.request.contextPath}/user/login.action" check="${pageContext.request.contextPath}/user/check.action" method="post">
       <input name="userKey" type="hidden" id="userKey" value="D1B5CC2FE46C4CC983C073BCA897935608D926CD32992B5900"/>
       <div class="tip">
-       <input class="userName" name="info.username" type="text" id="userName" title="<s:text name="login.ipt.name" />" iscookie="true" value=""  nullmsg="<s:text name="login.msg.name" />"/>
+       <input class="userName" name="info.username" type="text" id="userName" title="<s:text name="login.ipt.name" />"  value=""  nullmsg="<s:text name="login.msg.name" />"/>
       </div>
       <div class="tip">
        <input class="password" name="info.userpwd" type="password" id="password" title="<s:text name="login.ipt.pwd" />" value="" nullmsg="<s:text name="login.msg.pwd" />"/>

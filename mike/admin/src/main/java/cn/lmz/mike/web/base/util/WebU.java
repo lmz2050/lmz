@@ -4,14 +4,18 @@ import cn.lmz.mike.common.MC;
 import cn.lmz.mike.common.base.StrU;
 import cn.lmz.mike.common.exception.LMZException;
 import cn.lmz.mike.data.IData;
+import cn.lmz.mike.data.util.LanU;
 import cn.lmz.mike.web.base.bean.Lmztheme;
 import cn.lmz.mike.web.base.bean.Lmztpl;
 import cn.lmz.mike.web.base.service.IWService;
+import com.opensymphony.xwork2.ActionContext;
+import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -40,6 +44,15 @@ public class WebU implements IData {
     public void reg(){
     	
     }
+
+    public static void setLocale(Locale local){
+
+		ActionContext.getContext().setLocale(local);
+		ServletActionContext.getRequest().getSession().setAttribute(LanU.LAN_SESSION_KEY, local);
+		ServletActionContext.getRequest().getSession().setAttribute(LanU.LAN, local.getLanguage()+"_"+local.getCountry());
+		LanU.setLan(local.getLanguage()+"_"+local.getCountry());
+
+	}
     
 	
 	public static String getTheme(Map session) throws LMZException {

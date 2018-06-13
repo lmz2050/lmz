@@ -457,7 +457,7 @@ l.btn=function(id,tid){
         btnhtml+="<a href=\"javascript:void(0)\" onclick=\"l.delItems(this);\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\">"+top.api.code.remove+"</a>";
     }
     if(ath.indexOf('import')!=-1){
-        btnhtml+="<a href=\"javascript:void(0)\" onclick=\"importDrvices(this);\" id=\"batchimport\" class=\"easyui-linkbutton\" iconCls=\"icon-undo\" plain=\"true\">"+top.api.code.import+"</a>";
+        btnhtml+='<a href=\"javascript:void(0)\" onclick=\"importDrvices(this);\" id=\"batchimport\" class=\"easyui-linkbutton\" iconCls=\"icon-undo\" plain=\"true\">'+top.api.code.importXls+'</a>';
     }
     $("#"+id+" .dg_btn").html(btnhtml);
 

@@ -4,6 +4,7 @@ import cn.lmz.mike.admin.system.service.ISystemService;
 import cn.lmz.mike.data.util.LanU;
 import cn.lmz.mike.web.base.bean.Lmzadmin;
 import cn.lmz.mike.web.base.util.WebSV;
+import cn.lmz.mike.web.base.util.WebU;
 import com.opensymphony.xwork2.ActionContext;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
@@ -44,10 +45,7 @@ public class LanAction extends BasicAction implements SessionAware {
 				if(lo.length>1){
 					Locale local = new Locale(lo[0],lo[1]);
 					String lan = local.getLanguage()+"_"+local.getCountry();
-					LanU.setLan(lan);
-					ActionContext.getContext().setLocale(local);
-					ServletActionContext.getRequest().getSession().setAttribute(LanU.LAN_SESSION_KEY, local);
-					session.put(LanU.LAN_SESSION_KEY,local);
+					WebU.setLocale(local);
 					log.info("change to language:{}",lan);
 
 					//刷新导航

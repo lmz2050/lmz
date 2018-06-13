@@ -4,6 +4,20 @@
 
 
 <script type="text/javascript">
+    function importDrvices(){
+        $('#batchimport').linkbutton('disable');
+        top.api.upload(function(name){
+                top.api.post('${pageContext.request.contextPath}/drvices/importxls.action',{id:name},function(d){
+                    $('#batchimport').linkbutton('enable');
+                    $("#drvices .dg_list").datagrid('reload');
+                },function(d){
+                    $('#batchimport').linkbutton('enable');
+                    $("#drvices .dg_list").datagrid('reload');
+                });
+            },
+            'tmp',
+            'uploadFile.action');
+    }
 
     $(function() {
 
@@ -44,21 +58,6 @@
         });
     });
 
-
-function importDrvices(){
-	$('#batchimport').linkbutton('disable');
-	top.api.upload(function(name){
-		top.api.post('${pageContext.request.contextPath}/drvices/importxls.action',{id:name},function(d){
-			$('#batchimport').linkbutton('enable');
-			$("#drvices .dg_list").datagrid('reload');
-		},function(d){
-			$('#batchimport').linkbutton('enable');
-            $("#drvices .dg_list").datagrid('reload');
-		});
-	},
-	'tmp',
-	'uploadFile.action');
-}
 </script>
 <div class="easyui-layout" fit="true" name="tb" id="drvices" >
     <div region="north" border="false" style="padding:5px;height:auto">
