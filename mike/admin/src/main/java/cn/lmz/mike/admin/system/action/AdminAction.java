@@ -152,9 +152,9 @@ public class AdminAction extends BaseAction {
 
 	public String del(){
 		try {
-			if(id!=null){
+			if(id!=null&&id.trim().length()>0){
 				Lmzadmin admin = this.getAdmin();
-				if(id==admin.getId()){
+				if(id.equalsIgnoreCase(admin.getId())){
 					msg=getText("login.msg.delete_yourself");
 					r.setSuccess(false);
 				}else{

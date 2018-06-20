@@ -12,7 +12,7 @@
       	<table>
        		<tr>
         		<td valign="top" height="50">
-         			<span style="color: #CC33FF"><s:text name="main.cur_user" />:</span><span style="color: #666633">(<s:property value="#session.admin.username"/>)</span>
+         			<span style="color: #CC33FF"><s:text name="main.cur_user" /></span><span style="color: #666633"><s:property value="#session.admin.username"/></span>
         		</td>
        		</tr>
        		<tr>
@@ -28,8 +28,10 @@
 						<div onclick="top.l.setLan('en_US')">English</div>
 					</div>
         			<div id="layout_north_kzmbMenu" style="width: 100px; display: none;">
+						<!--
          				<div onclick="top.api.toUpdate('admin',function(){},'<s:property value="#session.admin.id"/>')"><s:text name="main.personal_information" /></div>
-         				<div class="menu-sep"></div>
+         				-->
+						<div class="menu-sep"></div>
          				<div onclick="top.api.toUrl('${pageContext.request.contextPath}/admin/toUppwd.action',function(){},'<s:property value="#session.admin.id"/>')"><s:text name="main.change_password" /></div>
         			</div>
         			<div id="layout_north_zxMenu" style="width: 100px; display: none;">

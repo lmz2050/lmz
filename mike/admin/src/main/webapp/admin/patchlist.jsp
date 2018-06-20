@@ -16,8 +16,8 @@
                 {field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
                 {field:'vname',title:'<s:text name="admin.patch.vname" />',align: 'center'},
                 {field:'okupdata',title:'<s:text name="admin.patch.okupdate" />',align: 'center'},
-                {field:'url',title:'Url',width:'20%',align: 'center'},
-                {field:'<s:text name="admin.patch.remark" />',title:'Explain',align: 'center'},
+                {field:'url',title:'<s:text name="admin.patch.url" />',width:'20%',align: 'center'},
+                {field:'remark',title:'<s:text name="admin.patch.remark" />',align: 'center'},
                 {field:'cby',title:'<s:text name="admin.patch.cby" />',align: 'center'},
                 {field:'ctm',title:'<s:text name="admin.patch.ctm" />',align: 'center'},
                 f

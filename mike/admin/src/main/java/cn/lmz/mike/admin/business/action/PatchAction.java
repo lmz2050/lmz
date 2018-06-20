@@ -59,6 +59,8 @@ public class PatchAction extends BaseAction {
                 if(getInfo().getVname().equalsIgnoreCase(getInfo().getOkupdata())){
                     msg = WebMsg.getI18nMsg("admin.msg.admin_patch_vname_eq_okupdate");
                     r.setSuccess(false);
+                    r.setMsg(msg);
+                    return WebSV.SUCCESS;
                 }
 
                 BeanUtil.setBean(getInfo(), LmzU.getParams("uby",this.getAdmin().getUsername(),"utm", MC.date.getTimeString()));

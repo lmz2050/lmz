@@ -43,6 +43,7 @@ $('#forgetpass').click(function() {
 	$("#userName").val("");
 	$("#password").val("");
 });
+
 // 点击登录
 $('#but_login').click(function(e) {
 	submit();
@@ -53,6 +54,7 @@ $(document).keydown(function(e){
 		submit();
 	}
 });
+
 //表单提交
 function submit()
 {
@@ -74,6 +76,7 @@ function submit()
 	}
 
 }
+
 //登录处理函数
 function Login() {
 	setCookie();

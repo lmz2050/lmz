@@ -52,6 +52,7 @@ function setUserrole(id,name) {
 					api.get('${pageContext.request.contextPath}/role/findUserRole.action',{id:id},function(d){
 						$("#ltreeuser").tree("loadData",d);
 						$("#ltreeuser").tree("expandAll");
+						alert('<s:text name="system.msg.saved" />');
 					});
 				});
 			}}]
