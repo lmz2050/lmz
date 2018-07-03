@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lmz.mike.admin.business.dao.LmzwebMapper">
+  <resultMap id="BaseResultMap" type="cn.lmz.mike.admin.business.vo.Lmzweb">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="domain" jdbcType="VARCHAR" property="domain" />
+    <result column="logo" jdbcType="VARCHAR" property="logo" />
+    <result column="titles" jdbcType="VARCHAR" property="titles" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="disabled" jdbcType="INTEGER" property="disabled" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="addr" jdbcType="VARCHAR" property="addr" />
+    <result column="mdomain" jdbcType="VARCHAR" property="mdomain" />
+    <result column="mailfromhost" jdbcType="VARCHAR" property="mailfromhost" />
+    <result column="mailfromuname" jdbcType="VARCHAR" property="mailfromuname" />
+    <result column="mailfrompwd" jdbcType="VARCHAR" property="mailfrompwd" />
+    <result column="mailtohost" jdbcType="VARCHAR" property="mailtohost" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.lmz.mike.admin.business.vo.Lmzweb">
+    <result column="explains" jdbcType="LONGVARCHAR" property="explains" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, domain, logo, titles, keywords, disabled, phone, tel, addr, mdomain, mailfromhost, 
+    mailfromuname, mailfrompwd, mailtohost
+  </sql>
+  <sql id="Blob_Column_List">
+    explains
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from lmzweb
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from lmzweb
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.lmz.mike.admin.business.vo.Lmzweb">
+    insert into lmzweb (id, name, domain, 
+      logo, titles, keywords, 
+      disabled, phone, tel, 
+      addr, mdomain, mailfromhost, 
+      mailfromuname, mailfrompwd, mailtohost, 
+      explains)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR}, 
+      #{logo,jdbcType=VARCHAR}, #{titles,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, 
+      #{disabled,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{addr,jdbcType=VARCHAR}, #{mdomain,jdbcType=VARCHAR}, #{mailfromhost,jdbcType=VARCHAR}, 
+      #{mailfromuname,jdbcType=VARCHAR}, #{mailfrompwd,jdbcType=VARCHAR}, #{mailtohost,jdbcType=VARCHAR}, 
+      #{explains,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.lmz.mike.admin.business.vo.Lmzweb">
+    insert into lmzweb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="domain != null">
+        domain,
+      </if>
+      <if test="logo != null">
+        logo,
+      </if>
+      <if test="titles != null">
+        titles,
+      </if>
+      <if test="keywords != null">
+        keywords,
+      </if>
+      <if test="disabled != null">
+        disabled,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="addr != null">
+        addr,
+      </if>
+      <if test="mdomain != null">
+        mdomain,
+      </if>
+      <if test="mailfromhost != null">
+        mailfromhost,
+      </if>
+      <if test="mailfromuname != null">
+        mailfromuname,
+      </if>
+      <if test="mailfrompwd != null">
+        mailfrompwd,
+      </if>
+      <if test="mailtohost != null">
+        mailtohost,
+      </if>
+      <if test="explains != null">
+        explains,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="domain != null">
+        #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null">
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="titles != null">
+        #{titles,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null">
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null">
+        #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="mdomain != null">
+        #{mdomain,jdbcType=VARCHAR},
+      </if>
+      <if test="mailfromhost != null">
+        #{mailfromhost,jdbcType=VARCHAR},
+      </if>
+      <if test="mailfromuname != null">
+        #{mailfromuname,jdbcType=VARCHAR},
+      </if>
+      <if test="mailfrompwd != null">
+        #{mailfrompwd,jdbcType=VARCHAR},
+      </if>
+      <if test="mailtohost != null">
+        #{mailtohost,jdbcType=VARCHAR},
+      </if>
+      <if test="explains != null">
+        #{explains,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.lmz.mike.admin.business.vo.Lmzweb">
+    update lmzweb
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="domain != null">
+        domain = #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null">
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="titles != null">
+        titles = #{titles,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null">
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="disabled != null">
+        disabled = #{disabled,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="mdomain != null">
+        mdomain = #{mdomain,jdbcType=VARCHAR},
+      </if>
+      <if test="mailfromhost != null">
+        mailfromhost = #{mailfromhost,jdbcType=VARCHAR},
+      </if>
+      <if test="mailfromuname != null">
+        mailfromuname = #{mailfromuname,jdbcType=VARCHAR},
+      </if>
+      <if test="mailfrompwd != null">
+        mailfrompwd = #{mailfrompwd,jdbcType=VARCHAR},
+      </if>
+      <if test="mailtohost != null">
+        mailtohost = #{mailtohost,jdbcType=VARCHAR},
+      </if>
+      <if test="explains != null">
+        explains = #{explains,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.lmz.mike.admin.business.vo.Lmzweb">
+    update lmzweb
+    set name = #{name,jdbcType=VARCHAR},
+      domain = #{domain,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      titles = #{titles,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      disabled = #{disabled,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      mdomain = #{mdomain,jdbcType=VARCHAR},
+      mailfromhost = #{mailfromhost,jdbcType=VARCHAR},
+      mailfromuname = #{mailfromuname,jdbcType=VARCHAR},
+      mailfrompwd = #{mailfrompwd,jdbcType=VARCHAR},
+      mailtohost = #{mailtohost,jdbcType=VARCHAR},
+      explains = #{explains,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.lmz.mike.admin.business.vo.Lmzweb">
+    update lmzweb
+    set name = #{name,jdbcType=VARCHAR},
+      domain = #{domain,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      titles = #{titles,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      disabled = #{disabled,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      mdomain = #{mdomain,jdbcType=VARCHAR},
+      mailfromhost = #{mailfromhost,jdbcType=VARCHAR},
+      mailfromuname = #{mailfromuname,jdbcType=VARCHAR},
+      mailfrompwd = #{mailfrompwd,jdbcType=VARCHAR},
+      mailtohost = #{mailtohost,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

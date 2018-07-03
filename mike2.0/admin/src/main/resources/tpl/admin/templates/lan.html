@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<div>
+    <div>[[#{test.msg}]]：<input th:placeholder="#{test.msg}"/></div>
+</div>
+
+
+<div class="mt20">
+    <span class="ib"><a th:href="@{/lan(lan=zh_CN)}">中文</a></span>
+    <span class="ib ml20"><a th:href="@{/lan(lan=en_US)}">英文</a></span>
+</div>
+
+</body>
+</html>

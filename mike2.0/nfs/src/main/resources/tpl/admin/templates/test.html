@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="@{/jquery/1.11.3/jquery.min.js}" type="text/javascript"></script>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="@{/bootstrap/3.3.7/css/bootstrap.min.css}"  />
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="@{/bootstrap/3.3.7/js/bootstrap.min.js}" type="text/javascript" ></script>
+    <script src="@{/lmz/2.0.0/lmz.api.js}" type="text/javascript" ></script>
+</head>
+<body>
+<p th:text="'Hello, ' + ${title}" /><br/>
+
+<script>
+        //选中/取消父节点时选中/取消所有子节点
+        function getChildNodeIdArr(node) {
+            var ts = [];
+            if (node.nodes) {
+                for (x in node.nodes) {
+                    ts.push(node.nodes[x].nodeId);
+                    if (node.nodes[x].nodes) {
+                        var getNodeDieDai = getChildNodeIdArr(node.nodes[x]);
+                        for (j in getNodeDieDai) {
+                            ts.push(getNodeDieDai[j]);
+                        }
+                    }
+                }
+            } else {
+                ts.push(node.nodeId);
+            }
+            return ts;
+        }
+    //选中所有子节点时选中父节点
+    function setParentNodeCheck(node) {
+        var parentNode = $("#tree").treeview("getNode", node.parentId);
+        if (parentNode.nodes) {
+            var checkedCount = 0;
+            for (x in parentNode.nodes) {
+                if (parentNode.nodes[x].state.checked) {
+                    checkedCount ++;
+                } else {
+                    break;
+                }
+            }
+            if (checkedCount === parentNode.nodes.length) {
+                $("#tree").treeview("checkNode", parentNode.nodeId);
+                setParentNodeCheck(parentNode);
+            }
+        }
+    }
+
+    $(function () {
+        api.post('@{/system/menuTree}',{},function(d){
+
+        })
+        $.ajax({
+            type: "Post",
+            url: '@{//}',
+            dataType: "json",
+            success: function (result) {
+                $('#tree').treeview({
+                    data: result.list,         // 数据源
+                    showCheckbox: true,   //是否显示复选框
+                    highlightSelected: true,    //是否高亮选中
+                    multiSelect: true,    //多选
+                    levels : 2,
+                    enableLinks : true,//必须在节点属性给出href属性
+                    color: "#010A0E",
+                    onNodeChecked : function (event,node) {
+                        var selectNodes = getChildNodeIdArr(node); //获取所有子节点
+                        if (selectNodes) { //子节点不为空，则选中所有子节点
+                            $('#tree').treeview('checkNode', [selectNodes, { silent: true }]);
+                        }
+                    },
+                    onNodeUnchecked : function(event, node) { //取消选中节点
+                        var selectNodes = getChildNodeIdArr(node); //获取所有子节点
+                        if (selectNodes) { //子节点不为空，则取消选中所有子节点
+                            $('#tree').treeview('uncheckNode', [selectNodes, { silent: true }]);
+                        }
+                    },
+
+                    onNodeExpanded : function(event, data) {
+
+                    },
+
+                    onNodeSelected: function (event, data) {
+                        //alert(data.nodeId);
+                    }
+
+                });
+            },
+            error: function () {
+                alert("菜单加载失败！")
+            }
+        });
+    })
+
+
+    $(function(){
+        alert("page load finish.");
+    });
+</script>
+</body>
+</html>

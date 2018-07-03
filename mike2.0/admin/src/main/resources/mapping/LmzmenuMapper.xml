@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lmz.mike.admin.business.dao.LmzmenuMapper">
+  <resultMap id="BaseResultMap" type="cn.lmz.mike.admin.business.vo.Lmzmenu">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="pid" jdbcType="VARCHAR" property="pid" />
+    <result column="lev" jdbcType="INTEGER" property="lev" />
+    <result column="ord" jdbcType="INTEGER" property="ord" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="isdev" jdbcType="INTEGER" property="isdev" />
+    <result column="ename" jdbcType="VARCHAR" property="ename" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, img, pid, lev, ord, url, type, isdev, ename
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lmzmenu
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from lmzmenu
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.lmz.mike.admin.business.vo.Lmzmenu">
+    insert into lmzmenu (id, name, img, 
+      pid, lev, ord, url, 
+      type, isdev, ename)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
+      #{pid,jdbcType=VARCHAR}, #{lev,jdbcType=INTEGER}, #{ord,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{isdev,jdbcType=INTEGER}, #{ename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.lmz.mike.admin.business.vo.Lmzmenu">
+    insert into lmzmenu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="lev != null">
+        lev,
+      </if>
+      <if test="ord != null">
+        ord,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="isdev != null">
+        isdev,
+      </if>
+      <if test="ename != null">
+        ename,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="lev != null">
+        #{lev,jdbcType=INTEGER},
+      </if>
+      <if test="ord != null">
+        #{ord,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="isdev != null">
+        #{isdev,jdbcType=INTEGER},
+      </if>
+      <if test="ename != null">
+        #{ename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.lmz.mike.admin.business.vo.Lmzmenu">
+    update lmzmenu
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="lev != null">
+        lev = #{lev,jdbcType=INTEGER},
+      </if>
+      <if test="ord != null">
+        ord = #{ord,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="isdev != null">
+        isdev = #{isdev,jdbcType=INTEGER},
+      </if>
+      <if test="ename != null">
+        ename = #{ename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.lmz.mike.admin.business.vo.Lmzmenu">
+    update lmzmenu
+    set name = #{name,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR},
+      lev = #{lev,jdbcType=INTEGER},
+      ord = #{ord,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      isdev = #{isdev,jdbcType=INTEGER},
+      ename = #{ename,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
