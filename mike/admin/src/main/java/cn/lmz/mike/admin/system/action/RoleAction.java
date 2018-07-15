@@ -15,6 +15,7 @@ import cn.lmz.mike.data.bean.DataBean;
 import cn.lmz.mike.data.bean.NotParams;
 import cn.lmz.mike.data.bean.OrParams;
 import cn.lmz.mike.web.base.bean.BaseBean;
+import cn.lmz.mike.web.base.bean.Lmzadmin;
 import cn.lmz.mike.web.base.util.WebSV;
 import com.mysql.fabric.xmlrpc.base.Params;
 import org.springframework.context.annotation.Scope;
@@ -58,13 +59,22 @@ public class RoleAction extends SysAction{
 	public String del(){
 		try {
 			if(id!=null){
-				systemService.delete(Lmzrole.class, id);
-				msg="delete";
-				String sql=" delete from lmzrolemenu where rid = ? ";
-				systemService.execute(sql,id);
-				refreshMenu();
-				r.setSuccess(true);
-				r.setMsg(msg);
+
+				Lmzadmin admin = this.getAdmin();
+
+				if(id.compareTo(admin.getType()+"")<=0){
+					msg=getText("login.msg.without_permission");
+					r.setSuccess(false);
+					r.setMsg(msg);
+				}else {
+					systemService.delete(Lmzrole.class, id);
+					msg = "delete";
+					String sql = " delete from lmzrolemenu where rid = ? ";
+					systemService.execute(sql, id);
+					refreshMenu();
+					r.setSuccess(true);
+					r.setMsg(msg);
+				}
 			}
 		} catch (LMZException e) {
 			handException(e);
@@ -75,9 +85,17 @@ public class RoleAction extends SysAction{
 	public String setRoleMenu(){
 		try {
 			if(id!=null){
-				systemService.setRoleMenu(id, msg);
-				refreshMenu();
-				r.setSuccess(true);
+				Lmzadmin admin = this.getAdmin();
+
+				if(id.compareTo(admin.getType()+"")<=0){
+					msg=getText("login.msg.without_permission");
+					r.setSuccess(false);
+					r.setMsg(msg);
+				}else {
+					systemService.setRoleMenu(id, msg);
+					refreshMenu();
+					r.setSuccess(true);
+				}
 			}
 		} catch (LMZException e) {
 			handException(e);
@@ -129,9 +147,18 @@ public class RoleAction extends SysAction{
 	public String setUserRole(){
 		try {
 			if(id!=null){
-				systemService.setUserRole(id, msg);
-				refreshMenu();
-				r.setSuccess(true);
+				Lmzadmin admin = this.getAdmin();
+
+				Lmzadmin updmin = systemService.search(Lmzadmin.class,id);
+				if (updmin != null&&updmin.getType().compareTo(1)<=0&&updmin.getType()<=admin.getType()) {
+					msg=getText("login.msg.without_permission");
+					r.setSuccess(false);
+					r.setMsg(msg);
+				}else {
+					systemService.setUserRole(id, msg);
+					refreshMenu();
+					r.setSuccess(true);
+				}
 			}
 		} catch (LMZException e) {
 			handException(e);

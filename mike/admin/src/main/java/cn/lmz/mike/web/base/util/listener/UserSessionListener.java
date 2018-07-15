@@ -21,7 +21,7 @@ public class UserSessionListener implements HttpSessionAttributeListener {
         if (name == WebSV.admin){
             Lmzadmin userInfo = (Lmzadmin)se.getSession().getAttribute(WebSV.admin);
             logger.info("add session:"+userInfo.getUsername()+"--"+sessionId);
-            new OnlineUserMap().addOnlineUser(userInfo.getId(), userInfo);
+            OnlineUserMap.addOnlineUser(userInfo.getId(), (Lmzadmin) userInfo.clone());
         }
     }
 
@@ -32,7 +32,7 @@ public class UserSessionListener implements HttpSessionAttributeListener {
         String sessionId = se.getSession().getId();
         if (name == WebSV.admin){
             logger.info("remove session:"+"--"+sessionId);
-            new OnlineUserMap().removeUser(sessionId);
+            OnlineUserMap.removeUser(sessionId);
         }
     }
 
@@ -44,7 +44,7 @@ public class UserSessionListener implements HttpSessionAttributeListener {
         if (name == WebSV.admin){
             Lmzadmin userInfo = (Lmzadmin)se.getSession().getAttribute(WebSV.admin);
             logger.info("replace session:"+userInfo.getUsername()+"--"+sessionId);
-            new OnlineUserMap().addOnlineUser(userInfo.getId(), userInfo);
+            OnlineUserMap.addOnlineUser(userInfo.getId(), (Lmzadmin)userInfo.clone());
         }
     }
 

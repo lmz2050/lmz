@@ -54,9 +54,7 @@
                 <entry key="dataSourceSys" value-ref="dataSourceSys"/>  
             </map>  
         </property>  
-    </bean>  	
-
-
+    </bean>
 
     <!--事务管理器 --> 
     <bean id="jdbcManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >

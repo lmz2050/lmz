@@ -55,8 +55,9 @@ public class AdminAction extends BaseAction {
 			if(rows==null)rows=0;
 			Page pg = new Page();
 			pg.setIntCurrentPage(page);
-			
-			String ord = " id asc ";
+
+
+			String ord = getDefOrd();
 
 			Lmzadmin adm = this.getAdmin();
 			DataBean b = new DataBean(getInfo().getClass());
@@ -91,6 +92,7 @@ public class AdminAction extends BaseAction {
 			}else{
 				r.setMsg(getText("login.msg.INCORRECT_PWD"));
 				r.setSuccess(false);
+				r.setMsg(msg);
 		}
 		}catch(Exception e){
 			handException(e);
@@ -157,12 +159,20 @@ public class AdminAction extends BaseAction {
 				if(id.equalsIgnoreCase(admin.getId())){
 					msg=getText("login.msg.delete_yourself");
 					r.setSuccess(false);
-				}else{
-					getwService().delete(Lmzadmin.class, id);
-					msg=getText("login.msg.deleted");
-					String sql=" delete from lmzroleuser where uid = ? ";
-					getwService().execute(sql,id);
-					r.setSuccess(true);
+					r.setMsg(msg);
+				}else {
+					Lmzadmin deldmin = getwService().search(Lmzadmin.class,id);
+					if (deldmin != null&&deldmin.getType().compareTo(1)<=0&&deldmin.getType()<=admin.getType()) {
+						msg=getText("login.msg.without_permission");
+						r.setSuccess(false);
+						r.setMsg(msg);
+					}else{
+						getwService().delete(Lmzadmin.class, id);
+						msg = getText("login.msg.deleted");
+						String sql = " delete from lmzroleuser where uid = ? ";
+						getwService().execute(sql, id);
+						r.setSuccess(true);
+					}
 				}
 				r.setMsg(msg);
 			}

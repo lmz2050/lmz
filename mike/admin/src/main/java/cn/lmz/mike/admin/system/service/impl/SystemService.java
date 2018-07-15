@@ -23,7 +23,6 @@ import java.util.*;
 public class SystemService extends WService implements ISystemService {
 
 	private static final Logger log = LoggerFactory.getLogger(SystemService.class);
-
 	private Set<String> findMenuAndParentId(Lmzmenu m) throws LMZException {
 		Set<String> mpidSet = new HashSet<String>();
 		if(m!=null){
@@ -96,4 +95,5 @@ public class SystemService extends WService implements ISystemService {
 		session.put(WebSV.BTNLIST,btnlist);
 		return tlist;
 	}
+
 }

@@ -209,13 +209,21 @@ api.tab=function(title,url,icon){
 	addTab(title,url,icon);	
 };
 
-api.openW=function(title,url,width,height) {
+api.openW=function(title,url,width,height,fn) {
 	if(!width){width='auto';}
 	if(!height){height='auto';}
 	api.W=$.dialog({
+		    id:'api_W',
 			content: 'url:'+url,
 			title : title,
-			cache: false
+			cache: false,
+            close:function() {
+				if(api.Wcallback){
+					api.Wcallback();
+					api.Wcallback=null;
+				}
+                api.W=null;
+			}
 			//lock : true,
 			//width: width,
 		    //height: height
@@ -227,12 +235,24 @@ api.openW=function(title,url,width,height) {
 };
 
 api.closeW=function(fn){
+	var calback=api.Wcallback;
+    api.Wcallback = null;
 	api.W.close();
 	if(fn){fn();}
-	if(api.Wcallback){
-		api.Wcallback();
+	if(calback){
+        calback();
 	}
+    api.W=null;
 };
+
+api.resizeW=function(w,h){
+    $.dialog({
+        id: 'api_W',
+		width:w,
+		height:h,
+        focus: true
+    });
+}
 
 
 
@@ -240,23 +260,69 @@ api.openU=function(title,url,width,height){
 	if(!width){width='auto';}
 	if(!height){height='auto';}
 	api.U=$.dialog({
+		    id:'api_U',
 			content: 'url:'+url,
 			title : title,
 			cache: false,
 			lock : true,
-			width: width,
-		    height: height
-	});
+          close:function() {
+				if(api.Ucallback){
+					api.Ucallback();
+					api.Ucallback=null;
+				}
+				  if(api.W){
+                      $.dialog({
+                          id: 'api_W',
+                          focus: true
+                      });
+				  }
+               api.U=null;
+          }
 
+	});
 };
 api.closeU=function(name){
-	api.U.close();
-	if(api.Ucallback){
-		api.Ucallback(name);
-	}
+    var calback=api.Ucallback;
+    api.Ucallback = null;
+    api.U.close();
+    if(calback){
+        calback(name);
+    }
+    if(api.W){
+        $.dialog({
+            id: 'api_W',
+            focus: true
+        });
+    }
+    api.U=null;
 };
-api.upload=function(fn,ipath,action){
-	var url='/system/upload/upload.jsp?a=1';
+
+api.openP=function(prourl,title,width,height){
+    if(!width){width='auto';}
+    if(!height){height='auto';}
+    var url = '/system/upload/progress.jsp?a=3&prourl='+prourl;
+    api.P=$.dialog({
+        id:'api_P',
+        content: 'url:'+url,
+        title : title,
+        cache: false,
+        lock : true
+    });
+};
+api.closeP=function(){
+	if(api.P) {
+        api.P.close();
+    }
+};
+
+api.up={};
+api.upload=function(fn,ipath,action,url){
+	api.up.fn=fn;
+	api.up.ipath=ipath;
+	api.up.action=action;
+	if(!url) {
+        url = '/system/upload/upload2.jsp?a=2';
+    }
 	if(ipath){
 		url=url+'&ipath='+ipath;
 	}
@@ -264,7 +330,7 @@ api.upload=function(fn,ipath,action){
 		url=url+'&action='+action;
 	}
 	url+'&t='+new Date();
-	api.openU('upload',api.path+url);
+	api.openU('upload',api.path+url,fn);
 	api.Ucallback=fn;
 };
 

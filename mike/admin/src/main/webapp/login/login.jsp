@@ -5,6 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title><s:text name="admin.title" /></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -118,6 +119,9 @@
 
     function showMsg(msg,color){
         $("#loginmsg").css("color",color).html(msg);
+        setTimeout(function(){
+            $("#loginmsg").html('');
+        },3000);
     }
 
 </script>

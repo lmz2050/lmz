@@ -11,7 +11,7 @@
         top.l.dg("cus",{
             columns:[[
                 {field:'ck',checkbox:'true'},
-                {field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
+                //{field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
                 {field:'phone',title:'phone',align: 'center'},
                 {field:'name',title:'name',align: 'center'},
                 {field:'sex',title:'sex',align: 'center'},

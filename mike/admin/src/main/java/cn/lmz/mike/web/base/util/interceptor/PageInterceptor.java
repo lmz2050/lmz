@@ -48,11 +48,11 @@ public class PageInterceptor implements Interceptor {
 			
             ValueStack stack = ac.getValueStack();
             String m = stack.findString("m");
-            log.info("PageInterceptor-m:"+m);
+            //log.info("PageInterceptor-m:"+m);
 
             String tpath = WebU.getTplPath(m);
             stack.set("TPATH", tpath);
-            log.info("PageInterceptor1:"+tpath);
+            //log.info("PageInterceptor1:"+tpath);
             
             String re = invocation.invoke();
             

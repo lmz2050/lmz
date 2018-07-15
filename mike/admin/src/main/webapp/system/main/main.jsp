@@ -69,12 +69,10 @@
   <s:else>
       <script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/easyui1.5/locale/easyui-lang-zh_CN.js"></script>
   </s:else>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/tools/leftmenu.js"></script>
 
   <script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/lhgDialog/lhgdialog.min.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/lmzt/lmzt.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/plug-in/tools/sutil.js?dd=11" id="sutil" path="${pageContext.request.contextPath}"></script>
-
   <script type="text/javascript">
       $(function(){
           top.api.code= {

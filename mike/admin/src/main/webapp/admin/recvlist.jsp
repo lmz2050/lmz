@@ -11,7 +11,7 @@
         top.l.dg("recv",{
             columns:[[
                 {field:'ck',checkbox:'true'},
-                {field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
+                //{field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
                 {field:'cus_name',title:'<s:text name="admin.drvices.cus_name" />',align: 'center'},
                 {field:'dev_name',title:'<s:text name="admin.drvices.dev_name" />',align: 'center'},
                 {field:'mac1',title:'MAC1',align: 'center'},
@@ -40,7 +40,9 @@
             -->
         </div>
         <div class="dg_search">
-            <s:text name="admin.drvices.cus_name" />: <input class="easyui-textbox" name="cus_name" value="" style="width:80px"/>
+            <s:if test="#session.admin.type==1">
+                <s:text name="admin.drvices.cus_name" />: <input class="easyui-textbox" name="cus_name" value="" style="width:80px"/>
+            </s:if>
             <s:text name="admin.drvices.dev_name" />: <input class="easyui-textbox" name="dev_name" value="" style="width:80px"/>
             <a href="javascript:void(0)" onclick="l.search(this);" class="easyui-linkbutton" iconCls="icon-search"><s:text name="system.btn.search" /></a>
         </div>

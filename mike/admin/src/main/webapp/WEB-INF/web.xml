@@ -147,7 +147,22 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
     </listener> 
    -->
   <!-- //listener -->
- 
+
+	<servlet>
+		<description/>
+		<display-name>UploadServlet</display-name>
+		<servlet-name>UploadServlet</servlet-name>
+		<servlet-class>cn.lmz.mike.web.base.upload.UploadServlet</servlet-class>
+		<init-param>
+			<description>Define storagepath for fileuploads</description>
+			<param-name>upload_path</param-name>
+			<param-value>/media/data/fileUpload</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UploadServlet</servlet-name>
+		<url-pattern>/upload</url-pattern>
+	</servlet-mapping>
 
     <jsp-config>
 		<taglib>
@@ -157,7 +172,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 	</jsp-config>
 	
 	<session-config>
-		<session-timeout>50000</session-timeout>
+		<session-timeout>30</session-timeout>
 	</session-config>
    <welcome-file-list>
 	    <welcome-file>index.html</welcome-file>

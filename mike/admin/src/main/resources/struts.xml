@@ -8,7 +8,14 @@
   <constant name="struts.multipart.saveDir" value="e:/tomcat/hnbb/webapps/ROOT/upfile"/>
   <constant name="struts.multipart.saveDir" value="/temp"/>
   -->
- 
+    <!-- 注意struts2.3.15.1以前版本这里为struts.multipart.handler， struts2.3.15.1（包含2.3.15.1）这里为struts.multipart.parser-->
+
+    <bean type="org.apache.struts2.dispatcher.multipart.MultiPartRequest"
+          name="myRequestParser" class="cn.lmz.mike.web.base.upload.MyJakartaMultiPartRequest"
+          scope="default" />
+    <constant name="struts.multipart.handler" value="myRequestParser"/>
+    <!--<constant name="struts.multipart.parser" value="myRequestParser" />-->
+
   <!-- 配置为开发模式 --> 
     <constant name="struts.devMode" value="false" />
     <!-- 把主题配置为simple --> 
@@ -107,6 +114,9 @@
                  <param name="buffereSize">2048</param>
           </result>
      </action>
+      <action name="getProgress" class="progressAction" method="execute">
+          <result name="success">/system/upload/upload.jsp</result>
+      </action>
      <!--  
 	 <action name="prov" class="areaAction" method="prov">
      </action>
@@ -127,12 +137,12 @@
             <result name="success">/system/upload/upload.jsp</result>
             <result name="input">/system/upload/upload.jsp</result>
 	        <interceptor-ref name="defaultStack"></interceptor-ref>                 
-      </action> 
-     <action name="uploadPatch" class="uploadAction">      
-            <result name="success">/system/upload/upload.jsp</result>
-            <result name="input">/system/upload/upload.jsp</result>
-	        <interceptor-ref name="defaultStack"></interceptor-ref>                 
-     </action>
+      </action>
+      <action name="uploadPatch" class="uploadAction">
+          <result name="success">/system/upload/upload.jsp</result>
+          <result name="input">/system/upload/upload.jsp</result>
+          <interceptor-ref name="defaultStack"></interceptor-ref>
+      </action>
      <action name="uploadFile" class="uploadAction">      
             <result name="success">/system/upload/upload.jsp</result>
             <result name="input">/system/upload/upload.jsp</result>
@@ -148,6 +158,7 @@
                  <param name="bufferSize">4096</param>
             </result>                       
       </action>
+
 	  <action name="l" class="lmzAction" method="l">
 	  	 <result name="action">${t.action}?url=${t.url}&amp;${rparam}</result> 
 		 <result name="url">${TPATH}${t.url}?${rparam}</result> 
@@ -155,14 +166,11 @@
 		 <result name="rurl" type="redirect">${TPATH}${t.url}?${rparam}</result> 
          <result name="input">${TPATH}/error.jsp</result> 
 	  </action>
-	  
-      <action name="errorPage">  
-          <result type="redirect">/404.html</result>  
-      </action> 
+
 	  
 	  
   </package>
-  	
+
   	<include file="system.xml"/>
   	<include file="user.xml"/>
   	<include file="settings.xml"/>

@@ -15,4 +15,5 @@ public interface ISystemService extends IWService {
 	void setUserRole(String id, String msg) throws LMZException;
 	
 	List<Map> getUserMenu(String id, Map<String,Object> session) throws LMZException;
+
 }

@@ -1,5 +1,6 @@
 package cn.lmz.mike.common.excel;
 
+import cn.lmz.mike.common.Progress;
 import cn.lmz.mike.common.excel.impl.HSSFExcel;
 import cn.lmz.mike.common.excel.impl.IExcel;
 import cn.lmz.mike.common.excel.impl.XSSFExcel;
@@ -64,6 +65,11 @@ public class Excel implements IExcel {
 	public List<Object[]> read(String xls) throws Exception
 	{
 		return getExcel(xls).read(xls);
+	}
+
+	@Override
+	public List<Object[]> read(String xls, Progress p,int x) throws Exception {
+		return getExcel(xls).read(xls,p,x);
 	}
 
 	public List<String> readWithTemp(String xls, String tmp)

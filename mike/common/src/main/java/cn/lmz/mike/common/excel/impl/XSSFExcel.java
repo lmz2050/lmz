@@ -1,5 +1,6 @@
 package cn.lmz.mike.common.excel.impl;
 
+import cn.lmz.mike.common.Progress;
 import cn.lmz.mike.common.V;
 import cn.lmz.mike.common.excel.Excel;
 import cn.lmz.mike.common.log.TimeLog;
@@ -56,15 +57,62 @@ public class XSSFExcel extends TimeLog implements IExcel{
 				String[] rr = new String[row.getLastCellNum()];
 				for(int i=0;i<row.getLastCellNum();i++) {
 				//创建一个行里的一个字段的对象，也就是获取到的一个单元格中的值
+					System.out.println(i);
 					XSSFCell cell = row.getCell(i);
-					cell.setCellType(CellType.STRING);
-					//在这里我们就可以做很多自己想做的操作了，比如往数据库中添加数据等
-					//System.out.println(cell.getRichStringCellValue());
-					rr[i]=cell.getRichStringCellValue().getString();
+					if(cell==null){
+						rr[i]="";
+					}else {
+						cell.setCellType(CellType.STRING);
+						//在这里我们就可以做很多自己想做的操作了，比如往数据库中添加数据等
+						//System.out.println(cell.getRichStringCellValue());
+						rr[i] = cell.getRichStringCellValue().getString();
+					}
 				}
 				list.add(rr);
 			}
 			
+		}catch(Exception e){
+			e.printStackTrace();
+			throw e;
+		}finally{
+			workbook.close();
+		}
+		return list;
+	}
+	public List<Object[]> read(String xls,Progress p,int x) throws Exception{
+		File xlsF = new File(xls);
+		if(!xlsF.exists()){
+			throw new Exception("文件不存在："+xls);
+		}
+
+		List<Object[]> list = new ArrayList<Object[]>();
+		// 声明一个工作薄
+		XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(xlsF));
+		try {
+			XSSFSheet sheet = workbook.getSheetAt(0);
+			p.setTotalLength(sheet.getLastRowNum()*x);
+			for(int j=0;j<sheet.getLastRowNum()+1;j++) {
+				//创建一个行对象
+				XSSFRow row = sheet.getRow(j);
+				//把一行里的每一个字段遍历出来
+				String[] rr = new String[row.getLastCellNum()];
+				for(int i=0;i<row.getLastCellNum();i++) {
+					//创建一个行里的一个字段的对象，也就是获取到的一个单元格中的值
+					System.out.println(i);
+					XSSFCell cell = row.getCell(i);
+					if(cell==null){
+						rr[i]="";
+					}else {
+						cell.setCellType(CellType.STRING);
+						//在这里我们就可以做很多自己想做的操作了，比如往数据库中添加数据等
+						//System.out.println(cell.getRichStringCellValue());
+						rr[i] = cell.getRichStringCellValue().getString();
+					}
+				}
+				list.add(rr);
+				p.setCurrentLength(j);
+			}
+
 		}catch(Exception e){
 			e.printStackTrace();
 			throw e;

@@ -15,7 +15,7 @@ import java.util.Date;
 //文件上传Action 
 @Controller()
 @Scope("prototype")
-public class UploadAction extends ActionSupport {   
+public class UploadAction extends BasicAction {
     /**
 	 * 
 	 */
@@ -82,10 +82,15 @@ public class UploadAction extends ActionSupport {
 
 	public String execute() throws Exception {   
 
-    	if(file==null){return INPUT;}
+    	if(file==null){
+    	    r.setSuccess(false);
+    	    r.setMsg("file is null ");
+        }else {
             uploadFile();
-            error="success";
-        return "success";  
+            r.setSuccess(true);
+            r.setObj(fileFileName);
+        }
+        return jsonStr(r);
     } 
 
   
@@ -123,7 +128,8 @@ public class UploadAction extends ActionSupport {
             ex.printStackTrace();   
         } catch (IOException ex) {   
             ex.printStackTrace();   
-        }   
+        }
+
     } 
     
     private String getUpFileName(String name){    	

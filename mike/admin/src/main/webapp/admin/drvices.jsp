@@ -37,11 +37,18 @@ function resetdform() {
     $('#ff').form('clear');
     $("input[name='radio']").not("input:checked").val('N');
 }
+$(function(){
+    $("#bodydiv").css(maxHeight,(document.body.clientHeight-50)+"px");
+    $("#bodydiv").css(maxWidth,(document.body.clientWidth-50)+"px");
+    if(top.api.W){
+        top.api.resizeW("700px",(document.body.clientHeight)+"px");
+	}
+})
 </script>
 
 	</head>
-	<body style="overflow-x:hidden;width:800px;" class="wbody">
-		<div style="max-height: 300px;overflow-y: scroll">
+	<body  style="overflow-x:hidden;min-width:800px;" scroll="no" class="wbody">
+		<div id="bodydiv" style="overflow-y: scroll">
 	    <form id="ff" class="easyui-form" method="post" action="${pageContext.request.contextPath}/drvices/update.action">
 	    	<input type="hidden" name="info.id" value="<s:property value="info.id"/>" />
 	    	<table cellpadding="5" >

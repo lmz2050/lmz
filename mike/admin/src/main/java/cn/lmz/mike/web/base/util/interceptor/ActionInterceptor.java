@@ -26,7 +26,7 @@ public class ActionInterceptor implements Interceptor {
 
 	public String intercept(ActionInvocation invocation) throws Exception {
 		try{
-			System.out.println("invocation1");
+			//System.out.println("invocation1");
 			Map session = (Map) invocation.getInvocationContext().get(ServletActionContext.SESSION);
 			String theme = WebU.getTheme(session);
 			ActionConfig config = invocation.getProxy().getConfig();
@@ -37,7 +37,7 @@ public class ActionInterceptor implements Interceptor {
             stack.set("TPATH", tpath);
 
             String re = invocation.invoke();
-            System.out.println("invocation2"+tpath);
+            //System.out.println("invocation2"+tpath);
             
 	        return re;
 		}catch(Exception e){

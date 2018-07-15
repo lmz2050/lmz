@@ -63,10 +63,25 @@ public class PatchAction extends BaseAction {
                     return WebSV.SUCCESS;
                 }
 
+                Adm_dev_patch adp1 = null;
+                List list1 = getwService().search(getInfo().getClass(),LmzU.getParams("okupdata", getInfo().getOkupdata()));
+                if(list1!=null&&list1.size()>0){
+                    adp1 = (Adm_dev_patch)list1.get(0);
+                }
+                if(getInfo().getVname().equalsIgnoreCase(getInfo().getOkupdata())){
+                    msg = WebMsg.getI18nMsg("admin.msg.admin_patch_vname_eq_okupdate");
+                    r.setSuccess(false);
+                    r.setMsg(msg);
+                    return WebSV.SUCCESS;
+                }
+
                 BeanUtil.setBean(getInfo(), LmzU.getParams("uby",this.getAdmin().getUsername(),"utm", MC.date.getTimeString()));
                 if(MC.string.isBlank(getInfo().getId())){
                     if(adp!=null&&getInfo().getVname().equalsIgnoreCase(adp.getVname())) {
                         msg = WebMsg.getI18nMsg("admin.msg.admin_patch_vname_exists");
+                        r.setSuccess(false);
+                    }else if(adp1!=null&&getInfo().getOkupdata().equalsIgnoreCase(adp1.getOkupdata())) {
+                        msg = WebMsg.getI18nMsg("admin.msg.admin_patch_okupdate_exists");
                         r.setSuccess(false);
                     }else {
                         BeanUtil.setBean(getInfo(), LmzU.getParams("cby", this.getAdmin().getUsername(), "ctm", MC.date.getTimeString()));
@@ -77,6 +92,9 @@ public class PatchAction extends BaseAction {
                 }else{
                     if(adp!=null&&getInfo().getVname().equalsIgnoreCase(adp.getVname())&&!getInfo().getId().equalsIgnoreCase(adp.getId())){
                         msg = WebMsg.getI18nMsg("admin.msg.admin_patch_vname_exists");
+                        r.setSuccess(false);
+                    }else if(adp1!=null&&getInfo().getOkupdata().equalsIgnoreCase(adp1.getOkupdata())&&!getInfo().getId().equalsIgnoreCase(adp1.getId())){
+                        msg = WebMsg.getI18nMsg("admin.msg.admin_patch_okupdate_exists");
                         r.setSuccess(false);
                     }else{
                         getwService().update(getInfo());

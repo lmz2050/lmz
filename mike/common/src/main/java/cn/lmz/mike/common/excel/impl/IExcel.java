@@ -1,5 +1,7 @@
 package cn.lmz.mike.common.excel.impl;
 
+import cn.lmz.mike.common.Progress;
+
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +35,7 @@ public interface IExcel{
 	
 	public void setParams(Map params);
 	public List<Object[]> read(String xls)  throws Exception;
+	public List<Object[]> read(String xls, Progress p,int x) throws Exception;
 	public List<String> readWithTemp(String xls, String tmp)  throws Exception;
 	public void write(String xls, List<Object[]> tlist, List<Object[]> list)  throws Exception;
 	public void writeXlsWithRs(String xls, ResultSet rs)  throws Exception;

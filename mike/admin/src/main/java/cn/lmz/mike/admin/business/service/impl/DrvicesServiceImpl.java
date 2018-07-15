@@ -2,19 +2,29 @@ package cn.lmz.mike.admin.business.service.impl;
 
 import cn.lmz.mike.admin.business.bean.Adm_drvices;
 import cn.lmz.mike.admin.business.service.IdrvicesService;
-import cn.lmz.mike.admin.business.util.AdmMsg;
+import cn.lmz.mike.admin.business.util.AdmU;
+import cn.lmz.mike.common.Progress;
 import cn.lmz.mike.common.V;
 import cn.lmz.mike.common.base.DateU;
 import cn.lmz.mike.common.base.StrU;
+import cn.lmz.mike.common.excel.Excel;
+import cn.lmz.mike.common.exception.LMZException;
 import cn.lmz.mike.data.bean.DataBean;
 import cn.lmz.mike.data.bean.OrParams;
+import cn.lmz.mike.web.base.bean.Lmzadmin;
 import cn.lmz.mike.web.base.bean.Return;
 import cn.lmz.mike.web.base.service.impl.WService;
+import cn.lmz.mike.web.base.upload.FileUploadProgress;
 import cn.lmz.mike.web.base.util.WebMsg;
+import cn.lmz.mike.web.base.util.WebSV;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +34,7 @@ import java.util.Map;
 public class DrvicesServiceImpl extends WService implements IdrvicesService {
 
 	private static final Logger log = LoggerFactory.getLogger(DrvicesServiceImpl.class);
+	private static final String UPLOADDIR = WebSV.getFileUploadPath();
 
 	@Override
 	public Return update(Adm_drvices info, String uname) throws Exception{
@@ -131,13 +142,13 @@ public class DrvicesServiceImpl extends WService implements IdrvicesService {
 	}
 	
 	@Override
-	public void createList(List<Object[]> list,String uname) throws Exception {
+	public void createList(List<Object[]> list,String uname,FileUploadProgress progress) throws Exception {
 		String msg="";
 		if(list!=null&&list.size()>1){
 			List<Adm_drvices> adlist = new ArrayList<Adm_drvices>();
 			Map<String,Integer> macMap = new HashMap<String,Integer>();
 			for(int i=1;i<list.size();i++){
-				
+
 				Object[] r = list.get(i);
 
 				Adm_drvices ad = new Adm_drvices();
@@ -197,7 +208,7 @@ public class DrvicesServiceImpl extends WService implements IdrvicesService {
 						msg = ri.getMsg();
 						break;
 					}
-					
+					progress.setCurrentLength((progress.getTotalLength()/2)+i);
 				}
 			}
 			
@@ -267,6 +278,35 @@ public class DrvicesServiceImpl extends WService implements IdrvicesService {
 		sb.append("</functions>");
 		re.setObj(sb.toString());
 		return re;
+	}
+
+	@Override
+	//@Async
+	public boolean importxls(String filename,Lmzadmin admin) throws LMZException {
+		String fullName=UPLOADDIR+filename;
+		log.info(fullName);
+		FileUploadProgress progress = new FileUploadProgress();
+		AdmU.importMap.put(filename,progress);
+		try{
+			AdmU.importMap.put(filename,progress);
+			List<Object[]> list = new Excel().read(fullName,progress,2);
+			if(list!=null) {
+				createList(list, admin.getUsername(),progress);
+			}
+			progress.setCurrTime(System.currentTimeMillis());
+			progress.setFlag(true);
+		} catch (Exception e) {
+			log.error("导入失败:filename:{},{}",filename,e.getMessage(),e);
+			progress.setMsg("导入失败,"+e.getMessage());
+			throw new LMZException("导入失败:filename:"+filename,e);
+		}finally{
+			try{
+				new File(fullName).delete();
+			}catch(Exception e){
+				log.error(e.getMessage(),e);
+			}
+		}
+		return true;
 	}
 
 	private void getFunction(StringBuilder sb,String name,String actived,String time){

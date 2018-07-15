@@ -43,7 +43,12 @@ public abstract class BusBasAction extends BaseAction {
         if(re.isSuccess()){
             out.write(re.getObj().toString());
         }else{
-            out.write(re.getXML());
+            StringBuilder sb = new StringBuilder();
+            sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?><return>");
+            sb.append(re.isSuccess());
+            sb.append("</return><msg>");
+            sb.append(msg).append("</msg>");
+            out.write(sb.toString());
         }
         out.flush();
     }

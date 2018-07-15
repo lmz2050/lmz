@@ -1,19 +1,25 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags" %>
 
-
-
 <script type="text/javascript">
+
     function importDrvices(){
         $('#batchimport').linkbutton('disable');
         top.api.upload(function(name){
-                top.api.post('${pageContext.request.contextPath}/drvices/importxls.action',{id:name},function(d){
-                    $('#batchimport').linkbutton('enable');
-                    $("#drvices .dg_list").datagrid('reload');
-                },function(d){
-                    $('#batchimport').linkbutton('enable');
-                    $("#drvices .dg_list").datagrid('reload');
-                });
+               if(name!=null&&name!=''){
+                   var proaction ='${pageContext.request.contextPath}/drvices/getImportProgress.action?id='+name;
+                   top.api.openP(proaction,'import ...');
+                   top.api.post('${pageContext.request.contextPath}/drvices/importxls.action',{id:name},function(d){
+                       $('#batchimport').linkbutton('enable');
+                       $("#drvices .dg_list").datagrid('reload');
+                   },function(d){
+                       $('#batchimport').linkbutton('enable');
+                       $("#drvices .dg_list").datagrid('reload');
+                   });
+               }else{
+                   $('#batchimport').linkbutton('enable');
+                   $("#drvices .dg_list").datagrid('reload');
+               }
             },
             'tmp',
             'uploadFile.action');
@@ -28,7 +34,7 @@
         top.l.dg("drvices",{
             columns:[[
                 {field:'ck',checkbox:'true'},
-                {field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
+                //{field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
                 {field:'cus_name',title:'<s:text name="admin.drvices.cus_name" />',align: 'center'},
                 {field:'dev_name',title:'<s:text name="admin.drvices.dev_name" />',align: 'center'},
                 {field:'mac1',title:'MAC1',align: 'center'},
@@ -56,6 +62,7 @@
                 */
             ]]
         });
+
     });
 
 </script>
@@ -69,9 +76,12 @@
             -->
         </div>
         <div class="dg_search">
-            <s:text name="admin.drvices.cus_name" />: <input class="easyui-textbox" name="cus_name" value="" style="width:80px"/>
+            <s:if test="#session.admin.type==1">
+             <s:text name="admin.drvices.cus_name" />: <input class="easyui-textbox" name="cus_name" value="" style="width:80px"/>
+            </s:if>
             <s:text name="admin.drvices.dev_name" />: <input class="easyui-textbox" name="dev_name" value="" style="width:80px"/>
             <a href="javascript:void(0)" onclick="l.search(this);" class="easyui-linkbutton" iconCls="icon-search"><s:text name="system.btn.search" /></a>
+            <div id="probarbox" style="display: none;"></div>
         </div>
     </div>
      <div region="center" style="padding:0px;">

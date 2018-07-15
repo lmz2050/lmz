@@ -12,7 +12,7 @@
     <url>http://maven.apache.org</url>
 
     <dependencies>
-        <!--
+        
         <dependency>
             <groupId>cn.lmz.mike</groupId>
             <artifactId>common</artifactId>
@@ -25,7 +25,7 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-        -->
+        
         <!-- log4j -->
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -49,7 +49,6 @@
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-convention-plugin</artifactId>
         </dependency>
-
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>

@@ -28,11 +28,20 @@ $(function(){
 
 
 function upload(ii){
-	$('#uploadbtn').linkbutton('disable');
-	top.api.upload(function(name){
-		$("#url").textbox('setValue',name);
-		$('#uploadbtn').linkbutton('enable');
-	},"patch","uploadPatch.action");
+    try {
+        $('#uploadbtn').linkbutton('disable');
+        top.api.upload(function (name) {
+            if (name != null && name != '') {
+                $("#url").textbox('setValue', name);
+                $("#url").textbox('textbox').focus();
+                $('#uploadbtn').linkbutton('enable');
+            } else {
+                $("#url").textbox('setValue', name);
+                $("#url").textbox('textbox').focus();
+                $('#uploadbtn').linkbutton('enable');
+            }
+        }, "patch", "uploadPatch.action");
+    }catch (e){console.log(e)}
 }
 </script>
 

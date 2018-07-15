@@ -13,7 +13,7 @@
         top.l.dg("patch",{
             columns:[[
                 {field:'ck',checkbox:'true'},
-                {field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
+                //{field:'id',title:'<s:text name="admin.bean.id" />',align: 'center'},
                 {field:'vname',title:'<s:text name="admin.patch.vname" />',align: 'center'},
                 {field:'okupdata',title:'<s:text name="admin.patch.okupdate" />',align: 'center'},
                 {field:'url',title:'<s:text name="admin.patch.url" />',width:'20%',align: 'center'},

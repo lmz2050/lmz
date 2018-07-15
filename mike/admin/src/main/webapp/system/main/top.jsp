@@ -27,7 +27,7 @@
 						<div class="menu-sep"></div>
 						<div onclick="top.l.setLan('en_US')">English</div>
 					</div>
-        			<div id="layout_north_kzmbMenu" style="width: 100px; display: none;">
+        			<div id="layout_north_kzmbMenu" style="width:150px; display: none;">
 						<!--
          				<div onclick="top.api.toUpdate('admin',function(){},'<s:property value="#session.admin.id"/>')"><s:text name="main.personal_information" /></div>
          				-->

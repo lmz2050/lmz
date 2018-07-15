@@ -5,6 +5,8 @@ import cn.lmz.mike.admin.business.util.AdmU;
 import cn.lmz.mike.common.MC;
 import cn.lmz.mike.common.base.DateU;
 import cn.lmz.mike.common.mail.MailU;
+import cn.lmz.mike.common.page.Page;
+import cn.lmz.mike.common.page.PageUtil;
 import cn.lmz.mike.web.base.action.BaseAction;
 import cn.lmz.mike.web.base.bean.BaseBean;
 import cn.lmz.mike.web.base.util.WebSV;
@@ -14,11 +16,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller()
 @Scope("prototype")
-public class LogAction extends BaseAction {
+public class LogAction extends BusBasAction {
 
 	private static Logger logger = LoggerFactory.getLogger(LogAction.class);
 
@@ -69,6 +73,32 @@ public class LogAction extends BaseAction {
 		}
 
 		return null;
+	}
+
+	public String apage()
+	{
+		try {
+			if(page==null||page<1)page=1;
+			if(rows==null)rows=10;
+			Page pg = new Page();
+			pg.setIntPageSize(rows);
+			pg.setIntCurrentPage(page);
+
+			Map params = getQyParams();
+			Map pageParams = getApageParams();
+			pageParams.putAll(params);
+
+			PageUtil pu = getwService().search(getInfo().getClass(), pageParams, pg, getDefOrd());
+
+			Map<String, Object> jsonMap = new HashMap<String, Object>();
+			jsonMap.put("total", pu.getPage().getIntRowCount());
+			jsonMap.put("rows", pu.getList());
+
+			return jsonStr(jsonMap);
+		} catch (Exception e) {
+			handException(e);
+		}
+		return WebSV.LOGIN;
 	}
 
 	public Adm_dev_log getInfo() {

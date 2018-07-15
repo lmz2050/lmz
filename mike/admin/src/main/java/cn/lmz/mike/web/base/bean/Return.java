@@ -12,15 +12,6 @@ public class Return implements Serializable{
 	private Map<String, Object> attributes = new HashMap();// 其他参数
 	private List list;
 
-	public String getXML(){
-		StringBuilder sb = new StringBuilder();
-		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?><return>");
-		sb.append(success);
-		sb.append("</return><msg>");
-		sb.append(msg).append("</msg>");
-		return sb.toString();
-	}
-	
 	public boolean isSuccess() {
 		return success;
 	}

@@ -1,5 +1,6 @@
 package cn.lmz.mike.common.excel.impl;
 
+import cn.lmz.mike.common.Progress;
 import cn.lmz.mike.common.V;
 import cn.lmz.mike.common.log.TimeLog;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -62,6 +63,32 @@ public class HSSFExcel extends TimeLog implements IExcel{
 			list.add(rr);
         }
         return list;
+	}
+	@Override
+	public List<Object[]> read(String xls, Progress p, int x) throws Exception {
+		POIFSFileSystem poifsFileSystem = new POIFSFileSystem(new FileInputStream(xls));
+		HSSFWorkbook workbook = new HSSFWorkbook(poifsFileSystem);
+		HSSFSheet sheet = workbook.getSheetAt(0);
+		p.setTotalLength(sheet.getLastRowNum()*x);
+		List<Object[]> list = new ArrayList<Object[]>();
+
+		for (int k = 0; k < sheet.getLastRowNum()+1; k++) {
+			HSSFRow row = sheet.getRow(k);
+			String[] rr = new String[row.getLastCellNum()];
+			for(int i=0;i<row.getLastCellNum();i++) {
+				//创建一个行里的一个字段的对象，也就是获取到的一个单元格中的值
+				HSSFCell cell = row.getCell(i);
+				if(cell==null){
+					rr[i]="";
+				}
+				//在这里我们就可以做很多自己想做的操作了，比如往数据库中添加数据等
+				//System.out.println(cell.getRichStringCellValue());
+				rr[i]=cell.getRichStringCellValue().getString();
+			}
+			list.add(rr);
+			p.setCurrentLength(k);
+		}
+		return list;
 	}
 	@Override
 	public List<String> readWithTemp(String xls, String tmp) throws Exception {

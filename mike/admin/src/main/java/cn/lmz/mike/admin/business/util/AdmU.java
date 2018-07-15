@@ -6,11 +6,17 @@ import cn.lmz.mike.common.base.StrU;
 import cn.lmz.mike.common.exception.LMZException;
 import cn.lmz.mike.common.mail.MailU;
 import cn.lmz.mike.web.base.service.IWService;
+import cn.lmz.mike.web.base.upload.FileUploadProgress;
 import cn.lmz.mike.web.bean.Lmzweb;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AdmU {
+
+
+    public static Map<String,FileUploadProgress> importMap = new HashMap<String,FileUploadProgress>();
 
     public static Integer getInteger(String str){
         if(StrU.isBlank(str)) return 0;

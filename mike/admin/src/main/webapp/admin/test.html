@@ -1,0 +1,399 @@
+<!DOCTYPE HTML>
+<!-- saved from url=(0033)http://www.jq22.com/register.aspx -->
+<!DOCTYPE html PUBLIC "" "">
+<HTML>
+<HEAD><META content="IE=11.0000" http-equiv="X-UA-Compatible">
+    <TITLE>jQuery插件库用户注册</TITLE>
+    <META name="description" content="本站致力于收集jQuery插件和提供各种jQuery特效的详细使用方法,在线预览，jQuery插件下载及教程">
+    <META name="keywords" content="jQuery,jQuery特效,jQuery ui,jQuery插件,jQuery 教程,css3,网页特效,JS特效">
+    <META charset="utf-8">
+    <META name="viewport" content="width=device-width, initial-scale=1">
+    <META http-equiv="X-UA-Compatible" content="IE=edge">
+    <META name="renderer" content="webkit">
+    <!-- Bootstrap -->
+    <LINK href="./css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <LINK href="./css/font-awesome.min.css" rel="stylesheet" media="screen">
+    <!--[if lt IE 9]>
+    <script src="./js/respond.min.js"></script>
+    <script src="./js/html5shiv.min.js"></script>
+    <![endif]-->
+    <LINK href="./css/my.css" rel="stylesheet" media="screen">
+    <LINK href="./css/dl.css" rel="stylesheet" media="screen">
+    <SCRIPT src="./js/jquery.min.js"></SCRIPT>
+    <SCRIPT src="./js/bootstrap.min.js"></SCRIPT>
+    <SCRIPT>var n = 1;</SCRIPT>
+    <SCRIPT src="./js/m.js"></SCRIPT>
+    <STYLE>
+        .completer-container{position:absolute;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0;margin:0;font-family:inherit;font-size:14px;line-height:normal;list-style:none;background-color:#fff;border:1px solid #ccc;border-bottom-color:#39f;z-index:10;}.completer-container li{padding:.5em .8em;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;background-color:#fff;border-bottom:1px solid #eee;}.completer-container .completer-selected,.completer-container li:hover{margin-left:-1px;background-color:#eee;border-left:1px solid #39f;}
+    </STYLE>
+    <META name="GENERATOR" content="MSHTML 11.00.10570.1001">
+</HEAD>
+<BODY data-target=".navbar-example" data-spy="scroll">
+<!--nav-->
+<NAV class="navbar navbar-inverse navbar-fixed-top">
+    <DIV class="container-fluid">
+        <DIV class="navbar-header">
+            <BUTTON class="navbar-toggle collapsed" aria-expanded="false" aria-controls="navbar" type="button" data-toggle="collapse" data-target="#navbar">
+                <SPAN class="sr-only">Toggle navigation</SPAN>
+                <SPAN class="icon-bar"></SPAN><SPAN class="icon-bar"></SPAN>
+                <SPAN class="icon-bar"></SPAN>
+            </BUTTON>
+            <A class="navbar-logo" href="http://www.jq22.com/">
+                <IMG height="100%" alt="" src="logo.png">
+            </A>
+        </DIV>
+        <DIV class="navbar-collapse collapse" id="navbar">
+            <UL class="nav navbar-nav navbar-right">
+                <LI><A href="https://www.jq22.com/webide"><I class="fa fa-edit"></I>
+                    &nbsp;在线编辑器</A></LI>
+                <LI><A href="http://www.jq22.com/daima"><I class="fa fa-code"></I>
+                    &nbsp;在线代码</A></LI>
+                <LI><A href="http://www.jq22.com/textDifference"><I class="fa fa-balance-scale"
+                                                                    aria-hidden="true"></I> &nbsp;文本比较</A></LI>
+                <LI><A href="http://www.jq22.com/jquery-info122"><I
+                        class="fa fa-download"></I> &nbsp;jQuery下载</A></LI>
+                <LI><A href="http://www.jq22.com/jquery/jquery.html" target="_blank"><I class="fa fa-ship"
+                                                                                        aria-hidden="true"></I> &nbsp;前端库</A></LI>
+                <LI><A href="http://www.jq22.com/chm/jquery/index.html" target="_blank"><I
+                        class="fa fa-book"></I> &nbsp;在线手册</A></LI>
+                <LI class="dropdown"><A href="http://weibo.com/jq22" target="_blank" rel="nofollow"><I
+                        class="fa fa-weibo"></I> &nbsp;微博</A></LI>
+                <LI><A href="http://www.jq22.com/register.aspx#" data-toggle="modal"
+                       data-target="#myModal"><I class="fa fa-user"></I> &nbsp;注册/登录<SPAN class="sr-only">(current)</SPAN></A></LI>
+            </UL>
+        </DIV><!--/.nav-collapse -->
+    </DIV>
+</NAV>
+
+<!--end nav-->
+<!-- 模态框（Modal） -->
+<DIV tabindex="-1" class="modal fade" id="myModal" role="dialog" aria-hidden="true" aria-labelledby="myModalLabel">
+    <DIV class="modal-dialog">
+        <DIV class="modal-content2 tcc">
+            <DIV class="modal-header2 top20">
+                <BUTTON class="close" aria-hidden="true" type="button" data-dismiss="modal">                  ×             </BUTTON>
+                <H4 class="modal-title" id="myModalLabel"></H4>
+            </DIV>
+            <DIV class="modal-body tcck">
+                <DIV class="input-group input-group-lg parentCls">
+                    <SPAN class="input-group-addon" id="email"><I class="fa fa-envelope-o"></I></SPAN>
+                    <INPUT class="form-control inputElem" id="ema" aria-describedby="email" style="width: 466px;" type="text" placeholder="请输入登录邮箱" value="">
+                </DIV>
+                <DIV class="input-group input-group-lg top20">
+                    <SPAN class="input-group-addon" id="pwd"><I class="fa fa-unlock-alt" style="width: 18px;"></I></SPAN>
+                    <INPUT class="form-control" id="pw" aria-describedby="pwd" type="password" placeholder="请输入登录密码" value="">
+                    <SPAN class="input-group-btn tccBut">
+			      	<BUTTON class="btn btn-success" onclick="emdl()" type="button">登 录</BUTTON>
+			      </SPAN>
+                </DIV>
+            </DIV>
+            <DIV class="modal-footer2">
+                <DIV class="f"><A href="http://www.jq22.com/pwd.aspx">忘记密码?</A></DIV>
+                <DIV class="r"><A href="http://www.jq22.com/register.aspx">注册新用户</A></DIV>
+                <DIV class="dr"></DIV>
+            </DIV>
+            <DIV class="d3f modal-body tcck2">
+                <A class="qq" onclick="tz()" href="http://www.jq22.com/register.aspx#"></A>
+                <A class="sina" href="https://api.weibo.com/oauth2/authorize?client_id=3364913104&amp;redirect_uri=http%3A%2F%2Fwww.jq22.com%2FWeiboReturn.aspx&amp;response_type=code&amp;display=default"></A>
+                <A class="zfb" href="http://www.jq22.com/zfbReturn.aspx"></A>
+                <A class="git" onclick="gt()" href="http://www.jq22.com/register.aspx#"></A>
+            </DIV>
+            <SCRIPT>
+                function tz() {
+                    var urldz = "https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101135281&redirect_uri=http://www.jq22.com/QQReturn.aspx?tjurl=" + window.location.href;
+                    window.location.href = urldz;
+                }
+                function gt() {
+                    var urldz = "https://github.com/login/oauth/authorize?client_id=cf869185ea7d8fcab6df&state=jq22&redirect_uri=http://www.jq22.com/github.aspx?tjurl=" + window.location.href;
+                    window.location.href = urldz;
+                }
+            </SCRIPT>
+        </DIV>
+        <!-- /.modal-content -->
+    </DIV><!-- /.modal -->
+</DIV>
+<!--nav-->
+
+<DIV class="login">
+    <DIV class="loingnr">
+        <DIV class="modal-body">
+            <DIV class="input-group input-group-lg" style="position: relative;">
+                <SPAN class="input-group-addon" id="sizing-s1">
+                    <I title="对不起，不支持此邮箱！" class="fa fa-envelope-o youxiang" style="width: 18px;"
+                       data-placement="left" data-trigger="manual"></I>
+                </SPAN>
+                <INPUT name="name" class="form-control " id="myemail" aria-describedby="sizing-addon1"
+                       onblur="emailgs(this)" type="text" size="30" placeholder="请输入登录邮箱" value="">
+                <SPAN class="input-group-btn tccBut">
+                    <INPUT class="btn btn-success " id="bt" style="width: 130px; line-height: 28px; font-size: 15px;" type="button" value="获取验证码">
+                </SPAN>
+            </DIV>
+            <DIV class="alert alert-danger errts top10" id="empdts" role="alert" style="display: none;">
+                <I class="fa fa-info-circle"></I>
+                <SPAN id="erremailts">此邮箱已经被注册过</SPAN></DIV>
+                <DIV class="input-group input-group-lg top20">
+                    <SPAN class="input-group-addon" id="sizing-s2">
+                        <I title="数字英文字母组合不能包含特殊字符" class="fa fa-user-secret" style="width: 18px;"
+                           data-placement="left" data-trigger="manual"></I>
+                    </SPAN>
+                    <INPUT class="form-control" id="myhm" aria-describedby="sizing-addon1" onblur="yhmok(this)" type="text" placeholder="用户名" value="">
+                </DIV>
+                <DIV class="alert alert-danger errts top10" id="yhts" role="alert" style="display: none;">
+                    <I class="fa fa-info-circle"></I>
+                    <SPAN id="erreyhmts">此用户名已经被使用过</SPAN>
+                </DIV>
+                <DIV class="input-group input-group-lg top20">
+                    <SPAN class="input-group-addon" id="sizing-s5">
+                        <I class="fa fa-qrcode" style="width: 18px;"></I>
+                    </SPAN>
+                    <INPUT class="form-control" id="yzm" aria-describedby="sizing-addon1" type="text" placeholder="请输入验证码" value="">
+                </DIV>
+                <DIV class="input-group input-group-lg top20">
+                    <SPAN class="input-group-addon" id="sizing-s3">
+                        <I class="fa fa-lock" style="width: 18px;" data-placement="left" data-trigger="manual"></I>
+                    </SPAN>
+                    <INPUT class="form-control" id="pwd1" aria-describedby="sizing-addon1" onblur="pwdpd()" type="password" placeholder="请输入登录密码" value="">
+                </DIV>
+                <DIV class="input-group input-group-lg top20">
+                    <SPAN class="input-group-addon" id="sizing-s4">
+                        <I title="确认密码输入错误！" class="fa fa-key" style="width: 18px;"
+                           data-placement="left" data-trigger="manual"></I>
+                    </SPAN>
+                    <INPUT class="form-control" id="pwd2" aria-describedby="sizing-addon1" onblur="yzm()" type="password" placeholder="确认登录密码" value="">
+                    <SPAN class="input-group-btn tccBut">
+                        <INPUT class="btn btn-success" style="width: 130px;" onclick="tj()" type="button" value="注册">
+                    </SPAN>
+                </DIV>
+                 <P>
+                     <INPUT class="check" type="checkbox" checked="">
+                     同意
+                     <A title="" class="modalLink" href="http://www.jq22.com/register.aspx#" data-toggle="tooltip"
+                        data-placement="top" data-html="true">《注册声明》《版权声明》
+                     </A>
+                 </P>
+        </DIV>
+    </DIV>
+</DIV>
+<SCRIPT type="text/javascript" charset="utf-8">
+
+    var wait = 30;
+    var ea = 0;
+    var ea2 = 0;
+
+    //邮箱验证
+    var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+    function emailgs(txt) {
+        var yxgs = "@163.com,@qq.com,@126.com,@139.com,@gmail.com,@hotmail.com,@icloud.com,@sina.com.cn,@sina.com,@sina.cn,@yahoo.com,@foxmail.com,@vip.qq.com,@outlook.com,@aliyun.com,@msn.com,@sohu.com,@live.cn,@live.com,@yeah.net,@yahoo.com.tw,@yahoo.com,@huawei.com,@189.cn,@aol.com,@21cn.com,@tom.com";
+        var ezg = txt.value;
+        var ezgfh = ezg.lastIndexOf("\@");
+        ezg = ezg.substring(ezgfh, ezg.length);
+        var ey = 0;
+        if (yxgs.indexOf(ezg) > -1) {
+            ey = 1;
+        } else {
+            ey = 0;
+        }
+
+        if (!myreg.test(txt.value) || txt.value.length >= 30 || ey==0){
+            $("#myemail").addClass("err");
+            $("#myemail").attr('placeholder', '邮箱格错误');
+            $('.youxiang').tooltip('show');
+        }
+        else{
+            $('.youxiang').tooltip('hide');
+            $("#myemail").removeClass("err");
+            var emyz = $.ajax({
+                type: 'post',
+                url: 'emailpd.aspx',
+                data: { em: txt.value },
+                cache: false,
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "y") {
+                        $("#empdts").css("display", "none");
+                        ea2 = 0;
+                    } else {
+                        $("#empdts").css("display", "block");
+                        ea2 = 1;
+                    }
+                },
+                error: function () { }
+            });
+        }
+    }
+    //验证用户名
+    function yhmok(txt) {
+
+        if (txt.value.length >= 30 || txt.value.length < 2 || /^[0-9a-zA-Z]{0,}$/g.test(txt.value) != true) {
+            $("#myhm").addClass("err");
+            $("#myhm").attr('placeholder', '用户名错误');
+            $('.fa-user-secret').tooltip('show');
+        }
+        else {
+            $('.fa-user-secret').tooltip('hide');
+            $("#myhm").removeClass("err");
+            var emyz = $.ajax({
+                type: 'post',
+                url: 'regyhm.aspx',
+                data: { yhm: txt.value },
+                cache: false,
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "y") {
+                        $("#yhts").css("display", "none");
+                    } else {
+                        $("#yhts").css("display", "block");
+                    }
+                },
+                error: function () { }
+            });
+        }
+    }
+    document.getElementById("bt").onclick = function () { time(this); }
+    function time(o) {
+        if (wait == 30) {
+            var myemail = $("#myemail").val();
+            if (!myreg.test(myemail) || myemail.length >= 30) {
+                $("#myemail").addClass("err");
+                $("#myemail").attr('placeholder', '邮箱格错误')
+                ea = 1;
+            } else {
+                ea = 0;
+                var yz = $.ajax({
+                    type: 'post',
+                    url: 'email.aspx',
+                    data: { em: myemail },
+                    cache: false,
+                    dataType: 'text',
+                    success: function (data) {
+                        if (data == "y") {
+
+                        }
+                        else if (data == "s") {
+                            alert("发送次数过多，请过些时间在提交");
+                        }
+                        else {
+
+                        }
+                    },
+                    error: function () { }
+                });
+            }
+        }
+
+        if (wait == 0 && ea2==0)
+        {
+            o.removeAttribute("disabled");
+            o.value = "获取验证码";
+            wait = 30;
+        }
+        else if (ea == 0 && ea2==0)
+        {
+            o.setAttribute("disabled", true);
+            o.value = "已发送(重发" + wait + ")";
+            wait--;
+            setTimeout(function () {
+                    time(o)
+                },
+                1000)
+        }
+    }
+    //验证码
+    function yzmfs() {
+        var myemail = $("#myemail").val();
+        if (!myreg.test(myemail) || myemail.length >= 30) {
+            $("#myemail").addClass("err");
+            $("#myemail").attr('placeholder', '邮箱格错误')
+        } else {
+            var yz = $.ajax({
+                type: 'post',
+                url: 'email.aspx',
+                data: { em: myemail },
+                cache: false,
+                dataType: 'text',
+                success: function (data) {
+
+                    if (data == "y") {
+
+                    }
+                    else {
+
+                    }
+                },
+                error: function () { }
+            });
+        }
+    }
+    function pwdpd() {
+        var mpwd1 = $("#pwd1").val()
+        if (mpwd1.length < 5) {
+            $('.fa-lock').attr('title', "太短,长度5至20个字符").tooltip('fixTitle').tooltip('show');
+        }
+        else if (mpwd1.length > 30) {
+            $('.fa-lock').attr('title', "太长,长度5至20个字符").tooltip('fixTitle').tooltip('show');
+        }
+        else if (/^[0-9a-zA-Z]{0,}$/g.test(mpwd1) != true) {
+            $('.fa-lock').attr('title', "不能包含特殊字符！").tooltip('fixTitle').tooltip('show');
+        } else {
+            $('.fa-lock').tooltip('hide');
+        }
+    }
+    function yzm() {
+        var mpwd1 = $("#pwd1").val();
+        var mpwd2 = $("#pwd2").val();
+        if (mpwd1 != mpwd2) {
+            $("#pwd2").addClass("err");
+            $("#pwd2").attr('placeholder', '两次输入的密码不一样');
+            $('.fa-key').tooltip('show');
+        } else {
+            $("#pwd2").removeClass("err");
+            $('.fa-key').tooltip('hide');
+        }
+
+    }
+    function tj() {
+        var myemail = $("#myemail").val();
+        var myhm = $("#myhm").val();
+        var myzm = $("#yzm").val();
+
+        var mpwd1 = $("#pwd1").val();
+        var mpwd2 = $("#pwd2").val();
+
+        if (!myreg.test(myemail) || myemail.length >= 30) {
+            $("#myemail").addClass("err");
+            $("#myemail").attr('placeholder', '邮箱格错误')
+        }
+        else if (myhm.length >= 30 || myhm.length < 2 || /^[0-9a-zA-Z]{0,}$/g.test(myhm) != true)
+        {
+            $("#myhm").addClass("err");
+            $("#myhm").attr('placeholder', '用户名错误')
+        }
+        else if (/^[0-9a-zA-Z]{0,}$/g.test(mpwd1) != true) {
+            $('.fa-lock').attr('title', "不能包含特殊字符！").tooltip('fixTitle').tooltip('show');
+        }
+        else if (mpwd1 != mpwd2 || mpwd2.length < 5) {
+            $("#pwd2").addClass("err");
+            $("#pwd2").attr('placeholder', '密码错误')
+        }
+        else {
+            $.post("regok.aspx", { Action: "post", mem: myemail, myh: myhm, myz: myzm, mp1: mpwd1, mp2: mpwd2 }
+                , function (data) {
+                    if (data == "y") {
+                        window.location.href = "regokwc.aspx";
+                    } else if (data == "s") {
+                        alert("提交次数过多，请稍后在提交！");
+                    }
+
+                }, "text");
+        }
+    }
+</SCRIPT>
+
+<SCRIPT>
+    !function (a) { "function" == typeof define && define.amd ? define(["jquery"], a) : a("object" == typeof exports ? require("jquery") : jQuery) }(function (a) { "use strict"; var b = a(window), c = a(document), d = function (b, c) { this.$element = a(b), this.defaults = a.extend({}, d.defaults, this.$element.data(), a.isPlainObject(c) ? c : {}), this.init() }, e = function (a) { return "string" == typeof a && "" !== a ? (a = f(a), new RegExp(a + "+[^" + a + "]*$", "i")) : null }, f = function (a) { return a.replace(/([\.\$\^\{\[\(\|\)\*\+\?\\])/g, "\\$1") }, g = function (b) { return "string" == typeof b && (b = b.replace(/[\{\}\[\]"']+/g, "").split(/\s*,+\s*/)), b = a.map(b, function (a) { return "string" != typeof a ? a.toString() : a }) }; d.prototype = { constructor: d, init: function () { var b = this.defaults, c = g(b.source); c.length > 0 && (this.data = c, this.regexp = e(b.separator), this.$completer = a(b.template), this.$completer.hide().appendTo("body"), this.place(), this.$element.attr("autocomplete", "off").on({ focus: a.proxy(this.enable, this), blur: a.proxy(this.disable, this) }), this.$element.is(":focus") && this.enable()) }, enable: function () { this.active || (this.active = !0, this.$element.on({ keydown: a.proxy(this.keydown, this), keyup: a.proxy(this.keyup, this) }), this.$completer.on({ mousedown: a.proxy(this.mousedown, this), mouseover: a.proxy(this.mouseover, this) })) }, disable: function () { this.active && (this.active = !1, this.$element.off({ keydown: this.keydown, keyup: this.keyup }), this.$completer.off({ mousedown: this.mousedown, mouseover: this.mouseover })) }, attach: function (b) { var c, d, e = this.defaults.separator, g = this.regexp, h = g ? b.match(g) : null, i = [], j = [], k = this; h && (h = h[0], b = b.replace(g, ""), c = new RegExp("^" + f(h), "i")), a.each(this.data, function (a, f) { f = e + f, d = k.template(b + f), c && c.test(f) ? i.push(d) : j.push(d) }), i = i.length ? i.sort() : j, "top" === this.defaults.position && (i = i.reverse()), this.fill(i.join("")) }, suggest: function (b) { var c = new RegExp(f(b), "i"), d = this, e = []; a.each(this.data, function (a, b) { c.test(b) && e.push(b) }), e.sort(function (a, c) { return a.indexOf(b) - c.indexOf(b) }), a.each(e, function (a, b) { e[a] = d.template(b) }), this.fill(e.join("")) }, template: function (a) { var b = this.defaults.itemTag; return "<" + b + ">" + a + "</" + b + ">" }, fill: function (a) { var b; this.$completer.empty(), a ? (b = "top" === this.defaults.position ? ":last" : ":first", this.$completer.html(a), this.$completer.children(b).addClass(this.defaults.selectedClass), this.show()) : this.hide() }, complete: function () { var a = this.defaults, b = a.filter(this.$element.val()).toString(); return "" === b ? void this.hide() : void (a.suggest ? this.suggest(b) : this.attach(b)) }, keydown: function (a) { 13 === a.keyCode && (a.stopPropagation(), a.preventDefault()) }, keyup: function (a) { var b = a.keyCode; 13 === b || 38 === b || 40 === b ? this.toggle(b) : this.complete() }, mouseover: function (b) { var c = this.defaults, d = c.selectedClass, e = a(b.target); e.is(c.itemTag) && e.addClass(d).siblings().removeClass(d) }, mousedown: function (b) { b.stopPropagation(), b.preventDefault(), this.setValue(a(b.target).text()) }, setValue: function (a) { this.$element.val(a), this.defaults.complete(), this.hide() }, toggle: function (a) { var b = this.defaults.selectedClass, c = this.$completer.find("." + b); switch (a) { case 40: c.removeClass(b), c = c.next(); break; case 38: c.removeClass(b), c = c.prev(); break; case 13: this.setValue(c.text()) } 0 === c.length && (c = this.$completer.children(40 === a ? ":first" : ":last")), c.addClass(b) }, place: function () { var a = this.$element, c = a.offset(), d = c.left, e = c.top, f = a.outerHeight(), g = a.outerWidth(), h = { minWidth: g, zIndex: this.defaults.zIndex }; switch (this.defaults.position) { case "right": h.left = d + g, h.top = e; break; case "left": h.right = b.innerWidth() - d, h.top = e; break; case "top": h.left = d, h.bottom = b.innerHeight() - e; break; default: h.left = d, h.top = e + f } this.$completer.css(h) }, show: function () { this.$completer.show(), b.on("resize", a.proxy(this.place, this)), c.on("mousedown", a.proxy(this.hide, this)) }, hide: function () { this.$completer.hide(), b.off("resize", this.place), c.off("mousedown", this.hide) }, destroy: function () { this.hide(), this.disable(), this.$element.off({ focus: this.enable, blur: this.disable }) } }, d.defaults = { itemTag: "li", position: "bottom", source: [], selectedClass: "completer-selected", separator: "", suggest: !1, template: '<ul class="completer-container"></ul>', zIndex: 10, complete: a.noop, filter: function (a) { return a } }, d.setDefaults = function (b) { a.extend(d.defaults, b) }, a.fn.completer = function (b) { var c, e = [].slice.call(arguments, 1); return this.each(function () { var f, g = a(this), h = g.data("completer"); h || g.data("completer", h = new d(this, b)), "string" == typeof b && a.isFunction(f = h[b]) && (c = f.apply(h, e)) }), "undefined" != typeof c ? c : this }, a.fn.completer.Constructor = d, a.fn.completer.setDefaults = d.setDefaults, a(function () { a('[data-toggle="completer"],[completer]').completer() }) });
+    $("#myemail").completer({
+        separator: "@",
+        source: ["163.com", "qq.com", "126.com", "139.com", "gmail.com", "hotmail.com", "icloud.com"]
+    });
+</SCRIPT>
+</BODY></HTML>
