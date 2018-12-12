@@ -1,0 +1,70 @@
+server:
+  port: 7777
+  servlet:
+    context-path:
+spring:
+  profiles:
+    active: dev
+  application:
+    name: mk-auth
+  thymeleaf:
+    mode: LEGACYHTML5
+    cache: false
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  devtools:
+    restart:
+      enabled: true
+eureka:
+  instance:
+    hostname: mk-auth
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    lease-expiration-duration-in-seconds: 20 #Eureka服务端收到最后一次心跳后的最大时间，超过将此服务实例从列表移除
+    lease-renewal-interval-in-seconds: 10 #Eureka客户端向服务端发送心跳间隔
+  server:
+    enable-self-preservation: false # 关闭注册中心的保护机制
+    eviction-interval-timer-in-ms: 5000 # 60000 # 清理时间间隔
+  client:
+    registry-fetch-interval-seconds: 5
+    register-with-eureka: false # 注册到eureka
+    fetch-registry: false # 获取注册信息
+
+###actuator监控点 start####
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" #暴露所有端点 默认是info,health
+  endpoint:
+      health:
+        show-details: always
+###actuator监控点 end####
+
+####超时配置####
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  eureka:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 500000
+###超时配置###
+
+security:
+  ignored: |
+    /css/**,/js/**,/favicon.ico,/webjars/**,/images/**,/static/**,
+    /hystrix.stream/**,/info,/error,/health,/env,/metrics,/trace,/dump,
+    /jolokia,/configprops,/activiti,/logfile,/refresh,/flyway,/liquibase,/loggers,/druid/**,
+    /oauth/deleteToken, /backReferer
+

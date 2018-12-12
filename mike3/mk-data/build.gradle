@@ -1,0 +1,12 @@
+apply plugin: "java"
+apply plugin: 'idea'
+
+dependencies {
+    compile project(":common")
+
+    implementation('org.springframework.boot:spring-boot-starter')
+    runtimeOnly('mysql:mysql-connector-java')
+    compileOnly('org.springframework.boot:spring-boot-configuration-processor')
+    implementation('org.springframework.boot:spring-boot-starter-jdbc')
+    implementation('org.springframework.boot:spring-boot-starter-aop')
+}

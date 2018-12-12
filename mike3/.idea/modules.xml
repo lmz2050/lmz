@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth.iml" filepath="$PROJECT_DIR$/.idea/modules/auth.iml" group="auth" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk-auth/auth_main.iml" filepath="$PROJECT_DIR$/.idea/modules/mk-auth/auth_main.iml" group="auth" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk-auth/auth_test.iml" filepath="$PROJECT_DIR$/.idea/modules/mk-auth/auth_test.iml" group="auth" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk-common/common.iml" filepath="$PROJECT_DIR$/.idea/modules/mk-common/common.iml" group="common" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk-common/common_main.iml" filepath="$PROJECT_DIR$/.idea/modules/mk-common/common_main.iml" group="common" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk-common/common_test.iml" filepath="$PROJECT_DIR$/.idea/modules/mk-common/common_test.iml" group="common" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk-data/data.iml" filepath="$PROJECT_DIR$/.idea/modules/mk-data/data.iml" group="data" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk-data/data_main.iml" filepath="$PROJECT_DIR$/.idea/modules/mk-data/data_main.iml" group="data" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk-data/data_test.iml" filepath="$PROJECT_DIR$/.idea/modules/mk-data/data_test.iml" group="data" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk-eureka/eureka.iml" filepath="$PROJECT_DIR$/.idea/modules/mk-eureka/eureka.iml" group="eureka" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk-eureka/eureka_main.iml" filepath="$PROJECT_DIR$/.idea/modules/mk-eureka/eureka_main.iml" group="eureka" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk-eureka/eureka_test.iml" filepath="$PROJECT_DIR$/.idea/modules/mk-eureka/eureka_test.iml" group="eureka" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mike.iml" filepath="$PROJECT_DIR$/.idea/modules/mike.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mike_main.iml" filepath="$PROJECT_DIR$/.idea/modules/mike_main.iml" group="mike" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mike_test.iml" filepath="$PROJECT_DIR$/.idea/modules/mike_test.iml" group="mike" />
+    </modules>
+  </component>
+</project>

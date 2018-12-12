@@ -1,0 +1,14 @@
+plugins {
+    id 'org.springframework.boot' version "2.1.1.RELEASE"
+}
+
+apply from: "${rootProject.projectDir}/cloud.gradle"
+
+bootJar{
+    mainClassName = "com.lmz.mike.eureka.EurekaApplication"
+}
+
+dependencies {
+    compile project(":common")
+    implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+}

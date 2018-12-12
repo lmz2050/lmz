@@ -1,0 +1,17 @@
+plugins {
+    id 'org.springframework.boot' version "2.1.1.RELEASE"
+}
+
+apply from: "${rootProject.projectDir}/cloud.gradle"
+
+bootJar{
+    mainClassName = "com.lmz.mike.eureka.EurekaApplication"
+}
+
+dependencies {
+    compile project(":common")
+    compile project(":data")
+
+    implementation('org.springframework.boot:spring-boot-starter-data-redis')
+
+}

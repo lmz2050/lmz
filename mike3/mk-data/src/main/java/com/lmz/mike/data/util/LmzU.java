@@ -1,0 +1,110 @@
+package com.lmz.mike.data.util;
+
+
+import com.lmz.mike.common.util.StrU;
+import com.lmz.mike.data.support.bean.DataBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.*;
+
+
+public class LmzU {
+
+	private static final Logger log = LoggerFactory.getLogger(LmzU.class);
+	
+
+	public static DataBean clone(DataBean b){
+		if(b!=null){
+			return (DataBean)b.clone();
+		}
+		return null;
+	}
+	
+	public static int getInt(Object o){
+		int i=0;
+		if(o!=null){
+			if(o!=null&&!StrU.isBlank(o+"")){
+				try{
+					i = new Integer(String.valueOf(o));
+				}catch(Exception e){
+					e.printStackTrace();
+					log.info("error int str:"+o);
+				}
+			}
+		}
+		return i;
+	}
+	
+	public static Integer getInteger(Object o){
+		Integer i = null;
+		if(o!=null){
+			if(o!=null&&!StrU.isBlank(o+"")){
+				try{
+					i = new Integer(String.valueOf(o));
+				}catch(Exception e){
+					e.printStackTrace();
+					log.info("error int str:"+o);
+				}
+			}
+		}
+		return i;		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List getNumList(List list,int num){
+		if(list!=null&&list.size()>num){
+			List rlist = new ArrayList();
+			for(int i=0;i<num;i++){
+				rlist.add(list.get(i));
+			}
+			return rlist;
+		}
+		return list;
+	}
+
+	
+/*
+	public static String getUTF8String(String valueStr) throws Exception {
+		if(valueStr==null)return "";
+		valueStr = new String(valueStr.getBytes("ISO-8859-1"), "UTF-8");
+		return valueStr;
+	}
+	public static String getUTF8String(Map params,String valueStr) throws Exception {
+		String value = (String)params.get(valueStr);
+		if(value==null)return "";
+		return value;
+	}	
+	*/
+	public static Object getMapVal(Map m,String key,Object def){
+		Object v = m.get(key);
+		if(v==null) {return def;}
+		return v;
+	}
+	public static String getMapValString(Map m,String key,String def){
+		Object v = m.get(key);
+		if(v==null) {return def;}
+		return v+"";
+	}
+	
+	public static String getMapParam(Map param) throws Exception{
+		String str="";
+		if(param!=null&&param.size()>0){
+			for (Iterator iter = param.keySet().iterator(); iter.hasNext();) {
+				String key = (String) iter.next();
+				String val="";
+				Object oval = param.get(key);
+				if(oval instanceof String[]){
+					String[] aval = (String[])oval;
+					if(aval.length>0){
+						val=aval[0];
+					}
+				}else{
+					val=(String)oval;
+				}
+				str+=("".equals(str) ? "":"&") +key+"="+val;
+			}
+		}
+		return str;
+	}
+}

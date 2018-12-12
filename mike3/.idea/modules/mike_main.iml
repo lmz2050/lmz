@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id="mike:main" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="com.lmz.mike" external.system.module.type="sourceSet" external.system.module.version="3" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/../../out/production/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../src/main/resources" type="java-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="data_main" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.boot:spring-boot-starter-jdbc:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: commons-io:commons-io:2.6" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apache.commons:commons-lang3:3.7" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.cloud:spring-cloud-starter-sleuth:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.boot:spring-boot-devtools:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.boot:spring-boot-starter:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.cloud:spring-cloud-starter-oauth2:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.cloud:spring-cloud-starter-openfeign:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.cloud:spring-cloud-starter:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apache.commons:commons-collections4:4.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.cloud:spring-cloud-starter-security:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.boot:spring-boot-starter-actuator:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: de.codecentric:spring-boot-admin-starter-client:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.cloud:spring-cloud-starter-config:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: mysql:mysql-connector-java:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.cloud:spring-cloud-starter-netflix-hystrix:" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.alibaba:fastjson:1.2.54" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.springframework.boot:spring-boot-starter-aop:" level="project" />
+    <orderEntry type="module" module-name="eureka_main" />
+    <orderEntry type="module" module-name="common_main" />
+  </component>
+</module>

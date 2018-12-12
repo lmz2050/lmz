@@ -1,0 +1,10 @@
+rootProject.name = 'mike'
+include 'mk-eureka'
+findProject(':mk-eureka')?.name = 'eureka'
+include 'mk-common'
+findProject(':mk-common')?.name = 'common'
+include 'mk-data'
+findProject(':mk-data')?.name = 'data'
+include 'mk-auth'
+findProject(':mk-auth')?.name = 'auth'
+
